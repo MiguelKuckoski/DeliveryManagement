@@ -8,6 +8,9 @@ public class Pacote {
 	private Endereco endRemetente;
 	private Endereco endDestino;
 	private double peso;
+	private boolean entrega;
+	private boolean roteirizado;
+	private int idInsercao;
 	
 	public Pacote () {
 		
@@ -61,7 +64,39 @@ public class Pacote {
 	public void setPeso(double peso) {
 		this.peso = peso;
 	}
-	
-	
 
+
+	public boolean isEntrega() {
+		return entrega;
+	}
+
+
+	public void setEntrega(boolean entrega) {
+		this.entrega = entrega;
+	}
+
+
+	public boolean isRoteirizado() {
+		return roteirizado;
+	}
+
+
+	public void setRoteirizado(boolean roteirizado) {
+		this.roteirizado = roteirizado;
+	}
+
+
+	public int getIdInsercao() {
+		return idInsercao;
+	}
+
+
+	public void setIdInsercao(int idInsercao) {
+		this.idInsercao = idInsercao;
+	}
+	
+	
+	public void gerarRastreio(String rastreio) {
+		
+	}
 }

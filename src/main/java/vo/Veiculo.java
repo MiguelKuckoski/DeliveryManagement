@@ -5,8 +5,9 @@ public class Veiculo {
 	private String marca;
 	private String modelo;
 	private String placa;
-	private String tipo;
 	private int ano;
+	private Pacote listaDePacote;
+	private Motorista motorista;
 	
 	public Veiculo() {
 		
@@ -36,20 +37,28 @@ public class Veiculo {
 		this.placa = placa;
 	}
 	
-	public String getTipo() {
-		return tipo;
-	}
-	
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
-	
 	public int getAno() {
 		return ano;
 	}
 	
 	public void setAno(int ano) {
 		this.ano = ano;
+	}
+
+	public Pacote getListaDePacote() {
+		return listaDePacote;
+	}
+
+	public void setListaDePacote(Pacote listaDePacote) {
+		this.listaDePacote = listaDePacote;
+	}
+
+	public Motorista getMotorista() {
+		return motorista;
+	}
+
+	public void setMotorista(Motorista motorista) {
+		this.motorista = motorista;
 	}
 
 }
