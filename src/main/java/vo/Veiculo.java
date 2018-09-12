@@ -9,8 +9,13 @@ public class Veiculo {
 	private Pacote listaDePacote;
 	private Motorista motorista;
 	
-	public Veiculo() {
-		
+	public Veiculo(String marca,String modelo, String placa,int ano,Pacote listaDePacote,Motorista motorista) {
+		this.marca = marca;
+		this.modelo = modelo;
+		this.placa = placa;
+		this.ano = ano;
+		this.listaDePacote = listaDePacote;
+		this.motorista = motorista;
 	}	
 	
 	public String getMarca() {
