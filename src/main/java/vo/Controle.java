@@ -1,48 +1,52 @@
 package vo;
 
-
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Controle {
-	private Veiculo listaVeiculo;
-	private Motorista listaMotorista;
-	private Pacote listaPacoteComRoteiro;
-	private Pacote listaPacoteSemRoteiro;
-	private Usuario usuario;
-	
+	private HashSet<Veiculo> listaVeiculo = new HashSet<Veiculo>();
+	private HashSet<Motorista> listaMotorista = new HashSet<Motorista>();
+	private HashMap<String, Pacote> listaPacoteComRoteiro = new HashMap<String, Pacote>();
+	private HashMap<String, Pacote> listaPacoteSemRoteiro = new HashMap<String, Pacote>();
+	private static final Usuario usuario = new Usuario();
+
 	public Controle() {
-		
+
 	}
-	
-	public Veiculo getListaVeiculo() {
+
+	public HashSet<Veiculo> getListaVeiculo() {
 		return listaVeiculo;
 	}
-	public void setListaVeiculo(Veiculo listaVeiculo) {
+
+	public void setListaVeiculo(HashSet<Veiculo> listaVeiculo) {
 		this.listaVeiculo = listaVeiculo;
 	}
-	public Motorista getListaMotorista() {
+
+	public HashSet<Motorista> getListaMotorista() {
 		return listaMotorista;
 	}
-	public void setListaMotorista(Motorista listaMotorista) {
+
+	public void setListaMotorista(HashSet<Motorista> listaMotorista) {
 		this.listaMotorista = listaMotorista;
 	}
-	public Pacote getListapacote() {
+
+	public HashMap<String, Pacote> getListapacote() {
 		return listaPacoteComRoteiro;
 	}
-	public void setListapacote(Pacote listapacote) {
+
+	public void setListapacote(HashMap<String, Pacote> listapacote) {
 		this.listaPacoteComRoteiro = listapacote;
 	}
+
 	public Usuario getUsuario() {
 		return usuario;
 	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 
-	public Pacote getListaPacoteSemRoteiro() {
+	public HashMap<String, Pacote> getListaPacoteSemRoteiro() {
 		return listaPacoteSemRoteiro;
 	}
 
-	public void setListaPacoteSemRoteiro(Pacote listaPacoteSemRoteiro) {
+	public void setListaPacoteSemRoteiro(HashMap<String, Pacote> listaPacoteSemRoteiro) {
 		this.listaPacoteSemRoteiro = listaPacoteSemRoteiro;
 	}
 }
