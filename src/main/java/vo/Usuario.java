@@ -8,10 +8,9 @@ public class Usuario {
 	}
 
 	public void cadastrarObjeto(String nomeRemetente, Endereco endRemetente, String nomeDestinatario,
-			Endereco endDestinatario, Double peso, String codLocalizador) {
+			Endereco endDestinatario, Double peso, String codLocalizador, int idInsercao) {
 
-		Pacote pacote = new Pacote(nomeRemetente, endRemetente, nomeDestinatario, endDestinatario, peso,
-				codLocalizador);
+		Pacote pacote = new Pacote(nomeRemetente, nomeDestinatario, codLocalizador, endRemetente, endDestinatario, peso, idInsercao);
 		controle.addPacote(pacote);
 	}
 
@@ -24,7 +23,7 @@ public class Usuario {
 	}
 
 	public void cadastrarVeiculo(String marca, String modelo, int ano, String placa, String tipo, Motorista motorista) {
-		Veiculo veiculo = new Veiculo();
+		Veiculo veiculo;
 		if (tipo.equalsIgnoreCase("van")) {
 			veiculo = new Van(marca, modelo, ano, placa, tipo);
 		} else if (tipo.equalsIgnoreCase("caminhão")) {

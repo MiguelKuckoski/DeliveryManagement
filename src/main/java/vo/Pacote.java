@@ -13,15 +13,13 @@ public class Pacote {
 	private int idInsercao;
 	
 	public Pacote (String nomeRemetente, String nomeDestino,String codLocalizador,Endereco endRemetente,Endereco endDestino,
-			double peso,boolean entrega,boolean roteirizado,int idInsercao) {
+			double peso, int idInsercao) {
 		this.nomeRemetente = nomeRemetente;
 		this.nomeDestino = nomeDestino;
 		this.codLocalizador = codLocalizador;
 		this.endRemetente = endRemetente;
 		this.endDestino = endDestino;
 		this.peso = peso;
-		this.entrega = entrega;
-		this.roteirizado = roteirizado;
 		this.idInsercao = idInsercao;
 	}
 	

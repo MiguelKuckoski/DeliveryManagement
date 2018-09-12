@@ -8,7 +8,6 @@ public class Controle {
 	private HashSet<Motorista> listaMotorista = new HashSet<Motorista>();
 	private HashMap<String, Pacote> listaPacoteComRoteiro = new HashMap<String, Pacote>();
 	private HashMap<String, Pacote> listaPacoteSemRoteiro = new HashMap<String, Pacote>();
-	private static final Usuario usuario = new Usuario();
 
 	public Controle() {
 
@@ -36,10 +35,6 @@ public class Controle {
 
 	public void setListapacote(HashMap<String, Pacote> listapacote) {
 		this.listaPacoteComRoteiro = listapacote;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
 	}
 
 	public HashMap<String, Pacote> getListaPacoteSemRoteiro() {
