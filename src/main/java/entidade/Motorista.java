@@ -1,4 +1,4 @@
-package vo;
+package entidade;
 
 public class Motorista {
 	

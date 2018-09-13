@@ -1,4 +1,6 @@
-package vo;
+package entidade;
+
+import controle.Controle;
 
 public class Usuario {
 	private Controle controle;
@@ -26,7 +28,7 @@ public class Usuario {
 		Veiculo veiculo;
 		if (tipo.equalsIgnoreCase("van")) {
 			veiculo = new Van(marca, modelo, ano, placa, tipo);
-		} else if (tipo.equalsIgnoreCase("caminhão")) {
+		} else if (tipo.equalsIgnoreCase("caminhï¿½o")) {
 			veiculo = new Caminhao(marca, modelo, ano, placa, tipo);
 		} else if (tipo.equalsIgnoreCase("carreta")) {
 			veiculo = new Carreta(marca, modelo, ano, placa, tipo);

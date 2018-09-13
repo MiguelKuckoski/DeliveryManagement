@@ -1,4 +1,4 @@
-package vo;
+package apresentacao;
 
 public class Main {
 
@@ -21,7 +21,7 @@ public class Main {
 			case 4:
 				break;
 			default:
-					System.out.println("Opção Invalida");			
+					System.out.println("Opï¿½ï¿½o Invalida");			
 			}
 			
 			}while(principal != 0);

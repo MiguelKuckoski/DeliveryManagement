@@ -1,7 +1,11 @@
-package vo;
+package controle;
 
 import java.util.HashMap;
 import java.util.HashSet;
+
+import entidade.Motorista;
+import entidade.Pacote;
+import entidade.Veiculo;
 
 public class Controle {
 	private HashSet<Veiculo> listaVeiculo = new HashSet<Veiculo>();
