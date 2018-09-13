@@ -6,16 +6,20 @@ public class Veiculo {
 	private String modelo;
 	private String placa;
 	private int ano;
-	private Pacote listaDePacote;
+	protected Pacote[] listaDePacote;
 	private Motorista motorista;
 
-	public Veiculo(String marca, String modelo, String placa, int ano, Pacote listaDePacote, Motorista motorista) {
+	public Veiculo(String marca, String modelo, String placa, int ano, Pacote[] listaDePacote, Motorista motorista) {
 		this.marca = marca;
 		this.modelo = modelo;
 		this.placa = placa;
 		this.ano = ano;
 		this.listaDePacote = listaDePacote;
 		this.motorista = motorista;
+	}
+
+	public Veiculo() {
+
 	}
 
 	@Override
@@ -75,11 +79,11 @@ public class Veiculo {
 		this.ano = ano;
 	}
 
-	public Pacote getListaDePacote() {
+	public Pacote[] getListaDePacote() {
 		return listaDePacote;
 	}
 
-	public void setListaDePacote(Pacote listaDePacote) {
+	public void setListaDePacote(Pacote[] listaDePacote) {
 		this.listaDePacote = listaDePacote;
 	}
 
