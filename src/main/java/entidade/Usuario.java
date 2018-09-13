@@ -12,8 +12,9 @@ public class Usuario {
 	public void cadastrarObjeto(String nomeRemetente, Endereco endRemetente, String nomeDestinatario,
 			Endereco endDestinatario, Double peso, String codLocalizador, int idInsercao) {
 
-		Pacote pacote = new Pacote(nomeRemetente, nomeDestinatario, codLocalizador, endRemetente, endDestinatario, peso, idInsercao);
-		controle.addPacote(pacote);
+		Pacote pacote = new Pacote(nomeRemetente, nomeDestinatario, codLocalizador, endRemetente, endDestinatario, peso,
+				idInsercao);
+		// controle.addPacote(pacote);
 	}
 
 	public void criarRoteiro() {
@@ -27,23 +28,23 @@ public class Usuario {
 	public void cadastrarVeiculo(String marca, String modelo, int ano, String placa, String tipo, Motorista motorista) {
 		Veiculo veiculo;
 		if (tipo.equalsIgnoreCase("van")) {
-			veiculo = new Van(marca, modelo, ano, placa, tipo);
+			// veiculo = new Van(marca, modelo, ano, placa, tipo);
 		} else if (tipo.equalsIgnoreCase("caminh�o")) {
-			veiculo = new Caminhao(marca, modelo, ano, placa, tipo);
+			// veiculo = new Caminhao(marca, modelo, ano, placa, tipo);
 		} else if (tipo.equalsIgnoreCase("carreta")) {
-			veiculo = new Carreta(marca, modelo, ano, placa, tipo);
+			// veiculo = new Carreta(marca, modelo, ano, placa, tipo);
 		}
 
 		if (motorista != null) {
-			veiculo.setMotorista(motorista);
+			// veiculo.setMotorista(motorista);
 		}
 
-		controle.addVeiculo(veiculo);
+		// controle.addVeiculo(veiculo);
 	}
 
 	public void cadastrarMotorista(String nome, String nascimento, Endereco endereco, String cnhNum, String cnhTipo) {
 		Motorista motorista = new Motorista(nome, nascimento, endereco, cnhNum, cnhTipo);
-		controle.addMotorista(motorista);
+		// controle.addMotorista(motorista);
 	}
 
 }
