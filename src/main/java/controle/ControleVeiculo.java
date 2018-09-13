@@ -9,6 +9,14 @@ public class ControleVeiculo {
 
 	private VeiculoDAO veiculoDAO;
 
+	public VeiculoDAO getVeiculoDAO() {
+		return veiculoDAO;
+	}
+
+	public void setVeiculoDAO(VeiculoDAO veiculoDAO) {
+		this.veiculoDAO = veiculoDAO;
+	}
+
 	public ControleVeiculo() {
 		this.veiculoDAO = new VeiculoDAO();
 	}

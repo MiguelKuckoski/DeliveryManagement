@@ -8,32 +8,31 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashSet;
 
-import entidade.Veiculo;
+import entidade.Motorista;
 
-public class VeiculoDAO {
+public class MotoristaDAO {
 
-	private static final String nomeArquivo = "arquivos/veiculos.dat";
-	private HashSet<Veiculo> listaVeiculo;
+	private static final String nomeArquivo = "arquivos/motorista.dat";
+	private HashSet<Motorista> listaMotorista;
 
-	public VeiculoDAO() {
-		listaVeiculo = new HashSet<Veiculo>();
+	public MotoristaDAO() {
+		listaMotorista = new HashSet<Motorista>();
 		load();
 	}
 
-	public void put(Veiculo veiculo) {
+	public void put(Motorista motorista) {
 
-		listaVeiculo.add(veiculo);
+		listaMotorista.add(motorista);
 		persit();
 	}
 
-	@SuppressWarnings("unchecked")
 	private void load() {
 
 		try {
 			FileInputStream fis = new FileInputStream(nomeArquivo);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
-			listaVeiculo = (HashSet<Veiculo>) ois.readObject();
+			listaMotorista = (HashSet<Motorista>) ois.readObject();
 
 			ois.close();
 			fis.close();
@@ -56,7 +55,7 @@ public class VeiculoDAO {
 			FileOutputStream fos = new FileOutputStream(nomeArquivo);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-			oos.writeObject(listaVeiculo);
+			oos.writeObject(listaMotorista);
 
 			oos.flush();
 			fos.flush();
@@ -74,12 +73,12 @@ public class VeiculoDAO {
 
 	}
 
-	public HashSet<Veiculo> getListaVeiculo() {
-		return listaVeiculo;
+	public HashSet<Motorista> getListaMotorista() {
+		return listaMotorista;
 	}
 
-	public void setListaVeiculo(HashSet<Veiculo> listaVeiculo) {
-		this.listaVeiculo = listaVeiculo;
+	public void setListaMotorista(HashSet<Motorista> listaMotorista) {
+		this.listaMotorista = listaMotorista;
 	}
 
 }

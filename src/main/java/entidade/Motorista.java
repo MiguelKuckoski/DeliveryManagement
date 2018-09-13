@@ -70,4 +70,11 @@ public class Motorista implements Serializable {
 
 	}
 
+	@Override
+	public String toString() {
+
+		return "Motorista [nome=" + nome + ", nascimento=" + nascimento + ", cnhNum=" + cnhNum + ", cnhTipo=" + cnhTipo
+				+ "]" + "\n ENDEREÇO : " + endereco.toString();
+	}
+
 }
