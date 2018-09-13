@@ -1,7 +1,13 @@
 package entidade;
 
-public class Veiculo {
+import java.io.Serializable;
 
+public class Veiculo implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String marca;
 	private String modelo;
 	private String placa;

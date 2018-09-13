@@ -1,7 +1,7 @@
 package entidade;
 
 public class Pacote {
-	
+
 	private String nomeRemetente;
 	private String nomeDestino;
 	private String codLocalizador;
@@ -11,9 +11,9 @@ public class Pacote {
 	private boolean entrega;
 	private boolean roteirizado;
 	private int idInsercao;
-	
-	public Pacote (String nomeRemetente, String nomeDestino,String codLocalizador,Endereco endRemetente,Endereco endDestino,
-			double peso, int idInsercao) {
+
+	public Pacote(String nomeRemetente, String nomeDestino, String codLocalizador, Endereco endRemetente,
+			Endereco endDestino, double peso, int idInsercao) {
 		this.nomeRemetente = nomeRemetente;
 		this.nomeDestino = nomeDestino;
 		this.codLocalizador = codLocalizador;
@@ -22,20 +22,23 @@ public class Pacote {
 		this.peso = peso;
 		this.idInsercao = idInsercao;
 	}
-	
-	
+
+	public Pacote() {
+
+	}
+
 	public String getNomeRemetente() {
 		return nomeRemetente;
 	}
-	
+
 	public void setNomeRemetente(String nomeRemetente) {
 		this.nomeRemetente = nomeRemetente;
 	}
-	
+
 	public String getNomeDestino() {
 		return nomeDestino;
 	}
-	
+
 	public void setNomeDestino(String nomeDestino) {
 		this.nomeDestino = nomeDestino;
 	}
@@ -72,38 +75,31 @@ public class Pacote {
 		this.peso = peso;
 	}
 
-
 	public boolean isEntrega() {
 		return entrega;
 	}
-
 
 	public void setEntrega(boolean entrega) {
 		this.entrega = entrega;
 	}
 
-
 	public boolean isRoteirizado() {
 		return roteirizado;
 	}
-
 
 	public void setRoteirizado(boolean roteirizado) {
 		this.roteirizado = roteirizado;
 	}
 
-
 	public int getIdInsercao() {
 		return idInsercao;
 	}
 
-
 	public void setIdInsercao(int idInsercao) {
 		this.idInsercao = idInsercao;
 	}
-	
-	
+
 	public void gerarRastreio(String rastreio) {
-		
+
 	}
 }
