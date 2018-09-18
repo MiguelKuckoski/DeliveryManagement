@@ -15,13 +15,13 @@ public class Veiculo implements Serializable {
 	protected Pacote[] listaDePacote;
 	private Motorista motorista;
 
-	public Veiculo(String marca, String modelo, String placa, int ano, Pacote[] listaDePacote, Motorista motorista) {
+	public Veiculo(String marca, String modelo, String placa, int ano, Pacote[] listaDePacote) {
 		this.marca = marca;
 		this.modelo = modelo;
 		this.placa = placa;
 		this.ano = ano;
 		this.listaDePacote = listaDePacote;
-		this.motorista = motorista;
+
 	}
 
 	public Veiculo() {

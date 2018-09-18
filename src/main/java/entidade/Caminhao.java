@@ -2,20 +2,20 @@ package entidade;
 
 import java.io.Serializable;
 
-public class Carreta extends Veiculo implements Serializable {
+public class Caminhao extends Veiculo implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Carreta() {
-		this.listaDePacote = new Pacote[10];
+	public Caminhao() {
+		this.listaDePacote = new Pacote[3];
 	}
 
-	public Carreta(String marca, String modelo, String placa, int ano, Pacote[] listaDePacote) {
+	public Caminhao(String marca, String modelo, String placa, int ano, Pacote[] listaDePacote) {
 		super(marca, modelo, placa, ano, listaDePacote);
 		this.listaDePacote = new Pacote[10];
-	}
 
+	}
 }

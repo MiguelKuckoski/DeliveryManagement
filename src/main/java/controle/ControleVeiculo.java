@@ -1,6 +1,5 @@
 package controle;
 
-import entidade.Motorista;
 import entidade.Pacote;
 import entidade.Veiculo;
 import persistencia.VeiculoDAO;
@@ -21,10 +20,19 @@ public class ControleVeiculo {
 		this.veiculoDAO = new VeiculoDAO();
 	}
 
-	public void cadastrarVeiculo(Motorista motorista, String marca, String modelo, int ano, String placa,
-			Pacote listaDePacote[]) {
+	public void cadastrarVeiculo(String marca, String modelo, int ano, String placa, Pacote listaDePacote[], int tipo) {
 
-		Veiculo veiculo = new Veiculo(marca, modelo, placa, ano, listaDePacote, motorista);
+		// if (tipo == 1) {
+		////
+		//// Veiculo veiculo = new Carreta(marca, modelo, placa, ano, listaDePacote);
+		////
+		//// } else if (tipo == 2) {
+		////
+		//// } else if (tipo == 3) {
+		////
+		//// }
+
+		Veiculo veiculo = new Veiculo(marca, modelo, placa, ano, listaDePacote);
 		veiculoDAO.put(veiculo);
 	}
 

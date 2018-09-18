@@ -5,15 +5,15 @@ public class Pacote {
 	private String nomeRemetente;
 	private String nomeDestino;
 	private String codLocalizador;
-	private Endereco endRemetente;
-	private Endereco endDestino;
+	private String endRemetente;
+	private String endDestino;
 	private double peso;
 	private boolean entrega;
 	private boolean roteirizado;
 	private int idInsercao;
 
-	public Pacote(String nomeRemetente, String nomeDestino, String codLocalizador, Endereco endRemetente,
-			Endereco endDestino, double peso, int idInsercao) {
+	public Pacote(String nomeRemetente, String nomeDestino, String codLocalizador, String endRemetente,
+			String endDestino, double peso, int idInsercao) {
 		this.nomeRemetente = nomeRemetente;
 		this.nomeDestino = nomeDestino;
 		this.codLocalizador = codLocalizador;
@@ -51,19 +51,19 @@ public class Pacote {
 		this.codLocalizador = codLocalizador;
 	}
 
-	public Endereco getEndRemetente() {
+	public String getEndRemetente() {
 		return endRemetente;
 	}
 
-	public void setEndRemetente(Endereco endRemetente) {
+	public void setEndRemetente(String endRemetente) {
 		this.endRemetente = endRemetente;
 	}
 
-	public Endereco getEndDestino() {
+	public String getEndDestino() {
 		return endDestino;
 	}
 
-	public void setEndDestino(Endereco endDestino) {
+	public void setEndDestino(String endDestino) {
 		this.endDestino = endDestino;
 	}
 
