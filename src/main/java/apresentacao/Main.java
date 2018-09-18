@@ -5,7 +5,6 @@ import java.util.Collection;
 import javax.swing.JOptionPane;
 
 import controle.ControladorPrincipal;
-import entidade.Endereco;
 import entidade.Motorista;
 import entidade.Pacote;
 import entidade.Veiculo;
@@ -22,10 +21,9 @@ public class Main {
 		String modelo = "modelo teste3";
 		int ano = 22;
 		String placa = "placa teste3";
-		Motorista motorista = new Motorista();
 
 		Pacote listaDePacote[] = null;
-		controlador.getControleviculo().cadastrarVeiculo(motorista, marca, modelo, ano, placa, listaDePacote);
+		controlador.getControleviculo().cadastrarVeiculo(marca, modelo, ano, placa, listaDePacote, 10);
 		Collection<Veiculo> veiculos = new VeiculoDAO().getListaVeiculo();
 		Collection<Motorista> motoristas = new MotoristaDAO().getListaMotorista();
 
@@ -41,31 +39,45 @@ public class Main {
 
 	}
 
+	private static void cadastroVeiculo() {
+
+		String marca = JOptionPane.showInputDialog("");
+		String modelo = JOptionPane.showInputDialog("");
+		String placa = JOptionPane.showInputDialog("");
+		int ano = Integer.parseInt(JOptionPane.showInputDialog(""));
+
+		int tipoVeiculo = 0;
+		do {
+
+			tipoVeiculo = Integer.parseInt(JOptionPane.showInputDialog("1 - Carreta 2 - Caminhao 3 - Van"));
+
+			switch (tipoVeiculo) {
+			case 1:
+
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			default:
+				System.out.println("Caminhão inválido");
+				break;
+			}
+		} while (tipoVeiculo != 0);
+
+	}
+
 	private static void cadastroMotorista() {
 
 		String nome = JOptionPane.showInputDialog("Digite o nome do motorista");
 		String nascimento = JOptionPane.showInputDialog("Digite a data de nascimento do motorista");
 		String cnhNum = JOptionPane.showInputDialog("Digite o número da CNH");
 		String cnhTipo = JOptionPane.showInputDialog("Digite o tipo da CNH");
-		Endereco endereco = cadastroEndereco();
+		String endereco = JOptionPane.showInputDialog("Digite o endereco");
 
 		// cadastrando motorista e salvando em arquivo motorista.dat
 		controlador.getControleMotorista().cadastrarMotorista(nome, nascimento, endereco, cnhNum, cnhTipo);
 
-	}
-
-	private static Endereco cadastroEndereco() {
-
-		String rua = JOptionPane.showInputDialog("Digite o nome da rua");
-		int cep = Integer.parseInt(JOptionPane.showInputDialog("Digite o numero de CEP"));
-		String bairro = JOptionPane.showInputDialog("Digite o nome do bairro");
-		String cidade = JOptionPane.showInputDialog("Digite o nome da cidade");
-		String estado = JOptionPane.showInputDialog("Digite o nome da Estado");
-		String complemento = JOptionPane.showInputDialog("Digite o complemento");
-
-		Endereco endereco = new Endereco(rua, bairro, cidade, estado, complemento, cep);
-
-		return endereco;
 	}
 
 	private static void menu() {

@@ -1,6 +1,5 @@
 package controle;
 
-import entidade.Endereco;
 import entidade.Motorista;
 import persistencia.MotoristaDAO;
 
@@ -13,7 +12,7 @@ public class ControleMotorista {
 		this.motoristaDAO = new MotoristaDAO();
 	}
 
-	public void cadastrarMotorista(String nome, String nascimento, Endereco endereco, String cnhNum, String cnhTipo) {
+	public void cadastrarMotorista(String nome, String nascimento, String endereco, String cnhNum, String cnhTipo) {
 
 		Motorista motorista = new Motorista(nome, nascimento, endereco, cnhNum, cnhTipo);
 		motoristaDAO.put(motorista);

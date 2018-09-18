@@ -12,13 +12,13 @@ public class Motorista implements Serializable {
 	private String nascimento;
 	private String cnhNum;
 	private String cnhTipo;
-	private Endereco endereco;
+	private String endereco;
 
 	public Motorista() {
 
 	}
 
-	public Motorista(String nome, String nascimento, Endereco endereco, String cnhNum, String cnhTipo) {
+	public Motorista(String nome, String nascimento, String endereco, String cnhNum, String cnhTipo) {
 		this.nome = nome;
 		this.nascimento = nascimento;
 		this.endereco = endereco;
@@ -58,11 +58,11 @@ public class Motorista implements Serializable {
 		this.cnhTipo = cnhTipo;
 	}
 
-	public Endereco getEndereco() {
+	public String getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 

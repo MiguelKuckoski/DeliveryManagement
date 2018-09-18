@@ -13,8 +13,8 @@ public class Carreta extends Veiculo implements Serializable, IVeiculo {
 		this.listaDePacote = new Pacote[10];
 	}
 
-	public Carreta(String marca, String modelo, String placa, int ano, Pacote[] listaDePacote, Motorista motorista) {
-		super(marca, modelo, placa, ano, listaDePacote, motorista);
+	public Carreta(String marca, String modelo, String placa, int ano, Pacote[] listaDePacote) {
+		super(marca, modelo, placa, ano, listaDePacote);
 		this.listaDePacote = new Pacote[10];
 	}
 
