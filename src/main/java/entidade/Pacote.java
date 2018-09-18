@@ -6,14 +6,8 @@ public class Pacote {
 	private String codLocalizador;
 	private String nomeRemetente;
 	private String nomeDestino;
-<<<<<<< HEAD
-	private Endereco endRemetente;
-	private Endereco endDestino;
-=======
-	private String codLocalizador;
 	private String endRemetente;
 	private String endDestino;
->>>>>>> branch 'master' of https://github.com/MiguelKuckoski/TransportadoraEntregaRapida.git
 	private double peso;
 	private boolean entrega;
 	private boolean roteirizado;

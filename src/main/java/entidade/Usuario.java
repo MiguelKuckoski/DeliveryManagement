@@ -9,8 +9,8 @@ public class Usuario {
 		this.controle = controle;
 	}
 
-	public void cadastrarObjeto(String nomeRemetente, Endereco endRemetente, String nomeDestinatario,
-			Endereco endDestinatario, Double peso, String codLocalizador, int idInsercao) {
+	public void cadastrarObjeto(String nomeRemetente, String endRemetente, String nomeDestinatario,
+			String endDestinatario, Double peso, String codLocalizador, int idInsercao) {
 
 		Pacote pacote = new Pacote(nomeRemetente, nomeDestinatario, codLocalizador, endRemetente, endDestinatario, peso,
 				idInsercao);
@@ -42,7 +42,7 @@ public class Usuario {
 		// controle.addVeiculo(veiculo);
 	}
 
-	public void cadastrarMotorista(String nome, String nascimento, Endereco endereco, String cnhNum, String cnhTipo) {
+	public void cadastrarMotorista(String nome, String nascimento, String endereco, String cnhNum, String cnhTipo) {
 		Motorista motorista = new Motorista(nome, nascimento, endereco, cnhNum, cnhTipo);
 		// controle.addMotorista(motorista);
 	}
