@@ -2,15 +2,15 @@ package entidade;
 
 public class Pacote {
 
+	private int idInsercao;
+	private String codLocalizador;
 	private String nomeRemetente;
 	private String nomeDestino;
-	private String codLocalizador;
 	private Endereco endRemetente;
 	private Endereco endDestino;
 	private double peso;
 	private boolean entrega;
 	private boolean roteirizado;
-	private int idInsercao;
 
 	public Pacote(String nomeRemetente, String nomeDestino, String codLocalizador, Endereco endRemetente,
 			Endereco endDestino, double peso, int idInsercao) {

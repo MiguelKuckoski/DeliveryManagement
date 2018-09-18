@@ -2,7 +2,7 @@ package entidade;
 
 import java.io.Serializable;
 
-public class Carreta extends Veiculo implements Serializable {
+public class Carreta extends Veiculo implements Serializable, IVeiculo {
 
 	/**
 	 * 
