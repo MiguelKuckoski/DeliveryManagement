@@ -24,9 +24,11 @@ public class Veiculo implements Serializable {
 
 	}
 
-	public Veiculo() {
 
+	public Veiculo() {
+		super();
 	}
+
 
 	@Override
 	public int hashCode() {
