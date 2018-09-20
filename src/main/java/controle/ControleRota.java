@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -29,12 +30,35 @@ public class ControleRota {
 	static final String PATH = "C:\rotas";
 	final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-	public void criarRota() {
+	public void criarRota(List<Veiculo> listaVeiculo, List<Pacote> listaPacote) {
+		
 		LocalDateTime now = LocalDateTime.now();
 		String data = dtf.format(now);
-		List<Veiculo> lista = null;
 
-		escreverRota(data, lista);
+		listaPacote.stream().sorted(Comparator.comparing(Pacote::getDataInsercao).reversed());
+//		listaVeiculo.stream().sorted(Comparator.comparing(Veiculo::getListaDePacote.)); //TODO if(tipo) {i =6}; vetor[i]; TAMANHO VETOR
+		
+		Iterator<Pacote> pacoteIterator = listaPacote.iterator();
+		
+		for (Veiculo veiculo : listaVeiculo) {
+			int i =0;
+			List<Pacote> distribuirPacote = new ArrayList<Pacote>();
+			
+			if(veiculo.getMotorista() != null) {
+				while(i < veiculo.getListaDePacote().size()) { // TAMANHO VETOR
+					if(pacoteIterator.hasNext()) {
+						Pacote pacote = pacoteIterator.next();
+						distribuirPacote.add(pacote);
+						i++;
+					}else {
+						break;
+					}
+				}
+				veiculo.setListaDePacote(distribuirPacote);
+			}
+			
+		}		
+		escreverRota(data, listaVeiculo);
 	}
 
 	public void escreverRota(String path, List<Veiculo> listaVeiculos) {
@@ -93,7 +117,7 @@ public class ControleRota {
 
 				Pacote pacote = new Pacote();
 				veiculo.setPlaca(row.getCell(FileConstants.PLACA).getStringCellValue());
-				pacote.setIdInsercao((int) row.getCell(FileConstants.ID_INSERCAO).getNumericCellValue());
+				pacote.setDataInsercao(row.getCell(FileConstants.ID_INSERCAO).getStringCellValue());
 				pacote.setCodLocalizador(row.getCell(FileConstants.RASTREIO).getStringCellValue());
 				pacote.setNomeRemetente(row.getCell(FileConstants.RASTREIO).getStringCellValue());
 				pacote.setNomeDestino(row.getCell(FileConstants.NOME_DESTINO).getStringCellValue());
@@ -134,7 +158,7 @@ public class ControleRota {
 		sheet = wb.createSheet(veiculo.getPlaca());
 
 		row = sheet.createRow(0);
-		row.createCell(FileConstants.ID_INSERCAO).setCellValue("Id inserção");
+		row.createCell(FileConstants.ID_INSERCAO).setCellValue("Data inserção");
 		row.createCell(FileConstants.PLACA).setCellValue("Placa");
 		row.createCell(FileConstants.RASTREIO).setCellValue("Rastreio");
 		row.createCell(FileConstants.NOME_REMETENTE).setCellValue("Nome remetente");
@@ -146,7 +170,7 @@ public class ControleRota {
 
 		for (Pacote pacote : veiculo.getListaDePacote()) {
 			row = sheet.createRow(sheet.getLastRowNum() + 1);
-			row.createCell(FileConstants.ID_INSERCAO).setCellValue(pacote.getIdInsercao());
+			row.createCell(FileConstants.ID_INSERCAO).setCellValue(pacote.getDataInsercao());
 			row.createCell(FileConstants.PLACA).setCellValue(veiculo.getPlaca());
 			row.createCell(FileConstants.RASTREIO).setCellValue(pacote.getCodLocalizador());
 			row.createCell(FileConstants.NOME_REMETENTE).setCellValue(pacote.getNomeRemetente());

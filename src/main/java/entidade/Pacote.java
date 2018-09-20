@@ -1,8 +1,11 @@
 package entidade;
 
-public class Pacote {
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-	private int idInsercao;
+public class Pacote {
+	private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	private String codLocalizador;
 	private String nomeRemetente;
 	private String nomeDestino;
@@ -11,16 +14,17 @@ public class Pacote {
 	private double peso;
 	private boolean entrega;
 	private boolean roteirizado;
+	private String dataInsercao;
 
 	public Pacote(String nomeRemetente, String nomeDestino, String codLocalizador, String endRemetente,
-			String endDestino, double peso, int idInsercao) {
+			String endDestino, double peso) {
 		this.nomeRemetente = nomeRemetente;
 		this.nomeDestino = nomeDestino;
 		this.codLocalizador = codLocalizador;
 		this.endRemetente = endRemetente;
 		this.endDestino = endDestino;
 		this.peso = peso;
-		this.idInsercao = idInsercao;
+		this.dataInsercao = dateFormat.format(new Date());
 	}
 
 	public Pacote() {
@@ -91,15 +95,14 @@ public class Pacote {
 		this.roteirizado = roteirizado;
 	}
 
-	public int getIdInsercao() {
-		return idInsercao;
-	}
-
-	public void setIdInsercao(int idInsercao) {
-		this.idInsercao = idInsercao;
-	}
-
 	public void gerarRastreio(String rastreio) {
 
+	}
+
+	public String getDataInsercao() {
+		return dataInsercao;
+	}
+	public void setDataInsercao(String dataInsercao) {
+		this.dataInsercao = dataInsercao;
 	}
 }
