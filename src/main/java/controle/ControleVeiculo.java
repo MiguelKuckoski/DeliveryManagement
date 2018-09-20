@@ -20,7 +20,7 @@ public class ControleVeiculo {
 		this.veiculoDAO = new VeiculoDAO();
 	}
 
-	public void cadastrarVeiculo(String marca, String modelo, int ano, String placa, Pacote listaDePacote[], int tipo) {
+	public void cadastrarVeiculo(String marca, String modelo, int ano, String placa, Pacote listaDePacote[], String tipo) {
 
 		// if (tipo == 1) {
 		////
@@ -32,7 +32,7 @@ public class ControleVeiculo {
 		////
 		//// }
 
-		Veiculo veiculo = new Veiculo(marca, modelo, placa, ano, listaDePacote);
+		Veiculo veiculo = new Veiculo(marca, modelo, placa, ano, tipo); 
 		veiculoDAO.put(veiculo);
 	}
 

@@ -2,6 +2,7 @@ package entidade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Veiculo implements Serializable {
 
@@ -13,7 +14,7 @@ public class Veiculo implements Serializable {
 	private String modelo;
 	private String placa;
 	private int ano;
-	protected ArrayList<Pacote> listaDePacote;
+	protected List<Pacote> listaDePacote;
 	private Motorista motorista;
 	String tipo;
 
@@ -89,11 +90,11 @@ public class Veiculo implements Serializable {
 		this.ano = ano;
 	}
 
-	public ArrayList<Pacote> getListaDePacote() {
+	public List<Pacote> getListaDePacote() {
 		return listaDePacote;
 	}
 
-	public void setListaDePacote(ArrayList<Pacote> listaDePacote) {
+	public void setListaDePacote(List<Pacote> listaDePacote) {
 		this.listaDePacote = listaDePacote;
 	}
 

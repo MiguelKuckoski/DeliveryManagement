@@ -105,7 +105,7 @@ public class ControleRota {
 				pacote.setRoteirizado(true);
 				listaPacote.add(pacote);
 			}
-			veiculo.setListaDePacote((Pacote[]) listaPacote.toArray());
+			veiculo.setListaDePacote(listaPacote);
 			listaVeiculo.add(veiculo);
 			listaPacote.clear();
 		}
