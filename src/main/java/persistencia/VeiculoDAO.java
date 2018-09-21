@@ -22,7 +22,7 @@ public class VeiculoDAO {
 
 	public void put(Veiculo veiculo) {
 		listaVeiculo.add(veiculo);
-		persit();
+		persist();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -49,7 +49,7 @@ public class VeiculoDAO {
 		}
 	}
 
-	public void persit() {
+	public void persist() {
 
 		try {
 			FileOutputStream fos = new FileOutputStream(FILE_PATH);
