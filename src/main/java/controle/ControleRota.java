@@ -30,43 +30,43 @@ public class ControleRota {
 	static final String PATH = "C:\rotas";
 	final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-	public void criarRota(List<Veiculo> listaVeiculo, List<Pacote> listaPacote) {
-		
+	public void criarRota(HashSet<Veiculo> veiculos, HashSet<Pacote> pacotes) {
+
 		LocalDateTime now = LocalDateTime.now();
 		String data = dtf.format(now);
 
-		listaPacote.stream().sorted(Comparator.comparing(Pacote::getDataInsercao).reversed());
-		listaVeiculo.stream().sorted(Comparator.comparing(Veiculo::getTamanho));
-		
-		Iterator<Pacote> pacoteIterator = listaPacote.iterator();
-		
-		for (Veiculo veiculo : listaVeiculo) {
-			int i =0;
+		pacotes.stream().sorted(Comparator.comparing(Pacote::getDataInsercao).reversed());
+		veiculos.stream().sorted(Comparator.comparing(Veiculo::getTamanho));
+
+		Iterator<Pacote> pacoteIterator = pacotes.iterator();
+
+		for (Veiculo veiculo : veiculos) {
+			int i = 0;
 			List<Pacote> distribuirPacote = new ArrayList<Pacote>();
-			
-			if(veiculo.getMotorista() != null) {
-				while(i < veiculo.getTamanho()) {
-					if(pacoteIterator.hasNext()) {
+
+			if (veiculo.getMotorista() != null) {
+				while (i < veiculo.getTamanho()) {
+					if (pacoteIterator.hasNext()) {
 						Pacote pacote = pacoteIterator.next();
 						distribuirPacote.add(pacote);
 						i++;
-					}else {
+					} else {
 						break;
 					}
 				}
 				veiculo.setListaDePacote(distribuirPacote);
 			}
-			
-		}		
-		escreverRota(data, listaVeiculo);
-		
+
+		}
+		escreverRota(data, veiculos);
+
 	}
 
-	public void escreverRota(String path, List<Veiculo> listaVeiculos) {
+	public void escreverRota(String path, HashSet<Veiculo> veiculos) {
 		HSSFWorkbook wb = new HSSFWorkbook();
 		FileOutputStream stream = null;
 
-		listaVeiculos.forEach(veiculo -> {
+		veiculos.forEach(veiculo -> {
 			populeDriverSheets(veiculo, wb);
 		});
 
@@ -107,7 +107,7 @@ public class ControleRota {
 
 		Veiculo veiculo = new Veiculo();
 		for (int i = 0; i < workBook.getNumberOfSheets() - 1; i++) {
-			sheet = workBook.getSheetAt(i); // Lê somente a primeira aba do documento.
+			sheet = workBook.getSheetAt(i); // Lï¿½ somente a primeira aba do documento.
 			veiculo = new Veiculo();
 			Iterator<Row> rowIterator = sheet.iterator();
 			while (rowIterator.hasNext()) {
@@ -159,13 +159,13 @@ public class ControleRota {
 		sheet = wb.createSheet(veiculo.getPlaca());
 
 		row = sheet.createRow(0);
-		row.createCell(FileConstants.ID_INSERCAO).setCellValue("Data inserção");
+		row.createCell(FileConstants.ID_INSERCAO).setCellValue("Data inserï¿½ï¿½o");
 		row.createCell(FileConstants.PLACA).setCellValue("Placa");
 		row.createCell(FileConstants.RASTREIO).setCellValue("Rastreio");
 		row.createCell(FileConstants.NOME_REMETENTE).setCellValue("Nome remetente");
-		row.createCell(FileConstants.ENDERECO_REMETENTE).setCellValue("Endereço remetente");
+		row.createCell(FileConstants.ENDERECO_REMETENTE).setCellValue("Endereï¿½o remetente");
 		row.createCell(FileConstants.NOME_DESTINO).setCellValue("Nome destino");
-		row.createCell(FileConstants.ENDERECO_DESTINO).setCellValue("Endereço entrega");
+		row.createCell(FileConstants.ENDERECO_DESTINO).setCellValue("Endereï¿½o entrega");
 		row.createCell(FileConstants.PESO).setCellValue("Peso");
 		row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("Status entrega");
 
@@ -179,7 +179,7 @@ public class ControleRota {
 			row.createCell(FileConstants.NOME_DESTINO).setCellValue(pacote.getNomeDestino());
 			row.createCell(FileConstants.ENDERECO_DESTINO).setCellValue(pacote.getEndDestino());
 			row.createCell(FileConstants.PESO).setCellValue(pacote.getPeso());
-			row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("não");
+			row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("nï¿½o");
 		}
 	}
 
