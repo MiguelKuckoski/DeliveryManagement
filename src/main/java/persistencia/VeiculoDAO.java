@@ -12,7 +12,7 @@ import entidade.Veiculo;
 
 public class VeiculoDAO {
 
-	private static final String nomeArquivo = "arquivos/veiculos.dat";
+	private static final String FILE_PATH = "arquivos/veiculos.dat";
 	private HashSet<Veiculo> listaVeiculo;
 
 	public VeiculoDAO() {
@@ -21,7 +21,6 @@ public class VeiculoDAO {
 	}
 
 	public void put(Veiculo veiculo) {
-
 		listaVeiculo.add(veiculo);
 		persit();
 	}
@@ -30,7 +29,7 @@ public class VeiculoDAO {
 	private void load() {
 
 		try {
-			FileInputStream fis = new FileInputStream(nomeArquivo);
+			FileInputStream fis = new FileInputStream(FILE_PATH);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
 			listaVeiculo = (HashSet<Veiculo>) ois.readObject();
@@ -39,13 +38,13 @@ public class VeiculoDAO {
 			fis.close();
 
 		} catch (FileNotFoundException ex) {
-			System.err.println("Erro ao abrir o arquivo " + nomeArquivo);
+			System.err.println("Erro ao abrir o arquivo " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		} catch (IOException ex) {
-			System.err.println("Erro de entrada ou saida de dados " + nomeArquivo);
+			System.err.println("Erro de entrada ou saida de dados " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		} catch (ClassNotFoundException ex) {
-			System.err.println("Erro ao processar registros dos arquivos " + nomeArquivo);
+			System.err.println("Erro ao processar registros dos arquivos " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		}
 	}
@@ -53,7 +52,7 @@ public class VeiculoDAO {
 	public void persit() {
 
 		try {
-			FileOutputStream fos = new FileOutputStream(nomeArquivo);
+			FileOutputStream fos = new FileOutputStream(FILE_PATH);
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 
 			oos.writeObject(listaVeiculo);
@@ -65,10 +64,10 @@ public class VeiculoDAO {
 			fos.close();
 
 		} catch (FileNotFoundException ex) {
-			System.err.println("Arquivo não encontrado " + nomeArquivo);
+			System.err.println("Arquivo não encontrado " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		} catch (IOException ex) {
-			System.err.println("Erro na entrada e saida de dados " + nomeArquivo);
+			System.err.println("Erro na entrada e saida de dados " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		}
 

@@ -1,12 +1,11 @@
 package controle;
 
-import entidade.Pacote;
 import entidade.Veiculo;
 import persistencia.VeiculoDAO;
 
 public class ControleVeiculo {
 
-	private VeiculoDAO veiculoDAO;
+	private VeiculoDAO veiculoDAO = new VeiculoDAO();
 
 	public VeiculoDAO getVeiculoDAO() {
 		return veiculoDAO;
@@ -20,19 +19,8 @@ public class ControleVeiculo {
 		this.veiculoDAO = new VeiculoDAO();
 	}
 
-	public void cadastrarVeiculo(String marca, String modelo, int ano, String placa, Pacote listaDePacote[], String tipo) {
-
-		// if (tipo == 1) {
-		////
-		//// Veiculo veiculo = new Carreta(marca, modelo, placa, ano, listaDePacote);
-		////
-		//// } else if (tipo == 2) {
-		////
-		//// } else if (tipo == 3) {
-		////
-		//// }
-
-		Veiculo veiculo = new Veiculo(marca, modelo, placa, ano, tipo); 
+	public void cadastrarVeiculo(String marca, String modelo, String placa, int ano, String tipo) {
+		Veiculo veiculo = new Veiculo( marca, modelo, placa, ano, tipo);
 		veiculoDAO.put(veiculo);
 	}
 

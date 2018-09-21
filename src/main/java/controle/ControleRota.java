@@ -36,7 +36,7 @@ public class ControleRota {
 		String data = dtf.format(now);
 
 		listaPacote.stream().sorted(Comparator.comparing(Pacote::getDataInsercao).reversed());
-//		listaVeiculo.stream().sorted(Comparator.comparing(Veiculo::getListaDePacote.)); //TODO if(tipo) {i =6}; vetor[i]; TAMANHO VETOR
+		listaVeiculo.stream().sorted(Comparator.comparing(Veiculo::getTamanho));
 		
 		Iterator<Pacote> pacoteIterator = listaPacote.iterator();
 		
@@ -45,7 +45,7 @@ public class ControleRota {
 			List<Pacote> distribuirPacote = new ArrayList<Pacote>();
 			
 			if(veiculo.getMotorista() != null) {
-				while(i < veiculo.getListaDePacote().size()) { // TAMANHO VETOR
+				while(i < veiculo.getTamanho()) {
 					if(pacoteIterator.hasNext()) {
 						Pacote pacote = pacoteIterator.next();
 						distribuirPacote.add(pacote);
@@ -59,6 +59,7 @@ public class ControleRota {
 			
 		}		
 		escreverRota(data, listaVeiculo);
+		
 	}
 
 	public void escreverRota(String path, List<Veiculo> listaVeiculos) {

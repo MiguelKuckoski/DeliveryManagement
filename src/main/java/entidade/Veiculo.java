@@ -1,7 +1,6 @@
 package entidade;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Veiculo implements Serializable {
@@ -9,14 +8,18 @@ public class Veiculo implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 3736432012221599358L;
+	/**
+	 * 
+	 */
 	private String marca;
 	private String modelo;
 	private String placa;
 	private int ano;
 	protected List<Pacote> listaDePacote;
 	private Motorista motorista;
-	String tipo;
+	private String tipo;
+	private int tamanho;
 
 	public Veiculo(String marca, String modelo, String placa, int ano, String tipo) {
 		this.marca = marca;
@@ -24,7 +27,13 @@ public class Veiculo implements Serializable {
 		this.placa = placa;
 		this.ano = ano;
 		this.tipo = tipo;
-
+		if(tipo.equalsIgnoreCase("van")) {
+			tamanho = 6;
+		}else if(tipo.equalsIgnoreCase("caminhao")) {
+			tamanho = 8;
+		}else {
+			tamanho = 10;
+		}		
 	}
 
 
@@ -104,6 +113,26 @@ public class Veiculo implements Serializable {
 
 	public void setMotorista(Motorista motorista) {
 		this.motorista = motorista;
+	}
+
+
+	public String getTipo() {
+		return tipo;
+	}
+
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+
+	public int getTamanho() {
+		return tamanho;
+	}
+
+
+	public void setTamanho(int tamanho) {
+		this.tamanho = tamanho;
 	}
 
 }

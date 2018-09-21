@@ -23,7 +23,8 @@ public class Main {
 		String placa = "placa teste3";
 
 		Pacote listaDePacote[] = null;
-		controlador.getControleviculo().cadastrarVeiculo(marca, modelo, ano, placa, listaDePacote, 10);
+		
+		controlador.getControleviculo().cadastrarVeiculo(marca, modelo, placa, ano, "van");
 		Collection<Veiculo> veiculos = new VeiculoDAO().getListaVeiculo();
 		Collection<Motorista> motoristas = new MotoristaDAO().getListaMotorista();
 

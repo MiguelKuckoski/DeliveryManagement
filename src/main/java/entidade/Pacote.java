@@ -1,10 +1,15 @@
 package entidade;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Pacote {
+public class Pacote implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3566021722412775799L;
 	private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	private String codLocalizador;
 	private String nomeRemetente;
