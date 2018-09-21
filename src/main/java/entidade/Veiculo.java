@@ -13,11 +13,17 @@ public class Veiculo implements Serializable {
 	 * 
 	 */
 	private String marca;
+
 	@Override
 	public String toString() {
-		return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo + "]";
-	}
 
+		if (motorista != null) {
+			return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo
+					+ "]" + this.motorista.toString();
+		}
+		return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo
+				+ "] Sem Motorista Vinculado";
+	}
 
 	private String modelo;
 	private String placa;

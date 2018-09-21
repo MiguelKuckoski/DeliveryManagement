@@ -18,6 +18,31 @@ public class Motorista implements Serializable {
 
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cnhNum == null) ? 0 : cnhNum.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Motorista other = (Motorista) obj;
+		if (cnhNum == null) {
+			if (other.cnhNum != null)
+				return false;
+		} else if (!cnhNum.equals(other.cnhNum))
+			return false;
+		return true;
+	}
+
 	public Motorista(String nome, String nascimento, String endereco, String cnhNum, String cnhTipo) {
 		this.nome = nome;
 		this.nascimento = nascimento;

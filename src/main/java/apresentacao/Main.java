@@ -5,6 +5,8 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 import controle.ControladorPrincipal;
+import entidade.Motorista;
+import entidade.Veiculo;
 
 public class Main {
 
@@ -63,8 +65,22 @@ public class Main {
 				break;
 			case 2:
 				controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().forEach(veiculo -> {
-					veiculo.toString();
+					System.out.println(veiculo.toString());
 				});
+				break;
+			case 3:
+
+				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
+					System.out.println(veiculos.toString());
+				}
+				String placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo");
+
+				for (Motorista motoristas : controlador.getControleMotorista().getMotoristaDAO().getListaMotorista()) {
+					System.out.println(motoristas.toString());
+				}
+
+				String cnhMotorista = JOptionPane.showInputDialog("Digite a CNH do motorista");
+				controlador.getControleVeiculo().vincularMotorista(placaVeiculo, cnhMotorista);
 				break;
 			case 0:
 				break;
@@ -105,7 +121,7 @@ public class Main {
 			case 0:
 				break;
 			default:
-				System.out.println("Op��o invalida.");
+				System.out.println("Opção inválida.");
 			}
 		} while (opcao != 0);
 	}
