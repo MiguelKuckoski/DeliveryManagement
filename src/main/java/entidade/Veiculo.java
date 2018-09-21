@@ -27,20 +27,29 @@ public class Veiculo implements Serializable {
 		this.placa = placa;
 		this.ano = ano;
 		this.tipo = tipo;
-		if(tipo.equalsIgnoreCase("van")) {
+		if (tipo.equalsIgnoreCase("van")) {
 			tamanho = 6;
-		}else if(tipo.equalsIgnoreCase("caminhao")) {
+		} else if (tipo.equalsIgnoreCase("caminhao")) {
 			tamanho = 8;
-		}else {
+		} else {
 			tamanho = 10;
-		}		
+		}
 	}
 
+	public boolean vincularMotorista(Motorista motorista) {
+		if (motorista.getCnhTipo().equals("C")) {
+			this.motorista = motorista;
+			return true;
+		} else if (motorista.getCnhTipo().equals("B") && this.tipo.equals("Van")) {
+			this.motorista = motorista;
+			return true;
+		}
+		return false;
+	}
 
 	public Veiculo() {
 		super();
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -115,21 +124,17 @@ public class Veiculo implements Serializable {
 		this.motorista = motorista;
 	}
 
-
 	public String getTipo() {
 		return tipo;
 	}
-
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
 
-
 	public int getTamanho() {
 		return tamanho;
 	}
-
 
 	public void setTamanho(int tamanho) {
 		this.tamanho = tamanho;

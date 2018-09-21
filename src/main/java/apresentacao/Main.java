@@ -1,13 +1,10 @@
 package apresentacao;
 
-import java.util.List;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
 
 import controle.ControladorPrincipal;
-import entidade.Pacote;
-import entidade.Veiculo;
 
 public class Main {
 
@@ -53,7 +50,7 @@ public class Main {
 		int opcao;
 		do {
 			opcao = Integer.parseInt(JOptionPane.showInputDialog("--- Veiculo ---\n " + " 1 - Inserir veiculo \n "
-					+ " 2 - Mostrar veiculos \n " + " 0 - Voltar \n "));
+					+ " 2 - Mostrar veiculos \n " + "3 - Vincular Motorista \n" + " 0 - Voltar \n "));
 			switch (opcao) {
 			case 1:
 				String marca = JOptionPane.showInputDialog("Insira a marca do veiculo:");
@@ -118,7 +115,9 @@ public class Main {
 					+ " 2 - Ler baixas \n" + " 3 - Mostrar pacotes n�o roteirizados \n" + " 0 - Sair"));
 			switch (rota) {
 			case 1:
-				controlador.getControleRota().criarRota(controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo(),controlador.getControlePacote().getPacoteDAO().getListaPacote());
+				controlador.getControleRota().criarRota(
+						controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo(),
+						controlador.getControlePacote().getPacoteDAO().getListaPacote());
 				break;
 			case 2:
 

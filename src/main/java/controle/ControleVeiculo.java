@@ -20,7 +20,7 @@ public class ControleVeiculo {
 	}
 
 	public void cadastrarVeiculo(String marca, String modelo, String placa, int ano, String tipo) {
-		Veiculo veiculo = new Veiculo( marca, modelo, placa, ano, tipo);
+		Veiculo veiculo = new Veiculo(marca, modelo, placa, ano, tipo);
 		veiculoDAO.put(veiculo);
 	}
 
