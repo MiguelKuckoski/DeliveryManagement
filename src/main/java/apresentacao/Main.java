@@ -44,8 +44,32 @@ public class Main {
 	}
 
 	private static void motorista() {
-		// TODO Auto-generated method stub
+		int opcao;
+		do {
+			opcao = Integer.parseInt(JOptionPane.showInputDialog("--- Veiculo ---\n " + " 1 - Inserir Motorista \n "
+					+ " 2 - Listar motoristas \n " + "3 - Apagar Motorista \n" + " 0 - Voltar \n "));
+			switch (opcao) {
+			case 1:
+				String nome = JOptionPane.showInputDialog("Digite o nome");
+				String nascimento = JOptionPane.showInputDialog("Digite a data de nascimento");
+				String cnhNum = JOptionPane.showInputDialog("Digite o numero da CNH ");
+				String cnhTipo = JOptionPane.showInputDialog("Digite o tipo da cnh B ou C");
+				String endereco = JOptionPane.showInputDialog("Digite o endereço");
 
+				controlador.getControleMotorista().cadastrarMotorista(nome, nascimento, endereco, cnhNum, cnhTipo);
+
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 0:
+				System.out.println("Saindo do menu Motorista");
+				break;
+			default:
+				break;
+			}
+		} while (opcao != 0);
 	}
 
 	public static void veiculo() {
@@ -78,8 +102,8 @@ public class Main {
 				for (Motorista motoristas : controlador.getControleMotorista().getMotoristaDAO().getListaMotorista()) {
 					System.out.println(motoristas.toString());
 				}
-
 				String cnhMotorista = JOptionPane.showInputDialog("Digite a CNH do motorista");
+
 				controlador.getControleVeiculo().vincularMotorista(placaVeiculo, cnhMotorista);
 				break;
 			case 0:

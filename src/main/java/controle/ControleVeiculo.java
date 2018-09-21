@@ -43,6 +43,7 @@ public class ControleVeiculo {
 				veiculos.vincularMotorista(motorista);
 			}
 		}
+		veiculoDAO.persist();
 
 	}
 
