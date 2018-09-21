@@ -62,7 +62,9 @@ public class Main {
 				controlador.getControleVeiculo().cadastrarVeiculo(marca, modelo, placa, ano, tipo);
 				break;
 			case 2:
-				// TODO listarVeiculos();
+				controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().forEach(veiculo -> {
+					veiculo.toString();
+				});
 				break;
 			case 0:
 				break;

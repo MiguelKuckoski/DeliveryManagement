@@ -13,6 +13,12 @@ public class Veiculo implements Serializable {
 	 * 
 	 */
 	private String marca;
+	@Override
+	public String toString() {
+		return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo + "]";
+	}
+
+
 	private String modelo;
 	private String placa;
 	private int ano;
