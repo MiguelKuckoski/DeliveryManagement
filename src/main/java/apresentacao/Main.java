@@ -65,7 +65,9 @@ public class Main {
 				controlador.getControleVeiculo().cadastrarVeiculo(marca, modelo, placa, ano, tipo);
 				break;
 			case 2:
-				// TODO listarVeiculos();
+				controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().forEach(veiculo -> {
+					veiculo.toString();
+				});
 				break;
 			case 0:
 				break;
@@ -118,7 +120,9 @@ public class Main {
 					+ " 2 - Ler baixas \n" + " 3 - Mostrar pacotes n�o roteirizados \n" + " 0 - Sair"));
 			switch (rota) {
 			case 1:
-				controlador.getControleRota().criarRota(controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo(),controlador.getControlePacote().getPacoteDAO().getListaPacote());
+				controlador.getControleRota().criarRota(
+						controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo(),
+						controlador.getControlePacote().getPacoteDAO().getListaPacote());
 				break;
 			case 2:
 
