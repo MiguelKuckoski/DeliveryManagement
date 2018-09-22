@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import entidade.Veiculo;
@@ -13,15 +14,15 @@ import entidade.Veiculo;
 public class VeiculoDAO {
 
 	private static final String FILE_PATH = "arquivos/veiculos.dat";
-	private HashSet<Veiculo> listaVeiculo;
+	private HashMap<String,Veiculo> listaVeiculo;
 
 	public VeiculoDAO() {
-		listaVeiculo = new HashSet<Veiculo>();
+		listaVeiculo = new HashMap<String, Veiculo>();
 		load();
 	}
 
-	public void put(Veiculo veiculo) {
-		listaVeiculo.add(veiculo);
+	public void put(String placa,Veiculo veiculo) {
+		listaVeiculo.put(placa, veiculo);
 		persist();
 	}
 
@@ -32,7 +33,7 @@ public class VeiculoDAO {
 			FileInputStream fis = new FileInputStream(FILE_PATH);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
-			listaVeiculo = (HashSet<Veiculo>) ois.readObject();
+			listaVeiculo = (HashMap<String,Veiculo>) ois.readObject();
 
 			ois.close();
 			fis.close();
@@ -74,12 +75,14 @@ public class VeiculoDAO {
 
 	}
 
-	public HashSet<Veiculo> getListaVeiculo() {
+	public HashMap<String, Veiculo> getListaVeiculo() {
 		return listaVeiculo;
 	}
 
-	public void setListaVeiculo(HashSet<Veiculo> listaVeiculo) {
+	public void setListaVeiculo(HashMap<String, Veiculo> listaVeiculo) {
 		this.listaVeiculo = listaVeiculo;
 	}
+
+
 
 }

@@ -58,6 +58,14 @@ public class Veiculo implements Serializable {
 		}
 		return false;
 	}
+	
+	public boolean desvincularMotorista(Motorista motorista) {
+		if(motorista != null) {
+			this.motorista = null;
+			return true;
+		}
+		return false;
+	}
 
 	public Veiculo() {
 		super();

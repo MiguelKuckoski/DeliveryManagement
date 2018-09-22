@@ -13,6 +13,9 @@ public class Motorista implements Serializable {
 	private String cnhNum;
 	private String cnhTipo;
 	private String endereco;
+	private boolean vinculadoCarro;
+
+
 
 	public Motorista() {
 
@@ -24,6 +27,7 @@ public class Motorista implements Serializable {
 		this.endereco = endereco;
 		this.cnhNum = cnhNum;
 		this.cnhTipo = cnhTipo;
+		this.vinculadoCarro = false;
 	}
 
 	
@@ -87,12 +91,21 @@ public class Motorista implements Serializable {
 	public void vincularVeiculo() {
 
 	}
+	
+	public boolean getVinculadoCarro() {
+		return vinculadoCarro;
+	}
 
+	public void setVinculadoCarro(boolean vinculadoCarro) {
+		this.vinculadoCarro = vinculadoCarro;
+	}
+
+	
+	
 	@Override
 	public String toString() {
-
 		return "Motorista [nome=" + nome + ", nascimento=" + nascimento + ", cnhNum=" + cnhNum + ", cnhTipo=" + cnhTipo
-				+ "]";
+				+ ", endereco=" + endereco + ", vinculadoCarro=" + vinculadoCarro + "]";
 	}
 
 }

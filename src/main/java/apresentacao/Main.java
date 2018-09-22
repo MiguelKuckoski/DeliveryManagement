@@ -1,6 +1,7 @@
 package apresentacao;
 
 import java.util.Random;
+import java.util.Set;
 
 import javax.swing.JOptionPane;
 
@@ -56,17 +57,34 @@ public class Main {
 				String cnhNum = JOptionPane.showInputDialog("Digite o numero da CNH ");
 				String cnhTipo = JOptionPane.showInputDialog("Digite o tipo da cnh B ou C");
 				String endereco = JOptionPane.showInputDialog("Digite o endereço");
-
-				controlador.getControleMotorista().cadastrarMotorista(nome, nascimento, endereco, cnhNum, cnhTipo);
-
+				
+				if(controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().containsKey(cnhNum)) {
+					JOptionPane.showMessageDialog(null, "Motorista com CNH ja cadastrada no sistema, cadastre outro motorista ou cnh diferente");
+				}else {
+					controlador.getControleMotorista().cadastrarMotorista(nome, nascimento, endereco, cnhNum, cnhTipo);
+				}
+				
 				break;
 			case 2:
-				for (Motorista motoristas : controlador.getControleMotorista().getMotoristaDAO().getListaMotorista()) {
-					System.out.println(motoristas.toString());
+				Set<String> chaves = controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().keySet();
+				
+				for(String chave : chaves) {
+					Motorista motorista = controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().get(chave);
+					
+					System.out.println("CNH: "+chave+" - "+motorista.toString());
 				}
 				break;
 			case 3:
-
+				cnhNum = JOptionPane.showInputDialog("Digite o numero da CNH ");
+				int confirma;
+				if(controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().containsKey(cnhNum)) {
+					confirma = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir o cliente", "Atenção",JOptionPane.YES_NO_OPTION);
+					if(confirma == JOptionPane.YES_OPTION) {					
+						JOptionPane.showMessageDialog(null,controlador.getControleMotorista().removerMotorista(cnhNum));						
+					}					
+				}else {
+					JOptionPane.showMessageDialog(null,"Motorista não encontrado");
+				}
 				break;
 			case 0:
 				System.out.println("Saindo do menu Motorista");
@@ -80,9 +98,9 @@ public class Main {
 	public static void veiculo() {
 		int opcao;
 		do {
-			opcao = Integer.parseInt(JOptionPane.showInputDialog("--- Veiculo ---\n " + " 1 - Inserir veiculo \n "
-					+ " 2 - Mostrar veiculos \n " + "3 - Vincular Motorista \n" + " 4 - Listar Pacotes de um Veiculo \n"
-					+ "5 - Remover motorista de um veiculo" + " 0 - Voltar \n "));
+			opcao = Integer.parseInt(JOptionPane.showInputDialog("--- Veiculo ---\n " + "1 - Inserir veiculo \n "
+					+ "2 - Mostrar veiculos \n " + "3 - Vincular Motorista \n" + "4 - Listar Pacotes de um Veiculo \n"
+					+ "5 - Remover motorista de um veiculo \n" + "0 - Voltar \n "));
 			switch (opcao) {
 			case 1:
 				String marca = JOptionPane.showInputDialog("Insira a marca do veiculo:");
@@ -91,58 +109,53 @@ public class Main {
 				int ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o ano do veiculo:"));
 				String tipo = JOptionPane
 						.showInputDialog("---Tipo do veiculo--- \n" + "Van\n" + "Caminhao bau\n" + "Carreta.");
-				controlador.getControleVeiculo().cadastrarVeiculo(marca, modelo, placa, ano, tipo);
+				if(controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().containsKey(placa)) {
+					JOptionPane.showMessageDialog(null,"Veiculo com placa ja cadastrado, altere a placa ou insira um veiculo diferente");
+				}else {
+					controlador.getControleVeiculo().cadastrarVeiculo(marca, modelo, placa, ano, tipo);
+					JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
+				}				
 				break;
-			case 2:
-				controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().forEach(veiculo -> {
-					System.out.println(veiculo.toString());
-				});
+			case 2:				
+				Set<String> chaves = controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().keySet();
+				
+				for(String chave : chaves) {
+					Veiculo veiculo = controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(chave);					
+					System.out.println("PLACA: "+chave+" - "+veiculo.toString());
+				}
 				break;
 			case 3:
-
-				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
-					System.out.println(veiculos.toString());
-				}
+		
 				String placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo");
-
-				for (Motorista motoristas : controlador.getControleMotorista().getMotoristaDAO().getListaMotorista()) {
-					System.out.println(motoristas.toString());
-				}
 				String cnhMotorista = JOptionPane.showInputDialog("Digite a CNH do motorista");
-
-				controlador.getControleVeiculo().vincularMotorista(placaVeiculo, cnhMotorista);
+				JOptionPane.showMessageDialog(null, controlador.getControleVeiculo().vincularMotorista(placaVeiculo, cnhMotorista));
+				
 				break;
 			case 4:
 
-				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
-					System.out.println(veiculos.toString());
-				}
-
-				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo para ver seus pacotes");
-
-				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
-					if (veiculos.equals(placaVeiculo) && veiculos.getListaDePacote() != null) {
-
-						for (Pacote pacotes : veiculos.getListaDePacote()) {
-							pacotes.toString();
-						}
-					}
-
-				}
-
+//				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
+//					System.out.println(veiculos.toString());
+//				}
+//
+//				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo para ver seus pacotes");
+//
+//				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
+//					if (veiculos.equals(placaVeiculo) && veiculos.getListaDePacote() != null) {
+//
+//						for (Pacote pacotes : veiculos.getListaDePacote()) {
+//							pacotes.toString();
+//						}
+//					}
+//
+//				}
 				break;
-
 			case 5:
 				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo para remover seu Motorista");
-				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
-					if (veiculos.equals(placaVeiculo)) {
-						veiculos.setMotorista(null);
-						JOptionPane.showMessageDialog(null, "Removido motorista com sucesso");
-					}
+				if(controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().containsKey(placaVeiculo)) {
+					controlador.getControleVeiculo().desvincularMotorista(placaVeiculo);
 				}
 
 				break;
-
 			case 0:
 				break;
 

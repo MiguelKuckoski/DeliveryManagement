@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.HashMap;
 import java.util.HashSet;
 
 import entidade.Motorista;
@@ -13,16 +14,17 @@ import entidade.Motorista;
 public class MotoristaDAO {
 
 	private static final String nomeArquivo = "arquivos/motorista.dat";
-	private HashSet<Motorista> listaMotorista;
+	private HashMap<String,Motorista> listaMotorista;
 
 	public MotoristaDAO() {
-		listaMotorista = new HashSet<Motorista>();
+		listaMotorista = new HashMap<String ,Motorista>();
 		load();
+		
 	}
 
-	public void put(Motorista motorista) {
+	public void put(String cnh ,Motorista motorista) {
 
-		listaMotorista.add(motorista);
+		listaMotorista.put(cnh, motorista);
 		persit();
 	}
 
@@ -32,7 +34,7 @@ public class MotoristaDAO {
 			FileInputStream fis = new FileInputStream(nomeArquivo);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
-			listaMotorista = (HashSet<Motorista>) ois.readObject();
+			listaMotorista = (HashMap<String,Motorista>) ois.readObject();
 
 			ois.close();
 			fis.close();
@@ -73,12 +75,14 @@ public class MotoristaDAO {
 
 	}
 
-	public HashSet<Motorista> getListaMotorista() {
+	public HashMap<String, Motorista> getListaMotorista() {
 		return listaMotorista;
 	}
 
-	public void setListaMotorista(HashSet<Motorista> listaMotorista) {
+	public void setListaMotorista(HashMap<String, Motorista> listaMotorista) {
 		this.listaMotorista = listaMotorista;
 	}
+
+
 
 }
