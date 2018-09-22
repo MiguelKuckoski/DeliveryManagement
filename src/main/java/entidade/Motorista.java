@@ -105,7 +105,7 @@ public class Motorista implements Serializable {
 	@Override
 	public String toString() {
 		return "Motorista [nome=" + nome + ", nascimento=" + nascimento + ", cnhNum=" + cnhNum + ", cnhTipo=" + cnhTipo
-				+ ", endereco=" + endereco + ", vinculadoCarro=" + vinculadoCarro + "]";
+				+ ", endereco=" + endereco + ", vinculadoCarro=" + vinculadoCarro + "] \n";
 	}
 
 }

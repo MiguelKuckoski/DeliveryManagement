@@ -18,7 +18,7 @@ public class Main {
 
 		int principal = 0;
 		do {
-			principal = Integer.parseInt(JOptionPane.showInputDialog("Menu Entrega Rapida\n" + " 1 - Veiculo \n"
+			principal = Integer.parseInt(JOptionPane.showInputDialog("Menu Entrega Rapida \n\n" + " 1 - Veiculo \n"
 					+ " 2 - Pacote \n" + " 3 - Motorista \n" + " 4 - Rota \n" + " 0 - Sair \n"));
 
 			switch (principal) {
@@ -100,7 +100,7 @@ public class Main {
 		do {
 			opcao = Integer.parseInt(JOptionPane.showInputDialog("--- Veiculo ---\n " + "1 - Inserir veiculo \n "
 					+ "2 - Mostrar veiculos \n " + "3 - Vincular Motorista \n" + "4 - Listar Pacotes de um Veiculo \n"
-					+ "5 - Remover motorista de um veiculo \n" + "0 - Voltar \n "));
+					+ "5 - Desvincular motorista de um veiculo \n" + "0 - Voltar \n "));
 			switch (opcao) {
 			case 1:
 				String marca = JOptionPane.showInputDialog("Insira a marca do veiculo:");
@@ -132,22 +132,10 @@ public class Main {
 				
 				break;
 			case 4:
-
-//				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
-//					System.out.println(veiculos.toString());
-//				}
-//
-//				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo para ver seus pacotes");
-//
-//				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
-//					if (veiculos.equals(placaVeiculo) && veiculos.getListaDePacote() != null) {
-//
-//						for (Pacote pacotes : veiculos.getListaDePacote()) {
-//							pacotes.toString();
-//						}
-//					}
-//
-//				}
+				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo");
+				for (Pacote pacote : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(placaVeiculo).getListaDePacote()) {
+					pacote.toString();
+				}
 				break;
 			case 5:
 				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo para remover seu Motorista");
@@ -157,8 +145,8 @@ public class Main {
 
 				break;
 			case 0:
+				System.out.println("Saindo menu veiculo");
 				break;
-
 			default:
 				System.out.println("Opção invalida.");
 				break;
@@ -171,8 +159,8 @@ public class Main {
 		int opcao;
 		do {
 			opcao = Integer.parseInt(JOptionPane.showInputDialog(
-					" Pacote \n " + " 1 - Criar pacote \n " + " 2 - Localizar pacotes não entregues \n "
-							+ " 3 - Localizar pacotes entregues \n " + " 0 - sair"));
+					" ---Pacote--- \n " + "1 - Criar pacote \n " + "2 - Localizar pacotes não entregues \n "
+							+ "3 - Localizar pacotes entregues \n " +"4 - Pacotes não roteiriziados \n"+"0 - sair"));
 
 			switch (opcao) {
 			case 1:
@@ -184,16 +172,49 @@ public class Main {
 					codLocalizador = String.valueOf(new Random().nextInt(100) + 1);
 				}
 				String endRemetente = JOptionPane.showInputDialog("Informe o endereço do remetente:");
-				String endDestino = JOptionPane.showInputDialog("Informe o endereço do destinat�rio:");
+				String endDestino = JOptionPane.showInputDialog("Informe o endereço do destinatário:");
 				double peso = Double.parseDouble(JOptionPane.showInputDialog("Informe o peso do pacote:"));
-				controlador.getControlePacote().cadastrarPacote(nomeRemetente, nomeDestino, codLocalizador,
-						endRemetente, endDestino, peso);
+				
+				if(controlador.getControlePacote().getPacoteDAO().getListaPacote().containsKey(codLocalizador)){
+					JOptionPane.showMessageDialog(null,"Codigo Localizador já existe");
+				}else {
+					controlador.getControlePacote().cadastrarPacote(nomeRemetente, nomeDestino, codLocalizador,
+							endRemetente, endDestino, peso);
+				}								
 				break;
 			case 2:
+				Set<String> chaves = controlador.getControlePacote().getPacoteDAO().getListaPacote().keySet();
+				
+				for(String chave : chaves) {
+					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);		
+					if(!pacote.isEntrega()) {						
+						System.out.println(pacote.toString());
+					}				
+				}
 				break;
 			case 3:
+				
+				chaves = controlador.getControlePacote().getPacoteDAO().getListaPacote().keySet();
+				
+				for(String chave : chaves) {
+					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);		
+					if(pacote.isEntrega()) {						
+						System.out.println(pacote.toString());
+					}				
+				}
 				break;
+			case 4:
+				chaves = controlador.getControlePacote().getPacoteDAO().getListaPacote().keySet();
+				
+				for(String chave : chaves) {
+					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);		
+					if(!pacote.isRoteirizado()) {						
+						System.out.println(pacote.toString());
+					}				
+				}
+				break;		
 			case 0:
+				System.out.println("Saindo menu pacote");
 				break;
 			default:
 				System.out.println("Opção inválida.");

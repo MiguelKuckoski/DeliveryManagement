@@ -1,6 +1,5 @@
 package controle;
 
-import entidade.Motorista;
 import entidade.Veiculo;
 import persistencia.MotoristaDAO;
 import persistencia.VeiculoDAO;

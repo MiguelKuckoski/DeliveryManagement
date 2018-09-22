@@ -42,10 +42,10 @@ public class Veiculo implements Serializable {
 
 		if (motorista != null) {
 			return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista.getNome() + " " + motorista.getCnhNum() + ", tipo=" + tipo
-					+ "]";
+					+ "] \n";
 		}
 		return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo
-				+ "] Sem Motorista Vinculado";
+				+ "] Sem Motorista Vinculado \n";
 	}
 	
 	public boolean vincularMotorista(Motorista motorista) {

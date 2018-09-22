@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
-import java.util.HashSet;
 
 import entidade.Motorista;
 
@@ -28,6 +27,7 @@ public class MotoristaDAO {
 		persit();
 	}
 
+	@SuppressWarnings("unchecked")
 	private void load() {
 
 		try {

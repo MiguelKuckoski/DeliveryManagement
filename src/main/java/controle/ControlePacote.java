@@ -10,7 +10,7 @@ public class ControlePacote {
 	public void cadastrarPacote(String nomeRemetente, String nomeDestino, String codLocalizador, String endRemetente,
 			String endDestino, Double peso) {
 		Pacote pacote = new Pacote(nomeRemetente, nomeDestino, codLocalizador, endRemetente, endDestino, peso);
-		pacoteDAO.put(pacote);
+		pacoteDAO.put(codLocalizador, pacote);
 	}
 
 	public PacoteDAO getPacoteDAO() {
