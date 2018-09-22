@@ -44,7 +44,7 @@ public class ControleVeiculo {
 			}
 		}
 		veiculoDAO.getListaVeiculo().remove(veiculo);
-		veiculo.setMotorista(motorista);
+		veiculo.vincularMotorista(motorista);
 		veiculoDAO.getListaVeiculo().add(veiculo);
 		veiculoDAO.persist();
 

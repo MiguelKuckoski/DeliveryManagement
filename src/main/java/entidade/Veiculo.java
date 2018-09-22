@@ -41,8 +41,8 @@ public class Veiculo implements Serializable {
 	public String toString() {
 
 		if (motorista != null) {
-			return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo
-					+ "]" + this.motorista.toString();
+			return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista.getNome() + " " + motorista.getCnhNum() + ", tipo=" + tipo
+					+ "]";
 		}
 		return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo
 				+ "] Sem Motorista Vinculado";
