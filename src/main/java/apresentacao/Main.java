@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import controle.ControladorPrincipal;
 import entidade.Motorista;
+import entidade.Pacote;
 import entidade.Veiculo;
 
 public class Main {
@@ -46,7 +47,7 @@ public class Main {
 	private static void motorista() {
 		int opcao;
 		do {
-			opcao = Integer.parseInt(JOptionPane.showInputDialog("--- Veiculo ---\n " + " 1 - Inserir Motorista \n "
+			opcao = Integer.parseInt(JOptionPane.showInputDialog("--- Motorista ---\n " + " 1 - Inserir Motorista \n "
 					+ " 2 - Listar motoristas \n " + "3 - Apagar Motorista \n" + " 0 - Voltar \n "));
 			switch (opcao) {
 			case 1:
@@ -60,8 +61,12 @@ public class Main {
 
 				break;
 			case 2:
+				for (Motorista motoristas : controlador.getControleMotorista().getMotoristaDAO().getListaMotorista()) {
+					System.out.println(motoristas.toString());
+				}
 				break;
 			case 3:
+
 				break;
 			case 0:
 				System.out.println("Saindo do menu Motorista");
@@ -76,7 +81,8 @@ public class Main {
 		int opcao;
 		do {
 			opcao = Integer.parseInt(JOptionPane.showInputDialog("--- Veiculo ---\n " + " 1 - Inserir veiculo \n "
-					+ " 2 - Mostrar veiculos \n " + "3 - Vincular Motorista \n" + " 0 - Voltar \n "));
+					+ " 2 - Mostrar veiculos \n " + "3 - Vincular Motorista \n" + " 4 - Listar Pacotes de um Veiculo \n"
+					+ "5 - Remover motorista de um veiculo" + " 0 - Voltar \n "));
 			switch (opcao) {
 			case 1:
 				String marca = JOptionPane.showInputDialog("Insira a marca do veiculo:");
@@ -84,7 +90,7 @@ public class Main {
 				String placa = JOptionPane.showInputDialog("Insira a placa do veiculo:");
 				int ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o ano do veiculo:"));
 				String tipo = JOptionPane
-						.showInputDialog("---Tipo do veiculo--- \n" + "1. Van\n" + "2. Caminhao bau\n" + "3. Carreta.");
+						.showInputDialog("---Tipo do veiculo--- \n" + "Van\n" + "Caminhao bau\n" + "Carreta.");
 				controlador.getControleVeiculo().cadastrarVeiculo(marca, modelo, placa, ano, tipo);
 				break;
 			case 2:
@@ -106,10 +112,42 @@ public class Main {
 
 				controlador.getControleVeiculo().vincularMotorista(placaVeiculo, cnhMotorista);
 				break;
+			case 4:
+
+				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
+					System.out.println(veiculos.toString());
+				}
+
+				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo para ver seus pacotes");
+
+				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
+					if (veiculos.equals(placaVeiculo) && veiculos.getListaDePacote() != null) {
+
+						for (Pacote pacotes : veiculos.getListaDePacote()) {
+							pacotes.toString();
+						}
+					}
+
+				}
+
+				break;
+
+			case 5:
+				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo para remover seu Motorista");
+				for (Veiculo veiculos : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()) {
+					if (veiculos.equals(placaVeiculo)) {
+						veiculos.setMotorista(null);
+						JOptionPane.showMessageDialog(null, "Removido motorista com sucesso");
+					}
+				}
+
+				break;
+
 			case 0:
 				break;
+
 			default:
-				System.out.println("Op��o invalida.");
+				System.out.println("Opção invalida.");
 				break;
 			}
 		} while (opcao != 0);
@@ -162,7 +200,9 @@ public class Main {
 						controlador.getControlePacote().getPacoteDAO().getListaPacote());
 				break;
 			case 2:
-
+				String dataBusca = JOptionPane.showInputDialog("Digite uma data no seguinte formato dd-mm-aaaa");
+				dataBusca = dataBusca + "-rota.xls";
+				controlador.getControleRota().LerRota(dataBusca);
 				break;
 			case 3:
 				break;

@@ -5,7 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Pacote implements Serializable{
+public class Pacote implements Serializable {
 	/**
 	 * 
 	 */
@@ -107,7 +107,17 @@ public class Pacote implements Serializable{
 	public String getDataInsercao() {
 		return dataInsercao;
 	}
+
 	public void setDataInsercao(String dataInsercao) {
 		this.dataInsercao = dataInsercao;
 	}
+
+	@Override
+	public String toString() {
+		return "Pacote [" + (codLocalizador != null ? "codLocalizador=" + codLocalizador + ", " : "")
+				+ (nomeDestino != null ? "nomeDestino=" + nomeDestino + ", " : "")
+				+ (endDestino != null ? "endDestino=" + endDestino + ", " : "") + "peso=" + peso + ", "
+				+ (dataInsercao != null ? "dataInsercao=" + dataInsercao : "") + "]";
+	}
+
 }
