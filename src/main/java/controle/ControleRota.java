@@ -56,6 +56,7 @@ public class ControleRota {
 			}
 
 		}
+		
 		escreverRota(data, veiculos);
 
 	}
@@ -86,7 +87,7 @@ public class ControleRota {
 		}
 	}
 
-	public HashSet<Veiculo> LerRota(FileInputStream file) {
+	public HashSet<Veiculo> LerRota(String file) {
 		List<Pacote> listaPacote = new ArrayList<Pacote>();
 		HashSet<Veiculo> listaVeiculo = new HashSet<Veiculo>();
 		Workbook workBook = null;
