@@ -133,9 +133,14 @@ public class Main {
 				break;
 			case 4:
 				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo");
-				for (Pacote pacote : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(placaVeiculo).getListaDePacote()) {
-					pacote.toString();
+				if(controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(placaVeiculo).getListaDePacote() != null) {
+					for (Pacote pacote : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(placaVeiculo).getListaDePacote()) {
+						pacote.toString();
+					}
+				}else {
+					JOptionPane.showMessageDialog(null, "Caminhão sem pacotes");
 				}
+				
 				break;
 			case 5:
 				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo para remover seu Motorista");
