@@ -120,20 +120,20 @@ public class Main {
 		int opcao;
 		do {
 			opcao = Integer.parseInt(JOptionPane.showInputDialog(
-					" Pacote \n " + " 1 - Criar pacote \n " + " 2 - Localizar pacotes n�o entregues \n "
+					" Pacote \n " + " 1 - Criar pacote \n " + " 2 - Localizar pacotes não entregues \n "
 							+ " 3 - Localizar pacotes entregues \n " + " 0 - sair"));
 
 			switch (opcao) {
 			case 1:
 				String nomeRemetente = JOptionPane.showInputDialog("Informe o nome do remetente:");
-				String nomeDestino = JOptionPane.showInputDialog("Informe o nome do destinat�rio:");
+				String nomeDestino = JOptionPane.showInputDialog("Informe o nome do destinatário:");
 				String codLocalizador = JOptionPane.showInputDialog(
-						"Informe o c�digo localizador(ou deixe em branco para gerar automaticamente: ");
+						"Informe o código localizador(ou deixe em branco para gerar automaticamente: ");
 				if (codLocalizador.isEmpty()) {
 					codLocalizador = String.valueOf(new Random().nextInt(100) + 1);
 				}
-				String endRemetente = JOptionPane.showInputDialog("Informe o endere�o do remetente:");
-				String endDestino = JOptionPane.showInputDialog("Informe o endere�o do destinat�rio:");
+				String endRemetente = JOptionPane.showInputDialog("Informe o endereço do remetente:");
+				String endDestino = JOptionPane.showInputDialog("Informe o endereço do destinat�rio:");
 				double peso = Double.parseDouble(JOptionPane.showInputDialog("Informe o peso do pacote:"));
 				controlador.getControlePacote().cadastrarPacote(nomeRemetente, nomeDestino, codLocalizador,
 						endRemetente, endDestino, peso);

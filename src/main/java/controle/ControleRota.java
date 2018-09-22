@@ -1,12 +1,14 @@
 package controle;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -27,14 +29,13 @@ import entidade.Veiculo;
 import util.FileConstants;
 
 public class ControleRota {
-	static final String PATH = "C:\rotas";
-	final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	static final String PATH = "C:/rotas/";
+	final SimpleDateFormat  dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
 	public void criarRota(HashSet<Veiculo> veiculos, HashSet<Pacote> pacotes) {
 
-		LocalDateTime now = LocalDateTime.now();
-		String data = dtf.format(now);
-
+		String data = dateFormat.format(new Date());	
+		
 		pacotes.stream().sorted(Comparator.comparing(Pacote::getDataInsercao).reversed());
 		veiculos.stream().sorted(Comparator.comparing(Veiculo::getTamanho));
 
@@ -45,14 +46,11 @@ public class ControleRota {
 			List<Pacote> distribuirPacote = new ArrayList<Pacote>();
 
 			if (veiculo.getMotorista() != null) {
-				while (i < veiculo.getTamanho()) {
-					if (pacoteIterator.hasNext()) {
-						Pacote pacote = pacoteIterator.next();
-						distribuirPacote.add(pacote);
-						i++;
-					} else {
-						break;
-					}
+				while (i < veiculo.getTamanho() && pacoteIterator.hasNext()) {
+					Pacote pacote = pacoteIterator.next();
+					distribuirPacote.add(pacote);
+					i++;
+
 				}
 				veiculo.setListaDePacote(distribuirPacote);
 			}
@@ -73,7 +71,8 @@ public class ControleRota {
 		autoSizeColumns(wb);
 
 		try {
-			stream = new FileOutputStream(path + dtf + "- rota");
+			File file = new File(PATH + path + "-rota.xls");
+			stream = new FileOutputStream(file);
 			wb.write(stream);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -159,13 +158,13 @@ public class ControleRota {
 		sheet = wb.createSheet(veiculo.getPlaca());
 
 		row = sheet.createRow(0);
-		row.createCell(FileConstants.ID_INSERCAO).setCellValue("Data inser��o");
+		row.createCell(FileConstants.ID_INSERCAO).setCellValue("Data inserção");
 		row.createCell(FileConstants.PLACA).setCellValue("Placa");
 		row.createCell(FileConstants.RASTREIO).setCellValue("Rastreio");
 		row.createCell(FileConstants.NOME_REMETENTE).setCellValue("Nome remetente");
-		row.createCell(FileConstants.ENDERECO_REMETENTE).setCellValue("Endere�o remetente");
+		row.createCell(FileConstants.ENDERECO_REMETENTE).setCellValue("Endereço remetente");
 		row.createCell(FileConstants.NOME_DESTINO).setCellValue("Nome destino");
-		row.createCell(FileConstants.ENDERECO_DESTINO).setCellValue("Endere�o entrega");
+		row.createCell(FileConstants.ENDERECO_DESTINO).setCellValue("Endereço entrega");
 		row.createCell(FileConstants.PESO).setCellValue("Peso");
 		row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("Status entrega");
 
@@ -179,7 +178,7 @@ public class ControleRota {
 			row.createCell(FileConstants.NOME_DESTINO).setCellValue(pacote.getNomeDestino());
 			row.createCell(FileConstants.ENDERECO_DESTINO).setCellValue(pacote.getEndDestino());
 			row.createCell(FileConstants.PESO).setCellValue(pacote.getPeso());
-			row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("n�o");
+			row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("não");
 		}
 	}
 

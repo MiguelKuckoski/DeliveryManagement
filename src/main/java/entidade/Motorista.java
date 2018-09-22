@@ -18,6 +18,15 @@ public class Motorista implements Serializable {
 
 	}
 
+	public Motorista(String nome, String nascimento, String endereco, String cnhNum, String cnhTipo) {
+		this.nome = nome;
+		this.nascimento = nascimento;
+		this.endereco = endereco;
+		this.cnhNum = cnhNum;
+		this.cnhTipo = cnhTipo;
+	}
+
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -28,27 +37,11 @@ public class Motorista implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Motorista other = (Motorista) obj;
-		if (cnhNum == null) {
-			if (other.cnhNum != null)
-				return false;
-		} else if (!cnhNum.equals(other.cnhNum))
-			return false;
-		return true;
-	}
-
-	public Motorista(String nome, String nascimento, String endereco, String cnhNum, String cnhTipo) {
-		this.nome = nome;
-		this.nascimento = nascimento;
-		this.endereco = endereco;
-		this.cnhNum = cnhNum;
-		this.cnhTipo = cnhTipo;
+		if(this.cnhNum != null && obj != null) {
+			if(this.cnhNum.equals(obj.toString())) 
+				return true;
+		}
+		return false;
 	}
 
 	public String getNome() {
@@ -99,7 +92,7 @@ public class Motorista implements Serializable {
 	public String toString() {
 
 		return "Motorista [nome=" + nome + ", nascimento=" + nascimento + ", cnhNum=" + cnhNum + ", cnhTipo=" + cnhTipo
-				+ "]" + "\n ENDEREÇO : " + endereco.toString();
+				+ "]";
 	}
 
 }

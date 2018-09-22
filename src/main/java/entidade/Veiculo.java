@@ -13,18 +13,6 @@ public class Veiculo implements Serializable {
 	 * 
 	 */
 	private String marca;
-
-	@Override
-	public String toString() {
-
-		if (motorista != null) {
-			return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo
-					+ "]" + this.motorista.toString();
-		}
-		return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo
-				+ "] Sem Motorista Vinculado";
-	}
-
 	private String modelo;
 	private String placa;
 	private int ano;
@@ -39,15 +27,27 @@ public class Veiculo implements Serializable {
 		this.placa = placa;
 		this.ano = ano;
 		this.tipo = tipo;
+		
 		if (tipo.equalsIgnoreCase("van")) {
-			tamanho = 6;
+			tamanho = 1;
 		} else if (tipo.equalsIgnoreCase("caminhao")) {
-			tamanho = 8;
+			tamanho = 3;
 		} else {
 			tamanho = 10;
 		}
 	}
 
+	@Override
+	public String toString() {
+
+		if (motorista != null) {
+			return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo
+					+ "]" + this.motorista.toString();
+		}
+		return "Veiculo [modelo=" + modelo + ", placa=" + placa + ", motorista=" + motorista + ", tipo=" + tipo
+				+ "] Sem Motorista Vinculado";
+	}
+	
 	public boolean vincularMotorista(Motorista motorista) {
 		if (motorista.getCnhTipo().equals("C")) {
 			this.motorista = motorista;
@@ -73,19 +73,11 @@ public class Veiculo implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Veiculo other = (Veiculo) obj;
-		if (placa == null) {
-			if (other.placa != null)
-				return false;
-		} else if (!placa.equals(other.placa))
-			return false;
-		return true;
+		if(this.placa != null && obj != null) {
+			if(this.placa.equals(obj.toString())) 
+				return true;
+		}
+		return false;
 	}
 
 	public String getMarca() {

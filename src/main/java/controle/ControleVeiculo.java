@@ -30,7 +30,7 @@ public class ControleVeiculo {
 	public void vincularMotorista(String placaVeiculo, String cnhMotorista) {
 
 		Motorista motorista = null;
-		Veiculo veiculo;
+		Veiculo veiculo = null;
 
 		for (Motorista motoristas : motoristaDAO.getListaMotorista()) {
 			if (motoristas.equals(cnhMotorista)) {
@@ -40,9 +40,12 @@ public class ControleVeiculo {
 
 		for (Veiculo veiculos : veiculoDAO.getListaVeiculo()) {
 			if (veiculos.equals(placaVeiculo)) {
-				veiculos.vincularMotorista(motorista);
+				veiculo = veiculos;
 			}
 		}
+		veiculoDAO.getListaVeiculo().remove(veiculo);
+		veiculo.setMotorista(motorista);
+		veiculoDAO.getListaVeiculo().add(veiculo);
 		veiculoDAO.persist();
 
 	}
