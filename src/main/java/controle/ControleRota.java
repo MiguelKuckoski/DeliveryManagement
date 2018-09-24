@@ -1,17 +1,19 @@
 package controle;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TreeSet;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -24,49 +26,75 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import entidade.Motorista;
 import entidade.Pacote;
 import entidade.Veiculo;
 import util.FileConstants;
 
 public class ControleRota {
 	static final String PATH = "C:/rotas/";
-	final SimpleDateFormat  dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	final SimpleDateFormat fileDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+	
+	private ControladorPrincipal controlePrincipal;
 
-	public void criarRota(HashSet<Veiculo> veiculos, HashSet<Pacote> pacotes) {
-
-		String data = dateFormat.format(new Date());	
-		
-		pacotes.stream().sorted(Comparator.comparing(Pacote::getDataInsercao).reversed());
-		veiculos.stream().sorted(Comparator.comparing(Veiculo::getTamanho));
-
-		Iterator<Pacote> pacoteIterator = pacotes.iterator();
-
-		for (Veiculo veiculo : veiculos) {
-			int i = 0;
-			List<Pacote> distribuirPacote = new ArrayList<Pacote>();
-
-			if (veiculo.getMotorista() != null) {
-				while (i < veiculo.getTamanho() && pacoteIterator.hasNext()) {
-					Pacote pacote = pacoteIterator.next();
-					distribuirPacote.add(pacote);
-					i++;
-
-				}
-				veiculo.setListaDePacote(distribuirPacote);
-			}
-
-		}
-		
-		escreverRota(data, veiculos);
-
+	public ControleRota(ControladorPrincipal controladorPrincipal) {
+		controlePrincipal = controladorPrincipal;
 	}
 
-	public void escreverRota(String path, HashSet<Veiculo> veiculos) {
+	public void criarRota(HashMap<String, Veiculo> listaVeiculo, HashMap<String, Pacote> listaPacote) {
+		String data = dateFormat.format(new Date());
+
+		TreeSet<Map.Entry<String, Pacote>> packageSet = new TreeSet<>(new Comparator<Map.Entry<String, Pacote>>() {
+			@Override
+			public int compare(Map.Entry<String, Pacote> o1, Map.Entry<String, Pacote> o2) {
+				int valueComparison = o1.getValue().getDataInsercao().compareTo(o2.getValue().getDataInsercao());
+				return valueComparison == 0 ? o1.getKey().compareTo(o2.getKey()) : valueComparison;
+			}
+		});
+		packageSet.addAll(listaPacote.entrySet());
+		Iterator<Entry<String, Pacote>> iteratorPackage = packageSet.iterator();
+
+		TreeSet<Map.Entry<String, Veiculo>> vehicleSet = new TreeSet<>(new Comparator<Map.Entry<String, Veiculo>>() {
+			@Override
+			public int compare(Map.Entry<String, Veiculo> o1, Map.Entry<String, Veiculo> o2) {
+				int valueComparison = o1.getValue().getTamanho().compareTo(o2.getValue().getTamanho());
+				return valueComparison == 0 ? o1.getKey().compareTo(o2.getKey()) : valueComparison;
+			}
+		});
+		vehicleSet.addAll(listaVeiculo.entrySet());
+		Iterator<Entry<String, Veiculo>> iteratorVechile = vehicleSet.iterator();
+
+		while (iteratorVechile.hasNext()) {
+			Entry<String, Veiculo> veiculo = iteratorVechile.next();
+			int i = 0;
+			List<Pacote> distribuirPacote = new ArrayList<>();
+			if (listaVeiculo.get(veiculo.getKey()).getMotorista() != null) {
+				while (i < listaVeiculo.get(veiculo.getKey()).getTamanho() && iteratorPackage.hasNext()) {
+					Pacote pacote = iteratorPackage.next().getValue();
+					if (!pacote.isEntrega() && !pacote.isRoteirizado()) {
+						distribuirPacote.add(pacote);
+						listaPacote.get(pacote.getCodLocalizador()).setRoteirizado(true);
+						i++;
+					}
+				}
+				listaVeiculo.get(veiculo.getKey()).setListaDePacote(distribuirPacote);
+			}
+		}
+		escreverRota(data, listaVeiculo);
+		controlePrincipal.getControleVeiculo().getVeiculoDAO().setListaVeiculo(listaVeiculo);
+		controlePrincipal.getControleVeiculo().getVeiculoDAO().persist();
+		controlePrincipal.getControlePacote().getPacoteDAO().setListaPacote(listaPacote);
+		controlePrincipal.getControlePacote().getPacoteDAO().persist();
+	}
+
+	public void escreverRota(String path, HashMap<String, Veiculo> veiculos) {
 		HSSFWorkbook wb = new HSSFWorkbook();
 		FileOutputStream stream = null;
 
-		veiculos.forEach(veiculo -> {
-			populeDriverSheets(veiculo, wb);
+		veiculos.entrySet().forEach(veiculo -> {
+			if (veiculo.getValue().getListaDePacote() != null)
+				populeDriverSheets(veiculo.getValue(), wb);
 		});
 
 		autoSizeColumns(wb);
@@ -87,56 +115,92 @@ public class ControleRota {
 		}
 	}
 
-	public HashSet<Veiculo> LerRota(String file) {
-		List<Pacote> listaPacote = new ArrayList<Pacote>();
-		HashSet<Veiculo> listaVeiculo = new HashSet<Veiculo>();
+	public void LerRota(String date) throws ParseException {
+		File file = new File(PATH + date);
 		Workbook workBook = null;
 		Sheet sheet = null;
 
-		/******** Open File ********/
-		try {
-			workBook = WorkbookFactory.create(file);
-		} catch (EncryptedDocumentException e1) {
-			e1.printStackTrace();
-		} catch (InvalidFormatException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		/******** Select sheet ********/
+		List<Veiculo> listaVeiculos = null;
+		if (file.exists()) {
 
-		Veiculo veiculo = new Veiculo();
-		for (int i = 0; i < workBook.getNumberOfSheets() - 1; i++) {
-			sheet = workBook.getSheetAt(i); // L� somente a primeira aba do documento.
-			veiculo = new Veiculo();
-			Iterator<Row> rowIterator = sheet.iterator();
-			while (rowIterator.hasNext()) {
-				Row row = rowIterator.next();
+			List<Pacote> listaPacote = new ArrayList<Pacote>();
+			listaVeiculos = new ArrayList<Veiculo>();
+			Veiculo veiculo = new Veiculo();
 
-				if (row.getRowNum() == 0)
-					continue;
+			/******** Open File ********/
+			try {
+				workBook = WorkbookFactory.create(file);
 
-				Pacote pacote = new Pacote();
-				veiculo.setPlaca(row.getCell(FileConstants.PLACA).getStringCellValue());
-				pacote.setDataInsercao(row.getCell(FileConstants.ID_INSERCAO).getStringCellValue());
-				pacote.setCodLocalizador(row.getCell(FileConstants.RASTREIO).getStringCellValue());
-				pacote.setNomeRemetente(row.getCell(FileConstants.RASTREIO).getStringCellValue());
-				pacote.setNomeDestino(row.getCell(FileConstants.NOME_DESTINO).getStringCellValue());
-				pacote.setEndRemetente(row.getCell(FileConstants.ENDERECO_REMETENTE).getStringCellValue());
-				pacote.setEndDestino(row.getCell(FileConstants.ENDERECO_DESTINO).getStringCellValue());
-				pacote.setPeso(row.getCell(FileConstants.PESO).getNumericCellValue());
-				pacote.setEntrega(
-						row.getCell(FileConstants.STATUS_ENTREGA).getStringCellValue().equals("sim") ? true : false);
-				pacote.setRoteirizado(true);
-				listaPacote.add(pacote);
+			} catch (EncryptedDocumentException e1) {
+				e1.printStackTrace();
+			} catch (InvalidFormatException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-			veiculo.setListaDePacote(listaPacote);
-			listaVeiculo.add(veiculo);
-			listaPacote.clear();
-		}
-		return listaVeiculo;
-	}
+			/******** Select sheet ********/
 
+			for (int i = 0; i < workBook.getNumberOfSheets(); i++) {
+				sheet = workBook.getSheetAt(i);
+				veiculo = new Veiculo();
+				Motorista motorista = new Motorista();
+
+				Iterator<Row> rowIterator = sheet.iterator();
+				while (rowIterator.hasNext()) {
+					Row row = rowIterator.next();
+
+					if (row.getRowNum() == 0)
+						continue;
+
+					Pacote pacote = new Pacote();
+					pacote.setDataInsercao(fileDateFormat.parse(row.getCell(FileConstants.DATA_INSERCAO).getStringCellValue()));
+					veiculo.setPlaca(row.getCell(FileConstants.PLACA).getStringCellValue());
+					pacote.setCodLocalizador(row.getCell(FileConstants.RASTREIO).getStringCellValue());
+					motorista.setNome(row.getCell(FileConstants.MOTORISTA_NOME).getStringCellValue());
+					motorista.setCnhNum(sheet.getSheetName());
+					pacote.setNomeRemetente(row.getCell(FileConstants.NOME_REMETENTE).getStringCellValue());
+					pacote.setNomeDestino(row.getCell(FileConstants.NOME_DESTINO).getStringCellValue());
+					pacote.setEndRemetente(row.getCell(FileConstants.ENDERECO_REMETENTE).getStringCellValue());
+					pacote.setEndDestino(row.getCell(FileConstants.ENDERECO_DESTINO).getStringCellValue());
+					pacote.setPeso(row.getCell(FileConstants.PESO).getNumericCellValue());
+					pacote.setEntrega(
+							row.getCell(FileConstants.STATUS_ENTREGA).getStringCellValue().equals("sim") ? true
+									: false);
+					pacote.setRoteirizado(false);
+					listaPacote.add(pacote);
+
+					veiculo.setMotorista(motorista);
+					controlePrincipal.getControlePacote().getPacoteDAO().getListaPacote()
+							.replace(pacote.getCodLocalizador(), pacote);
+				}
+				veiculo.setListaDePacote(listaPacote);
+				listaVeiculos.add(veiculo);
+				controlePrincipal.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(veiculo.getPlaca())
+						.setListaDePacote(null);
+
+				listaPacote.clear();
+			}
+			controlePrincipal.getControlePacote().getPacoteDAO().persist();
+			controlePrincipal.getControleVeiculo().getVeiculoDAO().persist();
+
+			try {
+				workBook.close();
+			} catch (IOException e) {
+				System.err.println(e.getMessage());
+			}
+		}
+
+		listaVeiculos.forEach(veiculo -> {
+			veiculo.getListaDePacote().forEach(pacote -> {
+				if (pacote.isEntrega()) {
+					System.out.println("Pacote entregue: " + pacote.getCodLocalizador());
+				} else {
+					System.out.println("Pacote não entregue: " + pacote.getCodLocalizador());
+				}
+			});
+		});
+	}
+	
 	public void autoSizeColumns(Workbook workbook) {
 		int numberOfSheets = workbook.getNumberOfSheets();
 		for (int i = 0; i < numberOfSheets; i++) {
@@ -156,11 +220,12 @@ public class ControleRota {
 	private void populeDriverSheets(Veiculo veiculo, HSSFWorkbook wb) {
 		HSSFSheet sheet = null;
 		HSSFRow row = null;
-		sheet = wb.createSheet(veiculo.getPlaca());
+		sheet = wb.createSheet(veiculo.getMotorista().getCnhNum());
 
 		row = sheet.createRow(0);
-		row.createCell(FileConstants.ID_INSERCAO).setCellValue("Data inserção");
+		row.createCell(FileConstants.DATA_INSERCAO).setCellValue("Data inserção");
 		row.createCell(FileConstants.PLACA).setCellValue("Placa");
+		row.createCell(FileConstants.MOTORISTA_NOME).setCellValue("Motorista");
 		row.createCell(FileConstants.RASTREIO).setCellValue("Rastreio");
 		row.createCell(FileConstants.NOME_REMETENTE).setCellValue("Nome remetente");
 		row.createCell(FileConstants.ENDERECO_REMETENTE).setCellValue("Endereço remetente");
@@ -171,8 +236,9 @@ public class ControleRota {
 
 		for (Pacote pacote : veiculo.getListaDePacote()) {
 			row = sheet.createRow(sheet.getLastRowNum() + 1);
-			row.createCell(FileConstants.ID_INSERCAO).setCellValue(pacote.getDataInsercao());
+			row.createCell(FileConstants.DATA_INSERCAO).setCellValue(fileDateFormat.format(pacote.getDataInsercao()));
 			row.createCell(FileConstants.PLACA).setCellValue(veiculo.getPlaca());
+			row.createCell(FileConstants.MOTORISTA_NOME).setCellValue(veiculo.getMotorista().getNome());
 			row.createCell(FileConstants.RASTREIO).setCellValue(pacote.getCodLocalizador());
 			row.createCell(FileConstants.NOME_REMETENTE).setCellValue(pacote.getNomeRemetente());
 			row.createCell(FileConstants.ENDERECO_REMETENTE).setCellValue(pacote.getEndRemetente());
@@ -181,6 +247,27 @@ public class ControleRota {
 			row.createCell(FileConstants.PESO).setCellValue(pacote.getPeso());
 			row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("não");
 		}
+	}
+
+	public void relatorioDeRoteirizacaoDiaria() {
+		controlePrincipal.getControleVeiculo().getVeiculoDAO().getListaVeiculo().entrySet().forEach(veiculo -> {
+			if (veiculo.getValue().getListaDePacote() != null) {
+				System.out.println("placa: " + veiculo.getValue().getPlaca() + " { \n");
+
+				veiculo.getValue().getListaDePacote().forEach(pacote -> {
+					System.out.println("  rastreio: " + pacote.getCodLocalizador() + "\n");
+				});
+				System.out.println("}\n");
+			}
+		});
+	}
+
+	public void foraDaRoteirizacaoDiaria() {
+		controlePrincipal.getControlePacote().getPacoteDAO().getListaPacote().entrySet().forEach(pacote -> {
+			if (!pacote.getValue().isRoteirizado() && !pacote.getValue().isEntrega()) {
+				System.out.println("rastreio: " + pacote.getValue().getCodLocalizador() + "\n");
+			}
+		});
 	}
 
 }

@@ -1,5 +1,8 @@
 package apresentacao;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Random;
 import java.util.Set;
 
@@ -57,33 +60,37 @@ public class Main {
 				String cnhNum = JOptionPane.showInputDialog("Digite o numero da CNH ");
 				String cnhTipo = JOptionPane.showInputDialog("Digite o tipo da cnh B ou C");
 				String endereco = JOptionPane.showInputDialog("Digite o endereço");
-				
-				if(controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().containsKey(cnhNum)) {
-					JOptionPane.showMessageDialog(null, "Motorista com CNH ja cadastrada no sistema, cadastre outro motorista ou cnh diferente");
-				}else {
+
+				if (controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().containsKey(cnhNum)) {
+					JOptionPane.showMessageDialog(null,
+							"Motorista com CNH ja cadastrada no sistema, cadastre outro motorista ou cnh diferente");
+				} else {
 					controlador.getControleMotorista().cadastrarMotorista(nome, nascimento, endereco, cnhNum, cnhTipo);
 				}
-				
+
 				break;
 			case 2:
 				Set<String> chaves = controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().keySet();
-				
-				for(String chave : chaves) {
-					Motorista motorista = controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().get(chave);
-					
-					System.out.println("CNH: "+chave+" - "+motorista.toString());
+
+				for (String chave : chaves) {
+					Motorista motorista = controlador.getControleMotorista().getMotoristaDAO().getListaMotorista()
+							.get(chave);
+
+					System.out.println("CNH: " + chave + " - " + motorista.toString());
 				}
 				break;
 			case 3:
 				cnhNum = JOptionPane.showInputDialog("Digite o numero da CNH ");
 				int confirma;
-				if(controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().containsKey(cnhNum)) {
-					confirma = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir o cliente", "Atenção",JOptionPane.YES_NO_OPTION);
-					if(confirma == JOptionPane.YES_OPTION) {					
-						JOptionPane.showMessageDialog(null,controlador.getControleMotorista().removerMotorista(cnhNum));						
-					}					
-				}else {
-					JOptionPane.showMessageDialog(null,"Motorista não encontrado");
+				if (controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().containsKey(cnhNum)) {
+					confirma = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir o cliente", "Atenção",
+							JOptionPane.YES_NO_OPTION);
+					if (confirma == JOptionPane.YES_OPTION) {
+						JOptionPane.showMessageDialog(null,
+								controlador.getControleMotorista().removerMotorista(cnhNum));
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Motorista não encontrado");
 				}
 				break;
 			case 0:
@@ -109,42 +116,46 @@ public class Main {
 				int ano = Integer.parseInt(JOptionPane.showInputDialog("Informe o ano do veiculo:"));
 				String tipo = JOptionPane
 						.showInputDialog("---Tipo do veiculo--- \n" + "Van\n" + "Caminhao bau\n" + "Carreta.");
-				if(controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().containsKey(placa)) {
-					JOptionPane.showMessageDialog(null,"Veiculo com placa ja cadastrado, altere a placa ou insira um veiculo diferente");
-				}else {
+				if (controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().containsKey(placa)) {
+					JOptionPane.showMessageDialog(null,
+							"Veiculo com placa ja cadastrado, altere a placa ou insira um veiculo diferente");
+				} else {
 					controlador.getControleVeiculo().cadastrarVeiculo(marca, modelo, placa, ano, tipo);
 					JOptionPane.showMessageDialog(null, "Cadastrado com sucesso");
-				}				
+				}
 				break;
-			case 2:				
+			case 2:
 				Set<String> chaves = controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().keySet();
-				
-				for(String chave : chaves) {
-					Veiculo veiculo = controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(chave);					
-					System.out.println("PLACA: "+chave+" - "+veiculo.toString());
+
+				for (String chave : chaves) {
+					Veiculo veiculo = controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(chave);
+					System.out.println("PLACA: " + chave + " - " + veiculo.toString());
 				}
 				break;
 			case 3:
-		
+
 				String placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo");
 				String cnhMotorista = JOptionPane.showInputDialog("Digite a CNH do motorista");
-				JOptionPane.showMessageDialog(null, controlador.getControleVeiculo().vincularMotorista(placaVeiculo, cnhMotorista));
-				
+				JOptionPane.showMessageDialog(null,
+						controlador.getControleVeiculo().vincularMotorista(placaVeiculo, cnhMotorista));
+
 				break;
 			case 4:
 				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo");
-				if(controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(placaVeiculo).getListaDePacote() != null) {
-					for (Pacote pacote : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(placaVeiculo).getListaDePacote()) {
+				if (controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().get(placaVeiculo)
+						.getListaDePacote() != null) {
+					for (Pacote pacote : controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo()
+							.get(placaVeiculo).getListaDePacote()) {
 						pacote.toString();
 					}
-				}else {
+				} else {
 					JOptionPane.showMessageDialog(null, "Caminhão sem pacotes");
 				}
-				
+
 				break;
 			case 5:
 				placaVeiculo = JOptionPane.showInputDialog("Digite a placa do veiculo para remover seu Motorista");
-				if(controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().containsKey(placaVeiculo)) {
+				if (controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().containsKey(placaVeiculo)) {
 					controlador.getControleVeiculo().desvincularMotorista(placaVeiculo);
 				}
 
@@ -165,59 +176,68 @@ public class Main {
 		do {
 			opcao = Integer.parseInt(JOptionPane.showInputDialog(
 					" ---Pacote--- \n " + "1 - Criar pacote \n " + "2 - Localizar pacotes não entregues \n "
-							+ "3 - Localizar pacotes entregues \n " +"4 - Pacotes não roteiriziados \n"+"0 - sair"));
+							+ "3 - Localizar pacotes entregues \n " + "4 - Pacotes não roteiriziados \n" + "0 - sair"));
 
 			switch (opcao) {
 			case 1:
+				boolean rastreioAutomatico = false;
 				String nomeRemetente = JOptionPane.showInputDialog("Informe o nome do remetente:");
 				String nomeDestino = JOptionPane.showInputDialog("Informe o nome do destinatário:");
 				String codLocalizador = JOptionPane.showInputDialog(
 						"Informe o código localizador(ou deixe em branco para gerar automaticamente: ");
 				if (codLocalizador.isEmpty()) {
+					rastreioAutomatico = true;
 					codLocalizador = String.valueOf(new Random().nextInt(100) + 1);
+				}
+				
+				while (controlador.getControlePacote().getPacoteDAO().getListaPacote().containsKey(codLocalizador)) {
+					if (rastreioAutomatico == true) {
+						codLocalizador = String.valueOf(new Random().nextInt(100) + 1);
+					} else {
+						JOptionPane.showMessageDialog(null, "Codigo Localizador já existe");
+						codLocalizador = JOptionPane.showInputDialog(
+								"Informe o código localizador(ou deixe em branco para gerar automaticamente: ");
+						if(codLocalizador.isEmpty()) 
+							rastreioAutomatico = true;
+					}
 				}
 				String endRemetente = JOptionPane.showInputDialog("Informe o endereço do remetente:");
 				String endDestino = JOptionPane.showInputDialog("Informe o endereço do destinatário:");
 				double peso = Double.parseDouble(JOptionPane.showInputDialog("Informe o peso do pacote:"));
-				
-				if(controlador.getControlePacote().getPacoteDAO().getListaPacote().containsKey(codLocalizador)){
-					JOptionPane.showMessageDialog(null,"Codigo Localizador já existe");
-				}else {
-					controlador.getControlePacote().cadastrarPacote(nomeRemetente, nomeDestino, codLocalizador,
-							endRemetente, endDestino, peso);
-				}								
+				controlador.getControlePacote().cadastrarPacote(nomeRemetente, nomeDestino, codLocalizador,
+						endRemetente, endDestino, peso);
 				break;
 			case 2:
 				Set<String> chaves = controlador.getControlePacote().getPacoteDAO().getListaPacote().keySet();
-				
-				for(String chave : chaves) {
-					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);		
-					if(!pacote.isEntrega()) {						
+
+				for (String chave : chaves) {
+					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);
+					if (!pacote.isEntrega()) {
 						System.out.println(pacote.toString());
-					}				
+					}
 				}
 				break;
 			case 3:
-				
+
 				chaves = controlador.getControlePacote().getPacoteDAO().getListaPacote().keySet();
-				
-				for(String chave : chaves) {
-					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);		
-					if(pacote.isEntrega()) {						
+
+				for (String chave : chaves) {
+					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);
+					if (pacote.isEntrega()) {
 						System.out.println(pacote.toString());
-					}				
+					}
 				}
 				break;
 			case 4:
 				chaves = controlador.getControlePacote().getPacoteDAO().getListaPacote().keySet();
-				
-				for(String chave : chaves) {
-					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);		
-					if(!pacote.isRoteirizado()) {						
+
+				for (String chave : chaves) {
+					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);
+					if (!pacote.isRoteirizado() && !pacote.isEntrega()) {
 						System.out.println(pacote.toString());
-					}				
+					}
 				}
-				break;		
+				break;
 			case 0:
 				System.out.println("Saindo menu pacote");
 				break;
@@ -225,29 +245,41 @@ public class Main {
 				System.out.println("Opção inválida.");
 			}
 		} while (opcao != 0);
+
 	}
 
 	private static void rota() {
 		int rota = 0;
+		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
 		do {
 			rota = Integer.parseInt(JOptionPane.showInputDialog("Menu Entrega Rapida\n" + " 1 - Gerar rota \n"
-					+ " 2 - Ler baixas \n" + " 3 - Mostrar pacotes n�o roteirizados \n" + " 0 - Sair"));
+					+ " 2 - Ler baixas \n" + " 3 - Pacotes fora do roteiro do dia\n" + " 0 - Sair"));
 			switch (rota) {
 			case 1:
 				controlador.getControleRota().criarRota(
 						controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo(),
 						controlador.getControlePacote().getPacoteDAO().getListaPacote());
+				controlador.getControleRota().relatorioDeRoteirizacaoDiaria();
 				break;
 			case 2:
-				String dataBusca = JOptionPane.showInputDialog("Digite uma data no seguinte formato dd-mm-aaaa");
+				Calendar cal = Calendar.getInstance();
+				String currentDate = df.format(cal.getTime());
+				cal.add(Calendar.DATE, -1);
+				String yesterdayDate = df.format(cal.getTime());
+
+				String dataBusca = JOptionPane.showInputDialog(
+						"Selecione a data das baixas: \n 1.  " + currentDate + "\n2.  " + yesterdayDate);
+				if (dataBusca.equals("1")) {
+					dataBusca = currentDate;
+				} else {
+					dataBusca = yesterdayDate;
+				}
 				dataBusca = dataBusca + "-rota.xls";
 				controlador.getControleRota().LerRota(dataBusca);
 				break;
 			case 3:
-				break;
-			case 4:
-
-				break;
+				controlador.getControleRota().foraDaRoteirizacaoDiaria();
 			case 0:
 				System.out.println(" Sair ");
 				break;

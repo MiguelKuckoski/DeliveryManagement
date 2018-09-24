@@ -12,16 +12,16 @@ import entidade.Pacote;
 
 public class PacoteDAO {
 	private static final String FILE_PATH = "arquivos/pacote.dat";
-	private HashMap<String ,Pacote> listaPacote;
+	private HashMap<String, Pacote> listaPacote;
 
 	public PacoteDAO() {
-		listaPacote = new HashMap<String,Pacote>();
+		listaPacote = new HashMap<String, Pacote>();
 		load();
 	}
 
 	public void put(String codLocalizador, Pacote pacote) {
 		listaPacote.put(codLocalizador, pacote);
-		persit();
+		persist();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -31,7 +31,7 @@ public class PacoteDAO {
 			FileInputStream fis = new FileInputStream(FILE_PATH);
 			ObjectInputStream ois = new ObjectInputStream(fis);
 
-			listaPacote = (HashMap<String,Pacote>) ois.readObject();
+			listaPacote = (HashMap<String, Pacote>) ois.readObject();
 
 			ois.close();
 			fis.close();
@@ -48,7 +48,7 @@ public class PacoteDAO {
 		}
 	}
 
-	public void persit() {
+	public void persist() {
 
 		try {
 			FileOutputStream fos = new FileOutputStream(FILE_PATH);
@@ -75,6 +75,7 @@ public class PacoteDAO {
 	public HashMap<String, Pacote> getListaPacote() {
 		return listaPacote;
 	}
+
 	public void setListaPacote(HashMap<String, Pacote> listaPacote) {
 		this.listaPacote = listaPacote;
 	}

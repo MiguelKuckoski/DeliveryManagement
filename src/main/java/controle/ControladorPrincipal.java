@@ -12,7 +12,7 @@ public class ControladorPrincipal {
 		this.controleVeiculo = new ControleVeiculo();
 		this.controleMotorista = new ControleMotorista();
 		this.controlePacote = new ControlePacote();
-		this.controleRota = new ControleRota();
+		this.controleRota = new ControleRota(this);
 	}
 
 	public ControleMotorista getControleMotorista() {

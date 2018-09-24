@@ -1,8 +1,6 @@
 package entidade;
 
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Pacote implements Serializable {
@@ -10,7 +8,6 @@ public class Pacote implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -3566021722412775799L;
-	private final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	private String codLocalizador;
 	private String nomeRemetente;
 	private String nomeDestino;
@@ -19,7 +16,7 @@ public class Pacote implements Serializable {
 	private double peso;
 	private boolean entrega;
 	private boolean roteirizado;
-	private String dataInsercao;
+	private Date dataInsercao;
 
 	public Pacote(String nomeRemetente, String nomeDestino, String codLocalizador, String endRemetente,
 			String endDestino, double peso) {
@@ -29,7 +26,7 @@ public class Pacote implements Serializable {
 		this.endRemetente = endRemetente;
 		this.endDestino = endDestino;
 		this.peso = peso;
-		this.dataInsercao = dateFormat.format(new Date());
+		this.dataInsercao = new Date();
 	}
 
 	public Pacote() {
@@ -104,11 +101,11 @@ public class Pacote implements Serializable {
 
 	}
 
-	public String getDataInsercao() {
+	public Date getDataInsercao() {
 		return dataInsercao;
 	}
 
-	public void setDataInsercao(String dataInsercao) {
+	public void setDataInsercao(Date dataInsercao) {
 		this.dataInsercao = dataInsercao;
 	}
 

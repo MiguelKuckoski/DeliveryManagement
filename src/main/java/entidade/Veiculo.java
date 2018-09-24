@@ -19,7 +19,7 @@ public class Veiculo implements Serializable {
 	protected List<Pacote> listaDePacote;
 	private Motorista motorista;
 	private String tipo;
-	private int tamanho;
+	private Integer tamanho;
 
 	public Veiculo(String marca, String modelo, String placa, int ano, String tipo) {
 		this.marca = marca;
@@ -144,7 +144,7 @@ public class Veiculo implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public int getTamanho() {
+	public Integer getTamanho() {
 		return tamanho;
 	}
 
