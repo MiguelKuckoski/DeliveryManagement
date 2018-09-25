@@ -1,7 +1,6 @@
 package apresentacao;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.Set;
@@ -12,7 +11,7 @@ import controle.ControladorPrincipal;
 import entidade.Motorista;
 import entidade.Pacote;
 import entidade.Veiculo;
-
+	
 public class Main {
 
 	private static ControladorPrincipal controlador = new ControladorPrincipal();
