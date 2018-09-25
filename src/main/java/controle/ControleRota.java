@@ -115,7 +115,7 @@ public class ControleRota {
 		}
 	}
 
-	public void LerRota(String date) throws ParseException {
+	public void LerRota(String date) {
 		File file = new File(PATH + date);
 		Workbook workBook = null;
 		Sheet sheet = null;
@@ -153,7 +153,11 @@ public class ControleRota {
 						continue;
 
 					Pacote pacote = new Pacote();
-					pacote.setDataInsercao(fileDateFormat.parse(row.getCell(FileConstants.DATA_INSERCAO).getStringCellValue()));
+					try {
+						pacote.setDataInsercao(fileDateFormat.parse(row.getCell(FileConstants.DATA_INSERCAO).getStringCellValue()));
+					} catch (ParseException e) {
+						System.err.println(e.getMessage());
+					}
 					veiculo.setPlaca(row.getCell(FileConstants.PLACA).getStringCellValue());
 					pacote.setCodLocalizador(row.getCell(FileConstants.RASTREIO).getStringCellValue());
 					motorista.setNome(row.getCell(FileConstants.MOTORISTA_NOME).getStringCellValue());
