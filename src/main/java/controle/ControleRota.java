@@ -278,13 +278,11 @@ public class ControleRota {
 
 	}
 
-	
-	public void pesquisaDataMotorista(String motorista, String data)
-			throws EncryptedDocumentException, InvalidFormatException, IOException {
+	public void pesquisaDataMotorista(String motorista, String data) {
 		File searchFile = null;
 		File[] files = null;
 		Workbook workBook = null;
-		String [] fileName = null;
+		String[] fileName = null;
 		if (data.isEmpty()) {
 			searchFile = new File(PATH);
 			files = searchFile.listFiles();
@@ -292,8 +290,17 @@ public class ControleRota {
 			for (File file : files) {
 				if (file.exists()) {
 					fileName = file.getPath().split("/");
-					workBook = WorkbookFactory.create(file);
-					System.out.println("--- Rota: " + fileName[fileName.length -1]+ " ---");
+					try {
+						workBook = WorkbookFactory.create(file);
+					} catch (EncryptedDocumentException e) {
+						System.err.println(e);
+						e.printStackTrace();
+					} catch (InvalidFormatException e) {
+						System.err.println(e);
+					} catch (IOException e) {
+						System.err.println(e);
+					}
+					System.out.println("--- Rota: " + fileName[fileName.length - 1] + " ---");
 					openFile(workBook, motorista);
 				}
 			}
@@ -301,9 +308,17 @@ public class ControleRota {
 		} else {
 			searchFile = new File(data + "-rota.xls");
 			if (searchFile.exists()) {
-				workBook = WorkbookFactory.create(searchFile);
+				try {
+					workBook = WorkbookFactory.create(searchFile);
+				} catch (EncryptedDocumentException e) {
+					System.err.println(e);
+				} catch (InvalidFormatException e) {
+					System.err.println(e);
+				} catch (IOException e) {
+					System.err.println(e);
+				}
 				fileName = searchFile.getPath().split("/");
-				System.out.println("--- Rota: " + fileName[fileName.length -1]+ " ---");
+				System.out.println("--- Rota: " + fileName[fileName.length - 1] + " ---");
 				openFile(workBook, motorista);
 
 			} else {
@@ -313,7 +328,6 @@ public class ControleRota {
 
 	}
 
-	
 	private void openFile(Workbook workBook, String motorista) {
 		Sheet sheet = null;
 		if (!motorista.isEmpty()) {
@@ -344,7 +358,7 @@ public class ControleRota {
 			if (row.getRowNum() == 0) {
 				continue;
 			}
-			
+
 			if (motorista == null && veiculo == null) {
 				motorista = new Motorista();
 				veiculo = new Veiculo();
@@ -372,8 +386,9 @@ public class ControleRota {
 			pacote.setEntrega(
 					row.getCell(FileConstants.STATUS_ENTREGA).getStringCellValue().equals("sim") ? true : false);
 
-			System.out.println(
-					"Data de inserção: " + fileDateFormat.format(pacote.getDataInsercao()) + " rastreio: "+ pacote.getCodLocalizador() + " Endereço de entrega: "+ pacote.getNomeDestino() + "status de entrega: " + (pacote.isEntrega()? "sim": "nao")  +  "\n");
+			System.out.println("Data de inserção: " + fileDateFormat.format(pacote.getDataInsercao()) + " rastreio: "
+					+ pacote.getCodLocalizador() + " Endereço de entrega: " + pacote.getNomeDestino()
+					+ "status de entrega: " + (pacote.isEntrega() ? "sim" : "nao") + "\n");
 
 		}
 	}

@@ -1,7 +1,6 @@
 package apresentacao;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Random;
 import java.util.Set;
@@ -189,7 +188,7 @@ public class Main {
 					rastreioAutomatico = true;
 					codLocalizador = String.valueOf(new Random().nextInt(100) + 1);
 				}
-				
+
 				while (controlador.getControlePacote().getPacoteDAO().getListaPacote().containsKey(codLocalizador)) {
 					if (rastreioAutomatico == true) {
 						codLocalizador = String.valueOf(new Random().nextInt(100) + 1);
@@ -197,7 +196,7 @@ public class Main {
 						JOptionPane.showMessageDialog(null, "Codigo Localizador já existe");
 						codLocalizador = JOptionPane.showInputDialog(
 								"Informe o código localizador(ou deixe em branco para gerar automaticamente: ");
-						if(codLocalizador.isEmpty()) 
+						if (codLocalizador.isEmpty())
 							rastreioAutomatico = true;
 					}
 				}
@@ -254,7 +253,8 @@ public class Main {
 
 		do {
 			rota = Integer.parseInt(JOptionPane.showInputDialog("Menu Entrega Rapida\n" + " 1 - Gerar rota \n"
-					+ " 2 - Ler baixas \n" + " 3 - Pacotes fora do roteiro do dia\n" + " 0 - Sair"));
+					+ " 2 - Ler baixas \n" + " 3 - Pacotes fora do roteiro do dia\n"
+					+ "4 - Pesquisar rota por Data e/ou Motorista \n" + " 0 - Sair"));
 			switch (rota) {
 			case 1:
 				controlador.getControleRota().criarRota(
@@ -280,6 +280,15 @@ public class Main {
 				break;
 			case 3:
 				controlador.getControleRota().foraDaRoteirizacaoDiaria();
+				break;
+			case 4:
+				String motorista = JOptionPane.showInputDialog("Digite a CNH do motorista");
+				String data = JOptionPane.showInputDialog("Digite a data no seguinte formato dd-MM-yyyy");
+				data = data + "-rota.xls";
+
+				controlador.getControleRota().pesquisaDataMotorista(motorista, data);
+
+				break;
 			case 0:
 				System.out.println(" Sair ");
 				break;
