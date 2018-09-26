@@ -11,7 +11,7 @@ import controle.ControladorPrincipal;
 import entidade.Motorista;
 import entidade.Pacote;
 import entidade.Veiculo;
-
+	
 public class Main {
 
 	private static ControladorPrincipal controlador = new ControladorPrincipal();
