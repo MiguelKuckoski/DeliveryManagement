@@ -7,20 +7,25 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 import entidade.Veiculo;
 
 public class VeiculoDAO {
 
 	private static final String FILE_PATH = "arquivos/veiculos.dat";
-	private HashMap<String,Veiculo> listaVeiculo;
+	private Map<String, Veiculo> listaVeiculo;
+	private FileInputStream fis = null;
+	private ObjectInputStream ois = null;
+	private FileOutputStream fos = null;
+	private ObjectOutputStream oos = null;
 
 	public VeiculoDAO() {
 		listaVeiculo = new HashMap<String, Veiculo>();
 		load();
 	}
 
-	public void put(String placa,Veiculo veiculo) {
+	public void put(String placa, Veiculo veiculo) {
 		listaVeiculo.put(placa, veiculo);
 		persist();
 	}
@@ -29,10 +34,10 @@ public class VeiculoDAO {
 	private void load() {
 
 		try {
-			FileInputStream fis = new FileInputStream(FILE_PATH);
-			ObjectInputStream ois = new ObjectInputStream(fis);
+			fis = new FileInputStream(FILE_PATH);
+			ois = new ObjectInputStream(fis);
 
-			listaVeiculo = (HashMap<String,Veiculo>) ois.readObject();
+			listaVeiculo = (HashMap<String, Veiculo>) ois.readObject();
 
 			ois.close();
 			fis.close();
@@ -46,42 +51,58 @@ public class VeiculoDAO {
 		} catch (ClassNotFoundException ex) {
 			System.err.println("Erro ao processar registros dos arquivos " + FILE_PATH);
 			System.err.println(ex.getMessage());
+		} finally {
+			try {
+				if (ois != null) {
+					ois.close();
+				}
+				if (fis != null) {
+					fis.close();
+				}
+			} catch (Exception e) {
+
+			}
 		}
 	}
 
 	public void persist() {
 
 		try {
-			FileOutputStream fos = new FileOutputStream(FILE_PATH);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			fos = new FileOutputStream(FILE_PATH);
+			oos = new ObjectOutputStream(fos);
 
 			oos.writeObject(listaVeiculo);
 
 			oos.flush();
 			fos.flush();
 
-			oos.close();
-			fos.close();
-			
-			
 		} catch (FileNotFoundException ex) {
 			System.err.println("Arquivo não encontrado " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		} catch (IOException ex) {
 			System.err.println("Erro na entrada e saida de dados " + FILE_PATH);
 			System.err.println(ex.getMessage());
+		} finally {
+			try {
+				if (oos != null) {
+					oos.close();
+				}
+				if (fos != null) {
+					fos.close();
+				}
+			} catch (Exception e) {
+
+			}
 		}
 
 	}
 
-	public HashMap<String, Veiculo> getListaVeiculo() {
+	public Map<String, Veiculo> getListaVeiculo() {
 		return listaVeiculo;
 	}
 
-	public void setListaVeiculo(HashMap<String, Veiculo> listaVeiculo) {
+	public void setListaVeiculo(Map<String, Veiculo> listaVeiculo) {
 		this.listaVeiculo = listaVeiculo;
 	}
-
-
 
 }

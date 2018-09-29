@@ -7,12 +7,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 import entidade.Pacote;
 
 public class PacoteDAO {
 	private static final String FILE_PATH = "arquivos/pacote.dat";
-	private HashMap<String, Pacote> listaPacote;
+	private Map<String, Pacote> listaPacote;
+	private FileInputStream fis = null;
+	private ObjectInputStream ois = null;
+	private FileOutputStream fos = null;
+	private ObjectOutputStream oos = null;
 
 	public PacoteDAO() {
 		listaPacote = new HashMap<String, Pacote>();
@@ -28,13 +33,10 @@ public class PacoteDAO {
 	private void load() {
 
 		try {
-			FileInputStream fis = new FileInputStream(FILE_PATH);
-			ObjectInputStream ois = new ObjectInputStream(fis);
+			fis = new FileInputStream(FILE_PATH);
+			ois = new ObjectInputStream(fis);
 
 			listaPacote = (HashMap<String, Pacote>) ois.readObject();
-
-			ois.close();
-			fis.close();
 
 		} catch (FileNotFoundException ex) {
 			System.err.println("Erro ao abrir o arquivo " + FILE_PATH);
@@ -45,38 +47,57 @@ public class PacoteDAO {
 		} catch (ClassNotFoundException ex) {
 			System.err.println("Erro ao processar registros dos arquivos " + FILE_PATH);
 			System.err.println(ex.getMessage());
+		} finally {
+			try {
+				if (ois != null) {
+					ois.close();
+				}
+				if (fis != null) {
+					fis.close();
+				}
+			} catch (Exception e) {
+
+			}
 		}
 	}
 
 	public void persist() {
 
 		try {
-			FileOutputStream fos = new FileOutputStream(FILE_PATH);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			fos = new FileOutputStream(FILE_PATH);
+			oos = new ObjectOutputStream(fos);
 
 			oos.writeObject(listaPacote);
 
 			oos.flush();
 			fos.flush();
 
-			oos.close();
-			fos.close();
-
 		} catch (FileNotFoundException ex) {
-			System.err.println("Arquivo n�o encontrado " + FILE_PATH);
+			System.err.println("Arquivo não encontrado " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		} catch (IOException ex) {
 			System.err.println("Erro na entrada e saida de dados " + FILE_PATH);
 			System.err.println(ex.getMessage());
+		} finally {
+			try {
+				if (oos != null) {
+					oos.close();
+				}
+				if (fos != null) {
+					fos.close();
+				}
+			} catch (Exception e) {
+
+			}
 		}
 
 	}
 
-	public HashMap<String, Pacote> getListaPacote() {
+	public Map<String, Pacote> getListaPacote() {
 		return listaPacote;
 	}
 
-	public void setListaPacote(HashMap<String, Pacote> listaPacote) {
+	public void setListaPacote(Map<String, Pacote> listaPacote) {
 		this.listaPacote = listaPacote;
 	}
 }

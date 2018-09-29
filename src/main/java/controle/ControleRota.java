@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +43,7 @@ public class ControleRota {
 		controlePrincipal = controladorPrincipal;
 	}
 
-	public void criarRota(HashMap<String, Veiculo> listaVeiculo, HashMap<String, Pacote> listaPacote) {
+	public void criarRota(Map<String, Veiculo> listaVeiculo, Map<String, Pacote> listaPacote) {
 		String data = dateFormat.format(new Date());
 
 		TreeSet<Map.Entry<String, Pacote>> packageSet = new TreeSet<>(new Comparator<Map.Entry<String, Pacote>>() {
@@ -90,7 +89,7 @@ public class ControleRota {
 		controlePrincipal.getControlePacote().getPacoteDAO().persist();
 	}
 
-	public void escreverRota(String path, HashMap<String, Veiculo> veiculos) {
+	public void escreverRota(String path, Map<String, Veiculo> veiculos) {
 		HSSFWorkbook wb = new HSSFWorkbook();
 		FileOutputStream stream = null;
 
@@ -111,6 +110,7 @@ public class ControleRota {
 			try {
 				wb.close();
 				stream.close();
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -11,7 +11,7 @@ import controle.ControladorPrincipal;
 import entidade.Motorista;
 import entidade.Pacote;
 import entidade.Veiculo;
-	
+
 public class Main {
 
 	private static ControladorPrincipal controlador = new ControladorPrincipal();
@@ -285,9 +285,7 @@ public class Main {
 				String motorista = JOptionPane.showInputDialog("Digite a CNH do motorista");
 				String data = JOptionPane.showInputDialog("Digite a data no seguinte formato dd-MM-yyyy");
 				data = data + "-rota.xls";
-
 				controlador.getControleRota().pesquisaDataMotorista(motorista, data);
-
 				break;
 			case 0:
 				System.out.println(" Sair ");

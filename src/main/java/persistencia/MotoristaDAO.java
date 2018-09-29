@@ -7,21 +7,26 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 import entidade.Motorista;
 
 public class MotoristaDAO {
 
 	private static final String nomeArquivo = "arquivos/motorista.dat";
-	private HashMap<String,Motorista> listaMotorista;
+	private Map<String, Motorista> listaMotorista;
+	private FileInputStream fis = null;
+	private ObjectInputStream ois = null;
+	private FileOutputStream fos = null;
+	private ObjectOutputStream oos = null;
 
 	public MotoristaDAO() {
-		listaMotorista = new HashMap<String ,Motorista>();
+		listaMotorista = new HashMap<String, Motorista>();
 		load();
-		
+
 	}
 
-	public void put(String cnh ,Motorista motorista) {
+	public void put(String cnh, Motorista motorista) {
 
 		listaMotorista.put(cnh, motorista);
 		persit();
@@ -31,13 +36,10 @@ public class MotoristaDAO {
 	private void load() {
 
 		try {
-			FileInputStream fis = new FileInputStream(nomeArquivo);
-			ObjectInputStream ois = new ObjectInputStream(fis);
+			fis = new FileInputStream(nomeArquivo);
+			ois = new ObjectInputStream(fis);
 
-			listaMotorista = (HashMap<String,Motorista>) ois.readObject();
-
-			ois.close();
-			fis.close();
+			listaMotorista = (Map<String, Motorista>) ois.readObject();
 
 		} catch (FileNotFoundException ex) {
 			System.err.println("Erro ao abrir o arquivo " + nomeArquivo);
@@ -48,22 +50,30 @@ public class MotoristaDAO {
 		} catch (ClassNotFoundException ex) {
 			System.err.println("Erro ao processar registros dos arquivos " + nomeArquivo);
 			System.err.println(ex.getMessage());
+		} finally {
+			try {
+				if (ois != null) {
+					ois.close();
+				}
+				if (fis != null) {
+					fis.close();
+				}
+			} catch (Exception e) {
+
+			}
 		}
 	}
 
 	public void persit() {
 
 		try {
-			FileOutputStream fos = new FileOutputStream(nomeArquivo);
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			fos = new FileOutputStream(nomeArquivo);
+			oos = new ObjectOutputStream(fos);
 
 			oos.writeObject(listaMotorista);
 
 			oos.flush();
 			fos.flush();
-
-			oos.close();
-			fos.close();
 
 		} catch (FileNotFoundException ex) {
 			System.err.println("Arquivo não encontrado " + nomeArquivo);
@@ -71,18 +81,27 @@ public class MotoristaDAO {
 		} catch (IOException ex) {
 			System.err.println("Erro na entrada e saida de dados " + nomeArquivo);
 			System.err.println(ex.getMessage());
+		} finally {
+			try {
+				if (oos != null) {
+					oos.close();
+				}
+				if (fos != null) {
+					fos.close();
+				}
+			} catch (Exception e) {
+
+			}
 		}
 
 	}
 
-	public HashMap<String, Motorista> getListaMotorista() {
+	public Map<String, Motorista> getListaMotorista() {
 		return listaMotorista;
 	}
 
-	public void setListaMotorista(HashMap<String, Motorista> listaMotorista) {
+	public void setListaMotorista(Map<String, Motorista> listaMotorista) {
 		this.listaMotorista = listaMotorista;
 	}
-
-
 
 }
