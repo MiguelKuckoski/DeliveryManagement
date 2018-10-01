@@ -49,7 +49,6 @@ public class ControleVeiculo {
 		}				
 	}
 		
-	
 	public String vincularMotorista(String placaVeiculo, String cnhMotorista) {
 				
 		if(veiculoDAO.getListaVeiculo().containsKey(placaVeiculo) && motoristaDAO.getListaMotorista().containsKey(cnhMotorista) && !motoristaDAO.getListaMotorista().get(cnhMotorista).getVinculadoCarro()) {

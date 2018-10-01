@@ -60,7 +60,7 @@ public class ControleRota {
 			@Override
 			public int compare(Map.Entry<String, Veiculo> o1, Map.Entry<String, Veiculo> o2) {
 				int valueComparison = o1.getValue().getTamanho().compareTo(o2.getValue().getTamanho());
-				return valueComparison == 0 ? o1.getKey().compareTo(o2.getKey()) : valueComparison;
+				return valueComparison == 0 ?  valueComparison : o1.getKey().compareTo(o2.getKey());
 			}
 		});
 		vehicleSet.addAll(listaVeiculo.entrySet());
@@ -94,7 +94,7 @@ public class ControleRota {
 		FileOutputStream stream = null;
 
 		veiculos.entrySet().forEach(veiculo -> {
-			if (veiculo.getValue().getListaDePacote() != null)
+			if (veiculo.getValue().getListaDePacote() != null && veiculo.getValue().getListaDePacote().size() > 0)
 				populeDriverSheets(veiculo.getValue(), wb);
 		});
 

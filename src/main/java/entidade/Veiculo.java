@@ -49,10 +49,10 @@ public class Veiculo implements Serializable {
 	}
 	
 	public boolean vincularMotorista(Motorista motorista) {
-		if (motorista.getCnhTipo().equals("C")) {
+		if (motorista.getCnhTipo().equalsIgnoreCase("C")) {
 			this.motorista = motorista;
 			return true;
-		} else if (motorista.getCnhTipo().equals("B") && this.tipo.equals("Van")) {
+		} else if (motorista.getCnhTipo().equalsIgnoreCase("B") && this.tipo.equalsIgnoreCase("Van")) {
 			this.motorista = motorista;
 			return true;
 		}
