@@ -176,7 +176,7 @@ public class ControleRota {
 					listaPacote.add(pacote);
 
 					veiculo.setMotorista(motorista);
-					controlePrincipal.getControlePacote().getPacoteDAO().getListaPacote()
+					controlePrincipal.getControlePacote().getPacoteDAO().listar()
 							.replace(pacote.getCodLocalizador(), pacote);
 				}
 				veiculo.setListaDePacote(listaPacote);
@@ -270,7 +270,7 @@ public class ControleRota {
 
 	public void foraDaRoteirizacaoDiaria() {
 
-		controlePrincipal.getControlePacote().getPacoteDAO().getListaPacote().entrySet().forEach(pacote -> {
+		controlePrincipal.getControlePacote().getPacoteDAO().listar().entrySet().forEach(pacote -> {
 			if (!pacote.getValue().isRoteirizado() && !pacote.getValue().isEntrega()) {
 				System.out.println("rastreio: " + pacote.getValue().getCodLocalizador() + "\n");
 			}

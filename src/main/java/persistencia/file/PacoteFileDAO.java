@@ -1,4 +1,4 @@
-package persistencia;
+package persistencia.file;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,46 +9,45 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import entidade.Motorista;
+import entidade.Pacote;
+import persistencia.idao.IPacoteDao;
 
-public class MotoristaDAO {
-
-	private static final String nomeArquivo = "arquivos/motorista.dat";
-	private Map<String, Motorista> listaMotorista;
+public class PacoteFileDAO implements IPacoteDao {
+	private static final String FILE_PATH = "arquivos/pacote.dat";
+	private Map<String, Pacote> listaPacote;
 	private FileInputStream fis = null;
 	private ObjectInputStream ois = null;
 	private FileOutputStream fos = null;
 	private ObjectOutputStream oos = null;
 
-	public MotoristaDAO() {
-		listaMotorista = new HashMap<String, Motorista>();
+	public PacoteFileDAO() {
+		listaPacote = new HashMap<String, Pacote>();
 		load();
-
 	}
 
-	public void put(String cnh, Motorista motorista) {
-
-		listaMotorista.put(cnh, motorista);
-		persit();
+	@Override
+	public void inserir(Pacote pacote) {
+		listaPacote.put(pacote.getCodLocalizador(), pacote);
+		persist();
 	}
 
 	@SuppressWarnings("unchecked")
 	private void load() {
 
 		try {
-			fis = new FileInputStream(nomeArquivo);
+			fis = new FileInputStream(FILE_PATH);
 			ois = new ObjectInputStream(fis);
 
-			listaMotorista = (Map<String, Motorista>) ois.readObject();
+			listaPacote = (HashMap<String, Pacote>) ois.readObject();
 
 		} catch (FileNotFoundException ex) {
-			System.err.println("Erro ao abrir o arquivo " + nomeArquivo);
+			System.err.println("Erro ao abrir o arquivo " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		} catch (IOException ex) {
-			System.err.println("Erro de entrada ou saida de dados " + nomeArquivo);
+			System.err.println("Erro de entrada ou saida de dados " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		} catch (ClassNotFoundException ex) {
-			System.err.println("Erro ao processar registros dos arquivos " + nomeArquivo);
+			System.err.println("Erro ao processar registros dos arquivos " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		} finally {
 			try {
@@ -64,22 +63,22 @@ public class MotoristaDAO {
 		}
 	}
 
-	public void persit() {
+	public void persist() {
 
 		try {
-			fos = new FileOutputStream(nomeArquivo);
+			fos = new FileOutputStream(FILE_PATH);
 			oos = new ObjectOutputStream(fos);
 
-			oos.writeObject(listaMotorista);
+			oos.writeObject(listaPacote);
 
 			oos.flush();
 			fos.flush();
 
 		} catch (FileNotFoundException ex) {
-			System.err.println("Arquivo não encontrado " + nomeArquivo);
+			System.err.println("Arquivo não encontrado " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		} catch (IOException ex) {
-			System.err.println("Erro na entrada e saida de dados " + nomeArquivo);
+			System.err.println("Erro na entrada e saida de dados " + FILE_PATH);
 			System.err.println(ex.getMessage());
 		} finally {
 			try {
@@ -96,12 +95,24 @@ public class MotoristaDAO {
 
 	}
 
-	public Map<String, Motorista> getListaMotorista() {
-		return listaMotorista;
+	@Override
+	public Map<String, Pacote> listar() {
+		return listaPacote;
 	}
 
-	public void setListaMotorista(Map<String, Motorista> listaMotorista) {
-		this.listaMotorista = listaMotorista;
+	public void setListaPacote(Map<String, Pacote> listaPacote) {
+		this.listaPacote = listaPacote;
 	}
 
+	@Override
+	public void atualizar(Pacote pacote, String id) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void remover(Pacote pacote) {
+		// TODO Auto-generated method stub
+
+	}
 }

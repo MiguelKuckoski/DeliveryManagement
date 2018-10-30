@@ -7,11 +7,11 @@ public class ControladorPrincipal {
 	private ControlePacote controlePacote;
 	private ControleRota controleRota;
 
-	public ControladorPrincipal() {
+	public ControladorPrincipal(String persistencia) {
 
 		this.controleVeiculo = new ControleVeiculo();
 		this.controleMotorista = new ControleMotorista();
-		this.controlePacote = new ControlePacote();
+		this.controlePacote = new ControlePacote(persistencia);
 		this.controleRota = new ControleRota(this);
 	}
 

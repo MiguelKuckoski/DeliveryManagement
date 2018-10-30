@@ -1,4 +1,4 @@
-package persistencia;
+package persistencia.file;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -10,8 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import entidade.Veiculo;
+import persistencia.idao.IVeiculoDao;
 
-public class VeiculoDAO {
+public class VeiculoFileDAO implements IVeiculoDao{
 
 	private static final String FILE_PATH = "arquivos/veiculos.dat";
 	private Map<String, Veiculo> listaVeiculo;
@@ -20,7 +21,7 @@ public class VeiculoDAO {
 	private FileOutputStream fos = null;
 	private ObjectOutputStream oos = null;
 
-	public VeiculoDAO() {
+	public VeiculoFileDAO() {
 		listaVeiculo = new HashMap<String, Veiculo>();
 		load();
 	}

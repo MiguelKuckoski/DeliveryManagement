@@ -1,24 +1,21 @@
 package controle;
 
 import entidade.Pacote;
-import persistencia.PacoteDAO;
+import persistencia.DaoFactory;
+import persistencia.idao.IPacoteDao;
 
 public class ControlePacote {
 
-	private PacoteDAO pacoteDAO = new PacoteDAO();
+	private IPacoteDao pacoteDAO;
+
+	public ControlePacote(String persistencia) {
+		this.pacoteDAO = DaoFactory.getPacoteDAO(persistencia);
+	}
 
 	public void cadastrarPacote(String nomeRemetente, String nomeDestino, String codLocalizador, String endRemetente,
 			String endDestino, Double peso) {
 		Pacote pacote = new Pacote(nomeRemetente, nomeDestino, codLocalizador, endRemetente, endDestino, peso);
-		pacoteDAO.put(codLocalizador, pacote);
-	}
-
-	public PacoteDAO getPacoteDAO() {
-		return pacoteDAO;
-	}
-
-	public void setPacoteDAO(PacoteDAO pacoteDAO) {
-		this.pacoteDAO = pacoteDAO;
+		pacoteDAO.inserir(pacote);
 	}
 
 }

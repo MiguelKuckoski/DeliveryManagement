@@ -14,7 +14,7 @@ import entidade.Veiculo;
 
 public class Main {
 
-	private static ControladorPrincipal controlador = new ControladorPrincipal();
+	private static ControladorPrincipal controlador = new ControladorPrincipal("postgre");
 
 	public static void main(String[] args) {
 
@@ -189,7 +189,7 @@ public class Main {
 					codLocalizador = String.valueOf(new Random().nextInt(100) + 1);
 				}
 
-				while (controlador.getControlePacote().getPacoteDAO().getListaPacote().containsKey(codLocalizador)) {
+				while (controlador.getControlePacote().getPacoteDAO().listar().containsKey(codLocalizador)) {
 					if (rastreioAutomatico == true) {
 						codLocalizador = String.valueOf(new Random().nextInt(100) + 1);
 					} else {
@@ -207,10 +207,10 @@ public class Main {
 						endRemetente, endDestino, peso);
 				break;
 			case 2:
-				Set<String> chaves = controlador.getControlePacote().getPacoteDAO().getListaPacote().keySet();
+				Set<String> chaves = controlador.getControlePacote().getPacoteDAO().listar().keySet();
 
 				for (String chave : chaves) {
-					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);
+					Pacote pacote = controlador.getControlePacote().getPacoteDAO().listar().get(chave);
 					if (!pacote.isEntrega()) {
 						System.out.println(pacote.toString());
 					}
@@ -218,20 +218,20 @@ public class Main {
 				break;
 			case 3:
 
-				chaves = controlador.getControlePacote().getPacoteDAO().getListaPacote().keySet();
+				chaves = controlador.getControlePacote().getPacoteDAO().listar().keySet();
 
 				for (String chave : chaves) {
-					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);
+					Pacote pacote = controlador.getControlePacote().getPacoteDAO().listar().get(chave);
 					if (pacote.isEntrega()) {
 						System.out.println(pacote.toString());
 					}
 				}
 				break;
 			case 4:
-				chaves = controlador.getControlePacote().getPacoteDAO().getListaPacote().keySet();
+				chaves = controlador.getControlePacote().getPacoteDAO().listar().keySet();
 
 				for (String chave : chaves) {
-					Pacote pacote = controlador.getControlePacote().getPacoteDAO().getListaPacote().get(chave);
+					Pacote pacote = controlador.getControlePacote().getPacoteDAO().listar().get(chave);
 					if (!pacote.isRoteirizado() && !pacote.isEntrega()) {
 						System.out.println(pacote.toString());
 					}
@@ -259,7 +259,7 @@ public class Main {
 			case 1:
 				controlador.getControleRota().criarRota(
 						controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo(),
-						controlador.getControlePacote().getPacoteDAO().getListaPacote());
+						controlador.getControlePacote().getPacoteDAO().listar());
 				controlador.getControleRota().relatorioDeRoteirizacaoDiaria();
 				break;
 			case 2:

@@ -1,24 +1,24 @@
 package controle;
 
 import entidade.Veiculo;
-import persistencia.MotoristaDAO;
-import persistencia.VeiculoDAO;
+import persistencia.file.MotoristaFileDAO;
+import persistencia.file.VeiculoFileDAO;
 
 public class ControleVeiculo {
 
-	private VeiculoDAO veiculoDAO = new VeiculoDAO();
-	private MotoristaDAO motoristaDAO = new MotoristaDAO();
+	private VeiculoFileDAO veiculoDAO = new VeiculoFileDAO();
+	private MotoristaFileDAO motoristaDAO = new MotoristaFileDAO();
 
-	public VeiculoDAO getVeiculoDAO() {
+	public VeiculoFileDAO getVeiculoDAO() {
 		return veiculoDAO;
 	}
 
-	public void setVeiculoDAO(VeiculoDAO veiculoDAO) {
+	public void setVeiculoDAO(VeiculoFileDAO veiculoDAO) {
 		this.veiculoDAO = veiculoDAO;
 	}
 
 	public ControleVeiculo() {
-		this.veiculoDAO = new VeiculoDAO();
+		this.veiculoDAO = new VeiculoFileDAO();
 	}
 
 	public void cadastrarVeiculo(String marca, String modelo, String placa, int ano, String tipo) {
