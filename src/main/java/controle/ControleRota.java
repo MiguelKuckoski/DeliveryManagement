@@ -30,6 +30,8 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import entidade.Motorista;
 import entidade.Pacote;
 import entidade.Veiculo;
+import persistencia.DaoFactory;
+import persistencia.idao.IRotaDao;
 import util.FileConstants;
 
 public class ControleRota {
@@ -37,10 +39,9 @@ public class ControleRota {
 	final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 	final SimpleDateFormat fileDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
-	private ControladorPrincipal controlePrincipal;
-
-	public ControleRota(ControladorPrincipal controladorPrincipal) {
-		controlePrincipal = controladorPrincipal;
+	private IRotaDao rotaDao;
+	public ControleRota(String persistencia) {
+		this.rotaDao = DaoFactory.getRotaDao(persistencia);
 	}
 
 	public void criarRota(Map<String, Veiculo> listaVeiculo, Map<String, Pacote> listaPacote) {

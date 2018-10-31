@@ -1,15 +1,17 @@
 package controle;
 
 import entidade.Motorista;
+import persistencia.DaoFactory;
 import persistencia.file.MotoristaFileDAO;
+import persistencia.idao.IMotoristaDao;
 
 public class ControleMotorista {
 
-	private MotoristaFileDAO motoristaDAO;
+	private IMotoristaDao motoristaDAO;
 
-	public ControleMotorista() {
+	public ControleMotorista(String persistencia) {
 
-		this.motoristaDAO = new MotoristaFileDAO();
+		this.motoristaDAO = DaoFactory.getMotoristaDAO(persistencia);
 	}
 
 	public void cadastrarMotorista(String nome, String nascimento, String endereco, String cnhNum, String cnhTipo) {
@@ -28,13 +30,4 @@ public class ControleMotorista {
 		
 		return "Erro ao apagar motorista/Motorista não encontrado";
 	}
-
-	public MotoristaFileDAO getMotoristaDAO() {
-		return motoristaDAO;
-	}
-
-	public void setMotoristaDAO(MotoristaFileDAO motoristaDAO) {
-		this.motoristaDAO = motoristaDAO;
-	}
-
 }

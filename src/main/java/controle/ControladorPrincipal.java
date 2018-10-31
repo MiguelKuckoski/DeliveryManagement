@@ -9,10 +9,10 @@ public class ControladorPrincipal {
 
 	public ControladorPrincipal(String persistencia) {
 
-		this.controleVeiculo = new ControleVeiculo();
-		this.controleMotorista = new ControleMotorista();
+		this.controleVeiculo = new ControleVeiculo(persistencia);
+		this.controleMotorista = new ControleMotorista(persistencia);
 		this.controlePacote = new ControlePacote(persistencia);
-		this.controleRota = new ControleRota(this);
+		this.controleRota = new ControleRota(this, persistencia);
 	}
 
 	public ControleMotorista getControleMotorista() {

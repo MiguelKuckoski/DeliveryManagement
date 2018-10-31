@@ -1,26 +1,22 @@
 package controle;
 
 import entidade.Veiculo;
+import persistencia.DaoFactory;
 import persistencia.file.MotoristaFileDAO;
 import persistencia.file.VeiculoFileDAO;
+import persistencia.idao.IMotoristaDao;
+import persistencia.idao.IVeiculoDao;
 
 public class ControleVeiculo {
 
-	private VeiculoFileDAO veiculoDAO = new VeiculoFileDAO();
-	private MotoristaFileDAO motoristaDAO = new MotoristaFileDAO();
+	private IVeiculoDao veiculoDAO;
+	private IMotoristaDao motoristaDAO;
 
-	public VeiculoFileDAO getVeiculoDAO() {
-		return veiculoDAO;
+	public ControleVeiculo(String persistencia) {
+		this.veiculoDAO = DaoFactory.getVeiculoDAO(persistencia);
+		this.motoristaDAO = DaoFactory.getMotoristaDAO(persistencia);
 	}
-
-	public void setVeiculoDAO(VeiculoFileDAO veiculoDAO) {
-		this.veiculoDAO = veiculoDAO;
-	}
-
-	public ControleVeiculo() {
-		this.veiculoDAO = new VeiculoFileDAO();
-	}
-
+	
 	public void cadastrarVeiculo(String marca, String modelo, String placa, int ano, String tipo) {
 		Veiculo veiculo = new Veiculo(marca, modelo, placa, ano, tipo);
 		veiculoDAO.put(placa,veiculo);
