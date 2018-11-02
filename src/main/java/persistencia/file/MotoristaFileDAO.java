@@ -12,7 +12,7 @@ import java.util.Map;
 import entidade.Motorista;
 import persistencia.idao.IMotoristaDao;
 
-public class MotoristaFileDAO implements IMotoristaDao{
+public class MotoristaFileDAO implements IMotoristaDao {
 
 	private static final String nomeArquivo = "arquivos/motorista.dat";
 	private Map<String, Motorista> listaMotorista;
@@ -106,27 +106,38 @@ public class MotoristaFileDAO implements IMotoristaDao{
 	}
 
 	@Override
-	public void inserir(Motorista motorista) {
-		// TODO Auto-generated method stub
-		
+	public boolean inserir(Motorista motorista) {
+		if (motorista != null) {
+			if (motorista.getCnhNum().isEmpty() && !listaMotorista.containsKey(motorista.getCnhNum())) {
+				put(motorista.getCnhNum(), motorista);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
 	public Map<String, Motorista> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return getListaMotorista();
 	}
 
 	@Override
-	public void atualizar(Motorista motorista, String id) {
-		// TODO Auto-generated method stub
-		
+	public void atualizar(String cnhNum, Motorista motorista) {
+		if (motorista != null) {
+			if (getListaMotorista().containsKey(cnhNum)) {
+				getListaMotorista().put(cnhNum, motorista);
+				persit();
+			}
+		}
 	}
 
 	@Override
-	public void remover(Motorista motorista) {
-		// TODO Auto-generated method stub
-		
+	public boolean remover(String cnhNum) {
+		if (getListaMotorista().containsKey(cnhNum)) {
+			getListaMotorista().remove(cnhNum);
+			persit();
+			return true;
+		}
+		return false;
 	}
-
 }
