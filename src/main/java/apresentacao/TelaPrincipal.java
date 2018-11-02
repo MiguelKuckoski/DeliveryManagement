@@ -62,8 +62,9 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerarRota = new JMenuItem("Adicionar");
 		mntmGerarRota.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			 
-			
+			 TelaRotaAdd rota = new TelaRotaAdd();
+			 rota.setVisible(true);
+			 contentPane.add(rota);
 			}
 		});
 		mnRota.add(mntmGerarRota);
