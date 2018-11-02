@@ -62,6 +62,8 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerarRota = new JMenuItem("Adicionar");
 		mntmGerarRota.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			 
+			
 			}
 		});
 		mnRota.add(mntmGerarRota);
@@ -105,45 +107,93 @@ public class TelaPrincipal extends JFrame {
 		menuBar.add(mnMotorista);
 		
 		JMenuItem mntmAdicionar = new JMenuItem("Adicionar");
+		mntmAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnMotorista.add(mntmAdicionar);
 		
 		JMenuItem mntmRemover = new JMenuItem("Remover");
+		mntmRemover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnMotorista.add(mntmRemover);
 		
 		JMenuItem mntmEditar = new JMenuItem("Editar");
+		mntmEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnMotorista.add(mntmEditar);
 		
 		JMenuItem mntmListar = new JMenuItem("Listar");
+		mntmListar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnMotorista.add(mntmListar);
 		
 		JMenu mnVeiculo = new JMenu("Veiculo");
 		menuBar.add(mnVeiculo);
 		
 		JMenuItem mntmAdicionar_1 = new JMenuItem("Adicionar");
+		mntmAdicionar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnVeiculo.add(mntmAdicionar_1);
 		
 		JMenuItem mntmRemover_1 = new JMenuItem("Remover");
+		mntmRemover_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnVeiculo.add(mntmRemover_1);
 		
 		JMenuItem mntmEditar_1 = new JMenuItem("Editar");
+		mntmEditar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnVeiculo.add(mntmEditar_1);
 		
 		JMenuItem mntmListar_1 = new JMenuItem("Listar");
+		mntmListar_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnVeiculo.add(mntmListar_1);
 		
 		JMenu mnPacote = new JMenu("Pacote");
 		menuBar.add(mnPacote);
 		
 		JMenuItem mntmAdicionar_2 = new JMenuItem("Adicionar");
+		mntmAdicionar_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnPacote.add(mntmAdicionar_2);
 		
 		JMenuItem mntmRemover_2 = new JMenuItem("Remover");
+		mntmRemover_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnPacote.add(mntmRemover_2);
 		
 		JMenuItem mntmEditar_2 = new JMenuItem("Editar");
+		mntmEditar_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnPacote.add(mntmEditar_2);
 		
 		JMenuItem mntmListar_2 = new JMenuItem("Listar");
+		mntmListar_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnPacote.add(mntmListar_2);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
