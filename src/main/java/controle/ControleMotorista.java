@@ -19,11 +19,7 @@ public class ControleMotorista {
 
 		Motorista motorista = new Motorista(nome, nascimento, endereco, cnhNum, cnhTipo);
 
-		if (motoristaDAO.inserir(motorista)) {
-			return true;
-		} else {
-			return false;
-		}
+		return motoristaDAO.inserir(motorista);
 
 		// motoristaDAO.put(cnhNum,motorista);
 

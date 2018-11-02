@@ -2,12 +2,21 @@ package persistencia.idao;
 
 import java.util.Map;
 
+import entidade.Motorista;
 import entidade.Veiculo;
 
 public interface IVeiculoDao {
 
-	public void inserir(Veiculo veiculo);
+	public boolean inserir(String placa, Veiculo veiculo);
+
 	public Map<String, Veiculo> listar();
-	public void atualizar(Veiculo veiculo, String id);
-	public void remover(Veiculo veiculo);
+
+	public void atualizar(String placa, Veiculo veiculo);
+
+	public boolean remover(String placa);
+
+	public void vincularMotorista(String placa, Motorista motorista);
+
+	public void desvincularMotorista(String placa, Motorista motorista);
+
 }
