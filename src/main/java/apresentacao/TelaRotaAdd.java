@@ -28,6 +28,7 @@ public class TelaRotaAdd extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public TelaRotaAdd() {
+		setClosable(true);
 		getContentPane().setBackground(Color.WHITE);
 		setBounds(100, 100, 744, 530);
 		getContentPane().setLayout(null);
@@ -39,5 +40,10 @@ public class TelaRotaAdd extends JInternalFrame {
 		JLabel label = new JLabel("Ve\u00EDculo ");
 		label.setBounds(10, 34, 64, 23);
 		getContentPane().add(label);
+	}
+
+	public void setUndecorated(boolean b) {
+		// TODO Auto-generated method stub
+		
 	}
 }
