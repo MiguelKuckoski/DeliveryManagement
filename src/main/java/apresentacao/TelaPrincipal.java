@@ -62,8 +62,9 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmGerarRota = new JMenuItem("Adicionar");
 		mntmGerarRota.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			 
-			
+			 TelaRotaAdd rota = new TelaRotaAdd();
+			 rota.setVisible(true);
+			 contentPane.add(rota);
 			}
 		});
 		mnRota.add(mntmGerarRota);
@@ -71,6 +72,9 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem = new JMenuItem("Remover");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			TelaRotaRemove rota = new TelaRotaRemove();
+			rota.setVisible(true);
+			contentPane.add(rota);
 			}
 		});
 		mnRota.add(mntmNewMenuItem);
@@ -78,6 +82,9 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmPacotesForaDo = new JMenuItem("Editar");
 		mntmPacotesForaDo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			TelaRotaEdit rota = new TelaRotaEdit();
+			rota.setVisible(true);
+			contentPane.add(rota);
 			}
 		});
 		mnRota.add(mntmPacotesForaDo);
@@ -85,6 +92,9 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listar");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			TelaRotaListar rota = new TelaRotaListar();
+			rota.setVisible(true);
+			contentPane.add(rota);
 			}
 		});
 		mnRota.add(mntmNewMenuItem_1);
@@ -92,6 +102,9 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmCriar = new JMenuItem("Criar");
 		mntmCriar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			TelaRotaCriar rota = new TelaRotaCriar();
+			rota.setVisible(true);
+			contentPane.add(rota);
 			}
 		});
 		mnRota.add(mntmCriar);
@@ -99,6 +112,9 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmStatus = new JMenuItem("Status");
 		mntmStatus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			TelaRotaStatus rota = new TelaRotaStatus();
+			rota.setVisible(true);
+			contentPane.add(rota);
 			}
 		});
 		mnRota.add(mntmStatus);
@@ -208,5 +224,9 @@ public class TelaPrincipal extends JFrame {
 		}
 		public void actionPerformed(ActionEvent e) {
 		}
+	}
+	
+	private void teste(TelaRotaAdd rota) {
+		
 	}
 }
