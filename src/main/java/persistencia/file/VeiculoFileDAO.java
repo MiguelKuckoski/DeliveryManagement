@@ -106,7 +106,6 @@ public class VeiculoFileDAO implements IVeiculoDao{
 		this.listaVeiculo = listaVeiculo;
 	}
 
-	
 	@Override
 	public void inserir(Veiculo veiculo) {
 		// TODO Auto-generated method stub
