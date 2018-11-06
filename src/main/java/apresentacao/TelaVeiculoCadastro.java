@@ -3,8 +3,9 @@ package apresentacao;
 import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
+import javax.swing.JDesktopPane;
 
-public class TelaRotaEdit extends JInternalFrame {
+public class TelaVeiculoCadastro extends JInternalFrame {
 
 	/**
 	 * Launch the application.
@@ -13,7 +14,7 @@ public class TelaRotaEdit extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaRotaEdit frame = new TelaRotaEdit();
+					TelaVeiculoCadastro frame = new TelaVeiculoCadastro();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -25,9 +26,14 @@ public class TelaRotaEdit extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TelaRotaEdit() {
+	public TelaVeiculoCadastro() {
 		setClosable(true);
 		setBounds(100, 100, 744, 530);
+		getContentPane().setLayout(null);
+		
+		JDesktopPane desktopPane = new JDesktopPane();
+		desktopPane.setBounds(0, 0, 728, 500);
+		getContentPane().add(desktopPane);
 
 
 	}

@@ -61,73 +61,53 @@ public class TelaPrincipal extends JFrame {
 		});
 		setTitle("Entrega Rapida");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 921, 559);
+		setExtendedState(MAXIMIZED_BOTH);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		JMenu mnRota = new JMenu("Rota");
+		JMenu mnRota = new JMenu("Cadastro");
 		menuBar.add(mnRota);
 
-		JMenuItem mntmGerarRota = new JMenuItem("Adicionar");
+		JMenuItem mntmGerarRota = new JMenuItem("Rota");
 		mntmGerarRota.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				TelaRotaAdd rota = new TelaRotaAdd();
+				TelaRotaCadastro rota = new TelaRotaCadastro();
 				rota.setVisible(true);
 				desktop.add(rota);
 			}
 		});
 		mnRota.add(mntmGerarRota);
 
-		JMenuItem mntmNewMenuItem = new JMenuItem("Remover");
+		JMenuItem mntmNewMenuItem = new JMenuItem("Motorista");
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRotaRemove rota = new TelaRotaRemove();
+				TelaMotoristaCadastro rota = new TelaMotoristaCadastro();
 				rota.setVisible(true);
-				contentPane.add(rota);
+				desktop.add(rota);
 			}
 		});
 		mnRota.add(mntmNewMenuItem);
 
-		JMenuItem mntmPacotesForaDo = new JMenuItem("Editar");
+		JMenuItem mntmPacotesForaDo = new JMenuItem("Veiculo");
 		mntmPacotesForaDo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRotaEdit rota = new TelaRotaEdit();
+				TelaVeiculoCadastro rota = new TelaVeiculoCadastro();
 				rota.setVisible(true);
-				contentPane.add(rota);
+				desktop.add(rota);
 			}
 		});
 		mnRota.add(mntmPacotesForaDo);
 
-		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Listar");
+		JMenuItem mntmNewMenuItem_1 = new JMenuItem("Pacote");
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaRotaListar rota = new TelaRotaListar();
+				TelaPacoteCadastro rota = new TelaPacoteCadastro();
 				rota.setVisible(true);
-				contentPane.add(rota);
+				desktop.add(rota);
 			}
 		});
 		mnRota.add(mntmNewMenuItem_1);
-
-		JMenuItem mntmCriar = new JMenuItem("Criar");
-		mntmCriar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaRotaCriar rota = new TelaRotaCriar();
-				rota.setVisible(true);
-				contentPane.add(rota);
-			}
-		});
-		mnRota.add(mntmCriar);
-
-		JMenuItem mntmStatus = new JMenuItem("Status");
-		mntmStatus.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				TelaRotaStatus rota = new TelaRotaStatus();
-				rota.setVisible(true);
-				contentPane.add(rota);
-			}
-		});
-		mnRota.add(mntmStatus);
 
 		JMenu mnMotorista = new JMenu("Motorista");
 		menuBar.add(mnMotorista);
@@ -225,12 +205,16 @@ public class TelaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(this.desktop, GroupLayout.DEFAULT_SIZE, 895, Short.MAX_VALUE));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addComponent(desktop, GroupLayout.DEFAULT_SIZE, 1349, Short.MAX_VALUE)
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-						.addComponent(this.desktop, GroupLayout.PREFERRED_SIZE, 499, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+					.addComponent(desktop, GroupLayout.PREFERRED_SIZE, 678, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
 		GroupLayout gl_desktop = new GroupLayout(this.desktop);
 		gl_desktop
 				.setHorizontalGroup(gl_desktop.createParallelGroup(Alignment.LEADING).addGap(0, 895, Short.MAX_VALUE));
@@ -247,9 +231,5 @@ public class TelaPrincipal extends JFrame {
 
 		public void actionPerformed(ActionEvent e) {
 		}
-	}
-
-	private void teste(TelaRotaAdd rota) {
-
 	}
 }

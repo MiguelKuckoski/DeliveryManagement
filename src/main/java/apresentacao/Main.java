@@ -34,7 +34,7 @@ public class Main {
 				motorista();
 				break;
 			case 4:
-				// rota();
+				 rota();
 				break;
 			case 0:
 				System.out.println(" Sair ");
