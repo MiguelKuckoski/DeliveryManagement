@@ -18,6 +18,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import java.awt.Frame;
 
 public class TelaPrincipal extends JFrame {
 
@@ -61,7 +62,7 @@ public class TelaPrincipal extends JFrame {
 		});
 		setTitle("Entrega Rapida");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setExtendedState(MAXIMIZED_BOTH);
+		setExtendedState(Frame.MAXIMIZED_BOTH);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

@@ -52,68 +52,70 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public TelaMotoristaCadastro() {
+		setIconifiable(true);
+		setResizable(true);
 		setTitle("Motorista");
 		setClosable(true);
 		setBounds(100, 100, 744, 530);
 		getContentPane().setLayout(null);
 		
-		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBounds(0, 0, 753, 506);
-		getContentPane().add(desktopPane);
+		JDesktopPane desktop = new JDesktopPane();
+		desktop.setBounds(0, 0, 753, 506);
+		getContentPane().add(desktop);
 		
 		txtClicPesquisar = new JTextField();
 		txtClicPesquisar.setBounds(144, 60, 417, 28);
-		desktopPane.add(txtClicPesquisar);
+		desktop.add(txtClicPesquisar);
 		txtClicPesquisar.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome: ");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNome.setBounds(61, 188, 55, 16);
-		desktopPane.add(lblNome);
+		desktop.add(lblNome);
 		
 		txtNome = new JTextField();
 		txtNome.setBounds(205, 183, 356, 28);
-		desktopPane.add(txtNome);
+		desktop.add(txtNome);
 		txtNome.setColumns(10);
 		
 		txtDataNasc = new JTextField();
 		txtDataNasc.setBounds(205, 237, 356, 28);
-		desktopPane.add(txtDataNasc);
+		desktop.add(txtDataNasc);
 		txtDataNasc.setColumns(10);
 		
 		JLabel lblDataNasc = new JLabel("Data de Nascimento: ");
 		lblDataNasc.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblDataNasc.setBounds(61, 242, 132, 16);
-		desktopPane.add(lblDataNasc);
+		desktop.add(lblDataNasc);
 		
 		txtCnh = new JTextField();
 		txtCnh.setBounds(205, 291, 356, 28);
-		desktopPane.add(txtCnh);
+		desktop.add(txtCnh);
 		txtCnh.setColumns(10);
 		
 		JLabel lblCnh = new JLabel("CNH: ");
 		lblCnh.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblCnh.setBounds(61, 296, 55, 16);
-		desktopPane.add(lblCnh);
+		desktop.add(lblCnh);
 		
 		JLabel lblTipoCnh = new JLabel("Tipo CNH: ");
 		lblTipoCnh.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTipoCnh.setBounds(61, 346, 73, 16);
-		desktopPane.add(lblTipoCnh);
+		desktop.add(lblTipoCnh);
 		
 		txtTipoCnh = new JTextField();
 		txtTipoCnh.setBounds(205, 341, 356, 28);
-		desktopPane.add(txtTipoCnh);
+		desktop.add(txtTipoCnh);
 		txtTipoCnh.setColumns(10);
 		
 		JLabel lblEndereco = new JLabel("Endereço:");
 		lblEndereco.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblEndereco.setBounds(61, 391, 73, 16);
-		desktopPane.add(lblEndereco);
+		desktop.add(lblEndereco);
 		
 		txtEndereco = new JTextField();
 		txtEndereco.setBounds(205, 386, 356, 28);
-		desktopPane.add(txtEndereco);
+		desktop.add(txtEndereco);
 		txtEndereco.setColumns(10);
 		
 		JButton btnMotCreate = new JButton("");
@@ -124,17 +126,17 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 			}
 		});
 		btnMotCreate.setBounds(269, 437, 43, 41);
-		desktopPane.add(btnMotCreate);
+		desktop.add(btnMotCreate);
 		
 		JButton btnMotUpdate = new JButton("");
 		btnMotUpdate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/edit.png")));
 		btnMotUpdate.setBounds(338, 437, 43, 41);
-		desktopPane.add(btnMotUpdate);		
+		desktop.add(btnMotUpdate);		
 
 		JButton btnMotDelete = new JButton("");
 		btnMotDelete.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/delete.png")));
 		btnMotDelete.setBounds(406, 437, 43, 41);
-		desktopPane.add(btnMotDelete);
+		desktop.add(btnMotDelete);
 
 	}
 }
