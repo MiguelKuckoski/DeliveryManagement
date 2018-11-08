@@ -14,7 +14,7 @@ import entidade.Veiculo;
 
 public class Main {
 
-	private static ControladorPrincipal controlador = new ControladorPrincipal("postgre");
+	private static ControladorPrincipal controlador = new ControladorPrincipal("");
 
 	public static void main(String[] args) {
 
@@ -25,16 +25,16 @@ public class Main {
 
 			switch (principal) {
 			case 1:
-				veiculo();
+				// veiculo();
 				break;
 			case 2:
-				pacote();
+				// pacote();
 				break;
 			case 3:
 				motorista();
 				break;
 			case 4:
-				rota();
+				 rota();
 				break;
 			case 0:
 				System.out.println(" Sair ");
@@ -60,37 +60,60 @@ public class Main {
 				String cnhTipo = JOptionPane.showInputDialog("Digite o tipo da cnh B ou C");
 				String endereco = JOptionPane.showInputDialog("Digite o endereço");
 
-				if (controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().containsKey(cnhNum)) {
-					JOptionPane.showMessageDialog(null,
-							"Motorista com CNH ja cadastrada no sistema, cadastre outro motorista ou cnh diferente");
+				if (controlador.getControleMotorista().cadastrarMotorista(nome, nascimento, endereco, cnhNum,
+						cnhTipo)) {
+					JOptionPane.showMessageDialog(null, "Motorista Cadastrado com sucesso");
 				} else {
-					controlador.getControleMotorista().cadastrarMotorista(nome, nascimento, endereco, cnhNum, cnhTipo);
+					JOptionPane.showMessageDialog(null, "Motorista Cadastrado com sucesso");
 				}
+				//
+				// if
+				// (controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().containsKey(cnhNum))
+				// {
+				// JOptionPane.showMessageDialog(null,
+				// "Motorista com CNH ja cadastrada no sistema, cadastre outro motorista ou cnh
+				// diferente");
+				// } else {
+				// controlador.getControleMotorista().cadastrarMotorista(nome, nascimento,
+				// endereco, cnhNum, cnhTipo);
+				// }
 
 				break;
 			case 2:
-				Set<String> chaves = controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().keySet();
+				// Set<String> chaves =
+				// controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().keySet();
+				//
+				// for (String chave : chaves) {
+				// Motorista motorista =
+				// controlador.getControleMotorista().getMotoristaDAO().getListaMotorista()
+				// .get(chave);
+				//
+				// System.out.println("CNH: " + chave + " - " + motorista.toString());
+				// }
 
+				Set<String> chaves = controlador.getControleMotorista().listarMotoristas().keySet();
 				for (String chave : chaves) {
-					Motorista motorista = controlador.getControleMotorista().getMotoristaDAO().getListaMotorista()
-							.get(chave);
-
+					Motorista motorista = controlador.getControleMotorista().listarMotoristas().get(chave);
 					System.out.println("CNH: " + chave + " - " + motorista.toString());
 				}
+
 				break;
 			case 3:
-				cnhNum = JOptionPane.showInputDialog("Digite o numero da CNH ");
-				int confirma;
-				if (controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().containsKey(cnhNum)) {
-					confirma = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir o cliente", "Atenção",
-							JOptionPane.YES_NO_OPTION);
-					if (confirma == JOptionPane.YES_OPTION) {
-						JOptionPane.showMessageDialog(null,
-								controlador.getControleMotorista().removerMotorista(cnhNum));
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Motorista não encontrado");
-				}
+				// cnhNum = JOptionPane.showInputDialog("Digite o numero da CNH ");
+				// int confirma;
+				// if
+				// (controlador.getControleMotorista().getMotoristaDAO().getListaMotorista().containsKey(cnhNum))
+				// {
+				// confirma = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir o
+				// cliente", "Atenção",
+				// JOptionPane.YES_NO_OPTION);
+				// if (confirma == JOptionPane.YES_OPTION) {
+				// JOptionPane.showMessageDialog(null,
+				// controlador.getControleMotorista().removerMotorista(cnhNum));
+				// }
+				// } else {
+				// JOptionPane.showMessageDialog(null, "Motorista não encontrado");
+				// }
 				break;
 			case 0:
 				System.out.println("Saindo do menu Motorista");

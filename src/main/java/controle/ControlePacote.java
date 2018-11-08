@@ -17,5 +17,4 @@ public class ControlePacote {
 		Pacote pacote = new Pacote(nomeRemetente, nomeDestino, codLocalizador, endRemetente, endDestino, peso);
 		pacoteDAO.inserir(pacote);
 	}
-
 }

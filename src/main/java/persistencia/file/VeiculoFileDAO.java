@@ -9,10 +9,11 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import entidade.Motorista;
 import entidade.Veiculo;
 import persistencia.idao.IVeiculoDao;
 
-public class VeiculoFileDAO implements IVeiculoDao{
+public class VeiculoFileDAO implements IVeiculoDao {
 
 	private static final String FILE_PATH = "arquivos/veiculos.dat";
 	private Map<String, Veiculo> listaVeiculo;
@@ -107,27 +108,52 @@ public class VeiculoFileDAO implements IVeiculoDao{
 	}
 
 	@Override
-	public void inserir(Veiculo veiculo) {
-		// TODO Auto-generated method stub
-		
+	public boolean inserir(String placa, Veiculo veiculo) {
+
+		if (veiculo != null) {
+			if (veiculo.getPlaca().isEmpty() && !listaVeiculo.containsKey(veiculo.getPlaca())) {
+				put(veiculo.getPlaca(), veiculo);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
 	public Map<String, Veiculo> listar() {
-		// TODO Auto-generated method stub
-		return null;
+		return getListaVeiculo();
 	}
 
 	@Override
-	public void atualizar(Veiculo veiculo, String id) {
-		// TODO Auto-generated method stub
-		
+	public void atualizar(String placa, Veiculo veiculo) {
+		if (veiculo != null) {
+			if (listaVeiculo.containsKey(placa)) {
+				listaVeiculo.put(placa, veiculo);
+				persist();
+			}
+		}
+
 	}
 
 	@Override
-	public void remover(Veiculo veiculo) {
-		// TODO Auto-generated method stub
-		
+	public boolean remover(String placa) {
+
+		if (getListaVeiculo().containsKey(placa)) {
+			getListaVeiculo().remove(placa);
+			persist();
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public void vincularMotorista(String placa, Motorista motorista) {
+		listaVeiculo.get(placa).vincularMotorista(motorista);
+	}
+
+	@Override
+	public void desvincularMotorista(String placa, Motorista motorista) {
+		listaVeiculo.get(placa).desvincularMotorista(motorista);
 	}
 
 }
