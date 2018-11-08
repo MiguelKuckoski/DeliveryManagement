@@ -30,7 +30,6 @@ public class Motorista implements Serializable {
 		this.vinculadoCarro = false;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -88,10 +87,6 @@ public class Motorista implements Serializable {
 		this.endereco = endereco;
 	}
 
-	public void vincularVeiculo() {
-
-	}
-	
 	public boolean getVinculadoCarro() {
 		return vinculadoCarro;
 	}
@@ -100,8 +95,6 @@ public class Motorista implements Serializable {
 		this.vinculadoCarro = vinculadoCarro;
 	}
 
-	
-	
 	@Override
 	public String toString() {
 		return "Motorista [nome=" + nome + ", nascimento=" + nascimento + ", cnhNum=" + cnhNum + ", cnhTipo=" + cnhTipo

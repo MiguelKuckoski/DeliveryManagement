@@ -12,7 +12,7 @@ public class Conexao {
 		String password = "admin";
 		
 		try {
-			Class.forName("org.postgresql.driver");
+			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(url, user, password);
 		} catch (Exception e) {
 			System.err.println(e.getMessage());

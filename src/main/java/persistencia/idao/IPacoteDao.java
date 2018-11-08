@@ -6,8 +6,8 @@ import entidade.Pacote;
 
 public interface IPacoteDao {
 	
-	public boolean inserir(Pacote pacote);
+	public void inserir(Pacote pacote);
 	public Map<String, Pacote> listar();
-	public boolean atualizar(Pacote pacote, String id);
-	public boolean remover(Pacote pacote);
+	public void atualizar(Pacote pacote, String id);
+	public void remover(Pacote pacote);
 }
