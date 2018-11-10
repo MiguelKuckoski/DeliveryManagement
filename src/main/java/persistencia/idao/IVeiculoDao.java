@@ -17,6 +17,6 @@ public interface IVeiculoDao {
 	
 	public boolean vincularMotorista(String placa, Motorista motorista);
 	
-	public boolean desvincularMotorista(String placa, Motorista motorista);
+	public boolean desvincularMotorista(String placa);
 	
 }

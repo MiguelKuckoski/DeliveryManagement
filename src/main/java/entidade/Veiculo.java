@@ -18,19 +18,19 @@ public class Veiculo implements Serializable {
 	private int ano;
 	protected List<Pacote> listaDePacote;
 	private Motorista motorista;
-	private String tipo;
+	private int tipo;
 	private Integer tamanho;
 
-	public Veiculo(String marca, String modelo, String placa, int ano, String tipo) {
+	public Veiculo(String marca, String modelo, String placa, int ano, int tipo) {
 		this.marca = marca;
 		this.modelo = modelo;
 		this.placa = placa;
 		this.ano = ano;
 		this.tipo = tipo;
 		
-		if (tipo.equalsIgnoreCase("van")) {
+		if (tipo == 1) {
 			tamanho = 1;
-		} else if (tipo.equalsIgnoreCase("caminhao")) {
+		} else if (tipo == 2) {
 			tamanho = 3;
 		} else {
 			tamanho = 10;
@@ -52,7 +52,7 @@ public class Veiculo implements Serializable {
 		if (motorista.getCnhTipo().equalsIgnoreCase("C")) {
 			this.motorista = motorista;
 			return true;
-		} else if (motorista.getCnhTipo().equalsIgnoreCase("B") && this.tipo.equalsIgnoreCase("Van")) {
+		} else if (motorista.getCnhTipo().equalsIgnoreCase("B") && this.tipo == 1) {
 			this.motorista = motorista;
 			return true;
 		}
@@ -136,12 +136,20 @@ public class Veiculo implements Serializable {
 		this.motorista = motorista;
 	}
 
-	public String getTipo() {
+	public int getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(int tipo) {
 		this.tipo = tipo;
+		
+		if(tipo == 1) {
+			tamanho = 1;
+		}else if(tipo ==2) {
+			tamanho =3;
+		}else {
+			tamanho =10;
+		}
 	}
 
 	public Integer getTamanho() {

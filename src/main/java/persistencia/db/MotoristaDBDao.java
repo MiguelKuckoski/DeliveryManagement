@@ -22,7 +22,7 @@ public class MotoristaDBDao implements IMotoristaDao {
 			statement = con.prepareStatement(sql);
 			statement.setString(1, motorista.getNome());
 			statement.setString(2, motorista.getNascimento());
-			statement.setString(3, motorista.getCnhNum());
+			statement.setInt(3, Integer.parseInt(motorista.getCnhNum()));
 			statement.setString(4, motorista.getCnhTipo());
 			statement.setString(5, motorista.getEndereco());
 			statement.setBoolean(6, motorista.getVinculadoCarro());
