@@ -125,7 +125,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnMotCreate.setBounds(246, 431, 70, 55);
+		btnMotCreate.setBounds(252, 423, 70, 55);
 		desktop.add(btnMotCreate);
 		
 		JButton btnMotUpdate = new JButton("");
@@ -140,5 +140,6 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		btnMotDelete.setBounds(406, 418, 60, 60);
 		desktop.add(btnMotDelete);
 
+		
 	}
 }

@@ -108,25 +108,25 @@ public class TelaPacoteCadastro extends JInternalFrame {
 		
 		JButton btnPacCreate = new JButton("");
 		btnPacCreate.setToolTipText("Adicionar");
-		btnPacCreate.setBackground(new Color(214, 217, 223));
-		btnPacCreate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/Add.png")));
+		btnPacCreate.setBackground(Color.LIGHT_GRAY);
+		btnPacCreate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/Add-pacote.png")));
 		btnPacCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnPacCreate.setBounds(269, 437, 43, 41);
+		btnPacCreate.setBounds(267, 395, 60, 60);
 		desktop.add(btnPacCreate);
 		
 		JButton btnPacUpdate = new JButton("");
 		btnPacUpdate.setToolTipText("Editar");
 		btnPacUpdate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/edit.png")));
-		btnPacUpdate.setBounds(338, 437, 43, 41);
+		btnPacUpdate.setBounds(334, 395, 60, 60);
 		desktop.add(btnPacUpdate);		
 
 		JButton btnPacDelete = new JButton("");
 		btnPacDelete.setToolTipText("Deletar");
 		btnPacDelete.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/delete.png")));
-		btnPacDelete.setBounds(406, 437, 43, 41);
+		btnPacDelete.setBounds(406, 395, 60, 60);
 		desktop.add(btnPacDelete);
 
 	}

@@ -108,7 +108,7 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 		JButton btnVeiCreate = new JButton("");
 		btnVeiCreate.setToolTipText("Adicionar");
 		btnVeiCreate.setBackground(new Color(214, 217, 223));
-		btnVeiCreate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/Add.png")));
+		btnVeiCreate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/Add-van.png")));
 		btnVeiCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
