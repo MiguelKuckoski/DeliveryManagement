@@ -10,7 +10,7 @@ public interface IMotoristaDao {
 
 	public Map<String, Motorista> listar();
 
-	public void atualizar(String cnhNum, Motorista motorista);
+	public boolean atualizar(String cnhNum, Motorista motorista);
 
 	public boolean remover(String cnhNum);
 

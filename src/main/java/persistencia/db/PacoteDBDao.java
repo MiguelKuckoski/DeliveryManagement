@@ -13,10 +13,10 @@ import persistencia.idao.IPacoteDao;
 public class PacoteDBDao implements IPacoteDao {
 
 	@Override
-	public void inserir(Pacote pacote) {
+	public boolean inserir(Pacote pacote) {
 		Connection con = Conexao.getConnection();
 		PreparedStatement statement = null;
-
+		int i = 0;
 		String sql = "INSERT INTO pacote(cod_localizador, nome_remetente, end_remetente, nome_destinatario, end_destinatario, peso, entregue, roteirizado)"
 				+ " values(?,?,?,?,?,?,?,?)";
 
@@ -31,7 +31,7 @@ public class PacoteDBDao implements IPacoteDao {
 			statement.setBoolean(7, pacote.isEntrega());
 			statement.setBoolean(8, pacote.isRoteirizado());
 
-			statement.execute();
+			i = statement.executeUpdate();
 
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -43,6 +43,7 @@ public class PacoteDBDao implements IPacoteDao {
 				e.printStackTrace();
 			}
 		}
+		return i > 0? true:false;
 	}
 
 	@Override
@@ -88,10 +89,10 @@ public class PacoteDBDao implements IPacoteDao {
 	}
 
 	@Override
-	public void atualizar(Pacote pacote, String codRastreio) {
+	public boolean atualizar(Pacote pacote, String codRastreio) {
 		Connection con = Conexao.getConnection();
 		PreparedStatement statement = null;
-
+		int i =0;
 		String sql = "update pacote set cod_localizador=?, nome_remetente = ?, end_remetente=?, nome_destinatario=?, end_destinatario=?, peso =?, entregue=?,"
 				+ "roteirizado = ? " + " where cod_localizador = ?";
 
@@ -108,7 +109,7 @@ public class PacoteDBDao implements IPacoteDao {
 			statement.setBoolean(8, pacote.isRoteirizado());
 			statement.setString(9, codRastreio);
 
-			statement.execute();
+			i = statement.executeUpdate();
 
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -120,19 +121,21 @@ public class PacoteDBDao implements IPacoteDao {
 				e.printStackTrace();
 			}
 		}
+		return i>0? true:false;
 
 	}
 
 	@Override
-	public void remover(Pacote pacote) {
+	public boolean remover(Pacote pacote) {
 		Connection con = Conexao.getConnection();
 		PreparedStatement statement = null;
+		int i =0;
 		String sql = "delete from pacote where cod_localizador = ? ";
 
 		try {
 			statement = con.prepareStatement(sql);
 			statement.setString(1, pacote.getCodLocalizador());
-			statement.execute();
+			i = statement.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		} finally {
@@ -143,6 +146,7 @@ public class PacoteDBDao implements IPacoteDao {
 				e.printStackTrace();
 			}
 		}
+		return i>0? true:false;
 
 	}
 

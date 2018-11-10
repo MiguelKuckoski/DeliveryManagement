@@ -13,9 +13,10 @@ import persistencia.idao.IMotoristaDao;
 public class MotoristaDBDao implements IMotoristaDao {
 
 	@Override
-	public void inserir(Motorista motorista) {
+	public boolean inserir(Motorista motorista) {
 		Connection con = Conexao.getConnection();
 		PreparedStatement statement = null;
+		int i =0;
 		String sql = "insert into motorista(nome, data_nasc, cnh_num, cnh_tipo, endereco, veiculo) values(?,?,?,?,?,?)";
 		try {
 			statement = con.prepareStatement(sql);
@@ -26,7 +27,7 @@ public class MotoristaDBDao implements IMotoristaDao {
 			statement.setString(5, motorista.getEndereco());
 			statement.setBoolean(6, motorista.getVinculadoCarro());
 			
-			statement.execute();
+			i = statement.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}finally {
@@ -38,6 +39,7 @@ public class MotoristaDBDao implements IMotoristaDao {
 			}
 			
 		}
+		return i > 0 ? true:false;
 
 	}
 
@@ -79,10 +81,11 @@ public class MotoristaDBDao implements IMotoristaDao {
 	}
 
 	@Override
-	public void atualizar(Motorista motorista, String cnhNum) {
+	public boolean atualizar(String cnhNum, Motorista motorista) {
 		Connection con = Conexao.getConnection();
 		String sql = "update motorista set nome = ?, data_nasc = ?, cnh_num =?, cnh_tipo =?, endereco = ?, veiculo = ? where cnh_num = ?";
 		PreparedStatement statement = null; 
+		int i=0;
 		try {
 			statement = con.prepareStatement(sql);
 			statement.setString(1, motorista.getNome());
@@ -92,7 +95,7 @@ public class MotoristaDBDao implements IMotoristaDao {
 			statement.setString(5, motorista.getEndereco());
 			statement.setBoolean(6, motorista.getVinculadoCarro());
 			statement.setString(7, cnhNum);
-			statement.execute();
+			 i = statement.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,18 +108,21 @@ public class MotoristaDBDao implements IMotoristaDao {
 				e.printStackTrace();
 			}
 		}
+		return i> 0 ? true:false;
 
 	}
 
 	@Override
-	public void remover(Motorista motorista) {
+	public boolean remover(String cnhNum) {
 		Connection con = Conexao.getConnection();
 		String sql = "delete from motorista where cnh_num = ?";
 		PreparedStatement statement = null; 
+		int i =0;
 		try {
 			statement = con.prepareStatement(sql);
-			statement.setString(1, motorista.getCnhNum());
-			statement.execute();
+			statement.setString(1, cnhNum);
+			i = statement.executeUpdate();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.err.println(e.getMessage());
@@ -128,6 +134,7 @@ public class MotoristaDBDao implements IMotoristaDao {
 				e.printStackTrace();
 			}
 		}
+		return i > 0? true:false;
 	}
 
 }
