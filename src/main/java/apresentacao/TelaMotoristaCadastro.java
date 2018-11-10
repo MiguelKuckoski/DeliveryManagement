@@ -18,6 +18,9 @@ import javax.swing.JToggleButton;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaMotoristaCadastro extends JInternalFrame {
 	private JTextField txtPesquisar;
@@ -26,6 +29,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 	private JTextField txtCnh;
 	private JTextField txtTipoCnh;
 	private JTextField txtEndereco;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -60,26 +64,26 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		JDesktopPane desktop = new JDesktopPane();
-		desktop.setBounds(0, 6, 753, 506);
+		desktop.setBounds(-27, 0, 759, 506);
 		getContentPane().add(desktop);
 		
 		txtPesquisar = new JTextField();
-		txtPesquisar.setBounds(144, 60, 417, 28);
+		txtPesquisar.setBounds(149, 16, 417, 28);
 		desktop.add(txtPesquisar);
 		txtPesquisar.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome: ");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNome.setBounds(61, 188, 55, 16);
+		lblNome.setBounds(61, 202, 55, 16);
 		desktop.add(lblNome);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(205, 183, 356, 28);
+		txtNome.setBounds(205, 197, 392, 28);
 		desktop.add(txtNome);
 		txtNome.setColumns(10);
 		
 		txtDataNasc = new JTextField();
-		txtDataNasc.setBounds(205, 237, 356, 28);
+		txtDataNasc.setBounds(205, 237, 392, 28);
 		desktop.add(txtDataNasc);
 		txtDataNasc.setColumns(10);
 		
@@ -89,7 +93,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		desktop.add(lblDataNasc);
 		
 		txtCnh = new JTextField();
-		txtCnh.setBounds(205, 291, 356, 28);
+		txtCnh.setBounds(205, 291, 392, 28);
 		desktop.add(txtCnh);
 		txtCnh.setColumns(10);
 		
@@ -104,7 +108,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		desktop.add(lblTipoCnh);
 		
 		txtTipoCnh = new JTextField();
-		txtTipoCnh.setBounds(205, 341, 356, 28);
+		txtTipoCnh.setBounds(205, 341, 392, 28);
 		desktop.add(txtTipoCnh);
 		txtTipoCnh.setColumns(10);
 		
@@ -114,9 +118,14 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		desktop.add(lblEndereco);
 		
 		txtEndereco = new JTextField();
-		txtEndereco.setBounds(205, 386, 356, 28);
+		txtEndereco.setBounds(205, 386, 392, 28);
 		desktop.add(txtEndereco);
 		txtEndereco.setColumns(10);
+		
+		JButton btnPesquisar = new JButton("");
+		btnPesquisar.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/search-icon.png")));
+		btnPesquisar.setBounds(594, 16, 36, 28);
+		desktop.add(btnPesquisar);
 		
 		JButton btnMotCreate = new JButton("");
 		btnMotCreate.setToolTipText("Adicionar");
@@ -125,21 +134,43 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnMotCreate.setBounds(252, 423, 70, 55);
+		btnMotCreate.setBounds(250, 426, 60, 60);
 		desktop.add(btnMotCreate);
 		
 		JButton btnMotUpdate = new JButton("");
 		btnMotUpdate.setToolTipText("Editar");
 		btnMotUpdate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/edit.png")));
-		btnMotUpdate.setBounds(334, 418, 60, 60);
+		btnMotUpdate.setBounds(342, 426, 60, 60);
 		desktop.add(btnMotUpdate);		
 
 		JButton btnMotDelete = new JButton("");
 		btnMotDelete.setToolTipText("Deletar");
 		btnMotDelete.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/delete.png")));
-		btnMotDelete.setBounds(406, 418, 60, 60);
+		btnMotDelete.setBounds(430, 426, 60, 60);
 		desktop.add(btnMotDelete);
-
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(null);
+		scrollPane.setEnabled(false);
+		desktop.setLayer(scrollPane, 0);
+		scrollPane.setBounds(99, 66, 520, 110);
+		desktop.add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome", "Data Nascimento", "Cnh", "Tipo Cnh", "Endere\u00E7o"
+			}
+		));
+		
+		
+		table.getColumnModel().getColumn(0).setPreferredWidth(50);
+		table.getColumnModel().getColumn(1).setPreferredWidth(109);
+		table.getColumnModel().getColumn(2).setPreferredWidth(38);
+		table.getColumnModel().getColumn(3).setPreferredWidth(70);
+
 	}
 }
