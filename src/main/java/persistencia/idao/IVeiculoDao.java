@@ -15,8 +15,8 @@ public interface IVeiculoDao {
 	
 	public boolean remover(String placa);
 	
-	public void vincularMotorista(String placa, Motorista motorista);
+	public boolean vincularMotorista(String placa, Motorista motorista);
 	
-	public void desvincularMotorista(String placa, Motorista motorista);
+	public boolean desvincularMotorista(String placa, Motorista motorista);
 	
 }
