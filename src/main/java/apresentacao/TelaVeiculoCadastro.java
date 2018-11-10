@@ -106,6 +106,7 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 		txtAno.setColumns(10);
 
 		JButton btnVeiCreate = new JButton("");
+		btnVeiCreate.setToolTipText("Adicionar");
 		btnVeiCreate.setBackground(new Color(214, 217, 223));
 		btnVeiCreate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/Add.png")));
 		btnVeiCreate.addActionListener(new ActionListener() {
@@ -116,11 +117,13 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 		desktop.add(btnVeiCreate);
 		
 		JButton btnVeiUpdate = new JButton("");
+		btnVeiUpdate.setToolTipText("Editar");
 		btnVeiUpdate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/edit.png")));
 		btnVeiUpdate.setBounds(338, 437, 43, 41);
 		desktop.add(btnVeiUpdate);		
 
 		JButton btnMotDelete = new JButton("");
+		btnMotDelete.setToolTipText("Deletar");
 		btnMotDelete.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/delete.png")));
 		btnMotDelete.setBounds(406, 437, 43, 41);
 		desktop.add(btnMotDelete);

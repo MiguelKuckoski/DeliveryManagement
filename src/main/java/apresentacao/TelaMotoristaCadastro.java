@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 import java.awt.Color;
 
 public class TelaMotoristaCadastro extends JInternalFrame {
-	private JTextField txtClicPesquisar;
+	private JTextField txtPesquisar;
 	private JTextField txtNome;
 	private JTextField txtDataNasc;
 	private JTextField txtCnh;
@@ -60,13 +60,13 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		getContentPane().setLayout(null);
 		
 		JDesktopPane desktop = new JDesktopPane();
-		desktop.setBounds(0, 0, 753, 506);
+		desktop.setBounds(0, 6, 753, 506);
 		getContentPane().add(desktop);
 		
-		txtClicPesquisar = new JTextField();
-		txtClicPesquisar.setBounds(144, 60, 417, 28);
-		desktop.add(txtClicPesquisar);
-		txtClicPesquisar.setColumns(10);
+		txtPesquisar = new JTextField();
+		txtPesquisar.setBounds(144, 60, 417, 28);
+		desktop.add(txtPesquisar);
+		txtPesquisar.setColumns(10);
 		
 		JLabel lblNome = new JLabel("Nome: ");
 		lblNome.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -119,23 +119,25 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		txtEndereco.setColumns(10);
 		
 		JButton btnMotCreate = new JButton("");
-		btnMotCreate.setBackground(new Color(214, 217, 223));
-		btnMotCreate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/Add.png")));
+		btnMotCreate.setToolTipText("Adicionar");
+		btnMotCreate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/adicionarMotorista.png")));
 		btnMotCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnMotCreate.setBounds(269, 437, 43, 41);
+		btnMotCreate.setBounds(246, 431, 70, 55);
 		desktop.add(btnMotCreate);
 		
 		JButton btnMotUpdate = new JButton("");
+		btnMotUpdate.setToolTipText("Editar");
 		btnMotUpdate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/edit.png")));
-		btnMotUpdate.setBounds(338, 437, 43, 41);
+		btnMotUpdate.setBounds(334, 418, 60, 60);
 		desktop.add(btnMotUpdate);		
 
 		JButton btnMotDelete = new JButton("");
+		btnMotDelete.setToolTipText("Deletar");
 		btnMotDelete.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/delete.png")));
-		btnMotDelete.setBounds(406, 437, 43, 41);
+		btnMotDelete.setBounds(406, 418, 60, 60);
 		desktop.add(btnMotDelete);
 
 	}

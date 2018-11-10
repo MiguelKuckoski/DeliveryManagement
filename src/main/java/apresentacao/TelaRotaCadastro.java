@@ -27,6 +27,7 @@ public class TelaRotaCadastro extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public TelaRotaCadastro() {
+		setClosable(true);
 		setBounds(100, 100, 744, 530);
 		getContentPane().setLayout(null);
 		
