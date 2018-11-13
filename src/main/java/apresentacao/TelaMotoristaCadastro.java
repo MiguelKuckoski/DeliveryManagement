@@ -134,7 +134,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		
 		JButton btnMotCreate = new JButton("");
 		btnMotCreate.setToolTipText("Adicionar");
-		btnMotCreate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/adicionarMotorista.png")));
+		btnMotCreate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/btnMotora.png")));
 		btnMotCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -148,7 +148,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 			}
 		});
 		btnMotUpdate.setToolTipText("Editar");
-		btnMotUpdate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/edit.png")));
+		btnMotUpdate.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/btnEdit.png")));
 		btnMotUpdate.setBounds(335, 423, 55, 52);
 		desktop.add(btnMotUpdate);		
 
