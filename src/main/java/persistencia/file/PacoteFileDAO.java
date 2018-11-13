@@ -25,12 +25,6 @@ public class PacoteFileDAO implements IPacoteDao {
 		load();
 	}
 
-	@Override
-	public void inserir(Pacote pacote) {
-		listaPacote.put(pacote.getCodLocalizador(), pacote);
-		persist();
-	}
-
 	@SuppressWarnings("unchecked")
 	private void load() {
 
@@ -95,24 +89,38 @@ public class PacoteFileDAO implements IPacoteDao {
 
 	}
 
-	@Override
-	public Map<String, Pacote> listar() {
-		return listaPacote;
-	}
-
 	public void setListaPacote(Map<String, Pacote> listaPacote) {
 		this.listaPacote = listaPacote;
 	}
 
 	@Override
-	public void atualizar(Pacote pacote, String id) {
-		// TODO Auto-generated method stub
-
+	public void inserir(Pacote pacote) {
+		listaPacote.put(pacote.getCodLocalizador(), pacote);
+		persist();
 	}
 
 	@Override
-	public void remover(Pacote pacote) {
-		// TODO Auto-generated method stub
+	public Map<String, Pacote> listar() {
+		return listaPacote;
+	}
 
+	@Override
+	public void atualizar(Pacote pacote, String codLocalizador) {
+		if (pacote != null) {
+			if (listaPacote.containsKey(codLocalizador)) {
+				listaPacote.put(codLocalizador, pacote);
+				persist();
+			}
+		}
+	}
+
+	@Override
+	public boolean remover(Pacote pacote) {
+		if (listaPacote.containsKey(pacote.getCodLocalizador())) {
+			listaPacote.remove(pacote.getCodLocalizador());
+			persist();
+			return true;
+		}
+		return false;
 	}
 }

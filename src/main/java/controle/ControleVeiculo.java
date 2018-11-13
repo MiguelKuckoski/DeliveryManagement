@@ -17,7 +17,7 @@ public class ControleVeiculo {
 		this.motoristaDAO = DaoFactory.getMotoristaDAO(persistencia);
 	}
 
-	public boolean cadastrarVeiculo(String marca, String modelo, String placa, int ano, String tipo) {
+	public boolean cadastrarVeiculo(String marca, String modelo, String placa, int ano, int tipo) {
 		Veiculo veiculo = new Veiculo(marca, modelo, placa, ano, tipo);
 
 		return veiculoDAO.inserir(placa, veiculo);

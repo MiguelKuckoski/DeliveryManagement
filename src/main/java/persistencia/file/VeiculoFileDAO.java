@@ -125,14 +125,15 @@ public class VeiculoFileDAO implements IVeiculoDao {
 	}
 
 	@Override
-	public void atualizar(String placa, Veiculo veiculo) {
+	public boolean atualizar(String placa, Veiculo veiculo) {
 		if (veiculo != null) {
 			if (listaVeiculo.containsKey(placa)) {
 				listaVeiculo.put(placa, veiculo);
 				persist();
+				return true;
 			}
 		}
-
+		return false;
 	}
 
 	@Override
