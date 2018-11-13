@@ -72,7 +72,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		desktop.add(txtPesquisar);
 		txtPesquisar.setColumns(10);
 		
-		JLabel lblNome = new JLabel("Nome: ");
+		JLabel lblNome = new JLabel("Nome");
 		lblNome.setForeground(Color.WHITE);
 		lblNome.setFont(new Font("Calibri", Font.PLAIN, 18));
 		lblNome.setBounds(49, 212, 55, 16);
@@ -88,7 +88,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		desktop.add(txtDataNasc);
 		txtDataNasc.setColumns(10);
 		
-		JLabel lblDataNasc = new JLabel("Data de Nascimento: ");
+		JLabel lblDataNasc = new JLabel("Data de Nascimento");
 		lblDataNasc.setForeground(Color.WHITE);
 		lblDataNasc.setFont(new Font("Calibri", Font.PLAIN, 18));
 		lblDataNasc.setBounds(49, 253, 158, 16);
@@ -99,13 +99,13 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		desktop.add(txtCnh);
 		txtCnh.setColumns(10);
 		
-		JLabel lblCnh = new JLabel("CNH: ");
+		JLabel lblCnh = new JLabel("CNH");
 		lblCnh.setForeground(Color.WHITE);
 		lblCnh.setFont(new Font("Calibri", Font.PLAIN, 18));
 		lblCnh.setBounds(49, 293, 55, 16);
 		desktop.add(lblCnh);
 		
-		JLabel lblTipoCnh = new JLabel("Tipo CNH: ");
+		JLabel lblTipoCnh = new JLabel("Tipo CNH");
 		lblTipoCnh.setForeground(Color.WHITE);
 		lblTipoCnh.setFont(new Font("Calibri", Font.PLAIN, 18));
 		lblTipoCnh.setBounds(49, 332, 119, 16);
@@ -116,7 +116,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		desktop.add(txtTipoCnh);
 		txtTipoCnh.setColumns(10);
 		
-		JLabel lblEndereco = new JLabel("Endere\u00E7o:");
+		JLabel lblEndereco = new JLabel("Endereço");
 		lblEndereco.setForeground(Color.WHITE);
 		lblEndereco.setFont(new Font("Calibri", Font.PLAIN, 18));
 		lblEndereco.setBounds(49, 372, 88, 16);
