@@ -150,11 +150,13 @@ public class VeiculoFileDAO implements IVeiculoDao {
 	@Override
 	public void vincularMotorista(String placa, Motorista motorista) {
 		listaVeiculo.get(placa).vincularMotorista(motorista);
+		persist();
 	}
 
 	@Override
 	public void desvincularMotorista(String placa, Motorista motorista) {
 		listaVeiculo.get(placa).desvincularMotorista(motorista);
+		persist();
 	}
 
 }
