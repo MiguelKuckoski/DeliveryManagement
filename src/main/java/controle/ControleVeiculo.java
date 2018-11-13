@@ -39,7 +39,7 @@ public class ControleVeiculo {
 							motoristaDAO.listar().get(cnhMotorista));
 					return "Removido com sucesso";
 				} else {
-					return "Erro ao removir";
+					return "Erro ao remover";
 				}
 			} else {
 				return "Veiculo sem motorista ja vinculado";
