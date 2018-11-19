@@ -2,7 +2,6 @@ package persistencia;
 
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
 
 import entidade.Pacote;
 import persistencia.db.PacoteDBDao;
@@ -13,11 +12,11 @@ class PacoteDBDaoTest {
 	void inserirTest() {
 		PacoteDBDao dao= new PacoteDBDao();
 		Pacote pacote = new Pacote();
-		pacote.setCodLocalizador("7");
+		pacote.setCodLocalizador("8");
 		pacote.setEndDestino("Capoeiras");
 		pacote.setEndRemetente("Itacorubi");
-		pacote.setNomeDestino("Thalissa");
-		pacote.setNomeRemetente("Miguel");
+		pacote.setNomeDestino("Miguel");
+		pacote.setNomeRemetente("Thalissa");
 		pacote.setPeso(18);
 		dao.inserir(pacote);
 	}

@@ -25,7 +25,6 @@ public class PacoteFileDAO implements IPacoteDao {
 		load();
 	}
 
-	@SuppressWarnings("unchecked")
 	private void load() {
 
 		try {

@@ -18,7 +18,12 @@ public class Motorista implements Serializable {
 
 
 	public Motorista() {
-
+		this.nome = "";
+		this.nascimento = "";
+		this.endereco = "";
+		this.cnhNum = "";
+		this.cnhTipo = "";
+		this.vinculadoCarro = false;
 	}
 
 	public Motorista(String nome, String nascimento, String endereco, String cnhNum, String cnhTipo) {

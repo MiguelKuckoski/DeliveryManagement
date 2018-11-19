@@ -33,7 +33,7 @@ class MotoristaDBDaoTest {
 		motorista.setNome("Miguel Freitas");
 		motorista.setVinculadoCarro(true);
 		
-		dao.atualizar(motorista, "23455");
+		dao.atualizar("23455", motorista);
 	}
 	
 	@Test

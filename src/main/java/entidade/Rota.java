@@ -1,33 +1,32 @@
 package entidade;
 
-import java.util.Map;
+public class Rota  {
 
-import persistencia.idao.IRotaDao;
+	private Veiculo veiculo;
+	private String dataExecucao;
 
-public class Rota implements IRotaDao {
-
-	@Override
-	public void inserir(Rota veiculo) {
-		// TODO Auto-generated method stub
-		
+	public Rota() {
+		super();
 	}
 
-	@Override
-	public Map<String, Rota> listar() {
-		// TODO Auto-generated method stub
-		return null;
+	public Veiculo getVeiculo() {
+		return veiculo;
 	}
 
-	@Override
-	public void atualizar(Rota veiculo, String id) {
-		// TODO Auto-generated method stub
-		
+	public void setVeiculo(Veiculo veiculo) {
+		this.veiculo = veiculo;
 	}
 
-	@Override
-	public void remover(Rota veiculo) {
-		// TODO Auto-generated method stub
-		
+	public String getDataExecucao() {
+		return dataExecucao;
 	}
 
+	public void setDataExecucao(String dataExecucao) {
+		this.dataExecucao = dataExecucao;
+	}
+	
+	
+
+	
+	
 }

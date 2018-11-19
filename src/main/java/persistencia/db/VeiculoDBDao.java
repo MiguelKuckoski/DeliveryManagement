@@ -18,7 +18,7 @@ public class VeiculoDBDao implements IVeiculoDao {
 		Connection con = Conexao.getConnection();
 		PreparedStatement statement = null;
 		int i = 0;
-		String sql = "insert into veiculo(marca, modelo, placa, ano, motorista, tipo) values(?,?,?,?,?,?)";
+		String sql = "insert into veiculo(marca, modelo, placa, ano, tipo) values(?,?,?,?,?)";
 
 		try {
 			statement = con.prepareStatement(sql);
@@ -26,8 +26,7 @@ public class VeiculoDBDao implements IVeiculoDao {
 			statement.setString(2, veiculo.getModelo());
 			statement.setString(3, veiculo.getPlaca());
 			statement.setInt(4, veiculo.getAno());
-			statement.setInt(5, Integer.parseInt(veiculo.getMotorista().getCnhNum()));
-			statement.setInt(6, veiculo.getTipo());
+			statement.setInt(5, veiculo.getTipo());
 
 			i = statement.executeUpdate();
 		} catch (SQLException e) {
@@ -63,9 +62,14 @@ public class VeiculoDBDao implements IVeiculoDao {
 				veiculo.setMarca(rs.getString("marca"));
 				veiculo.setModelo(rs.getString("modelo"));
 				veiculo.setTipo(rs.getInt("tipo"));
-				veiculo.setMotorista(getMotorista(rs.getInt("motorista")));
+				Integer motoristaId = rs.getInt("motorista");
+				if(motoristaId > 0)  {
+					veiculo.setMotorista(getMotorista(motoristaId));
+					
+				}
 				veiculos.put(veiculo.getPlaca(), veiculo);
 			}
+			
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
@@ -119,16 +123,15 @@ public class VeiculoDBDao implements IVeiculoDao {
 		Connection con = Conexao.getConnection();
 		PreparedStatement statement = null;
 		int i = 0;
-		String sql = "update veiculo set marca=?, modelo =?, motorista = ?, tipo =?, ano =? where placa = ?";
+		String sql = "update veiculo set marca=?, modelo =?, tipo =?, ano =? where placa = ?";
 
 		try {
 			statement = con.prepareStatement(sql);
 			statement.setString(1, veiculo.getMarca());
 			statement.setString(2, veiculo.getModelo());
-			statement.setInt(3, Integer.parseInt(veiculo.getMotorista().getCnhNum()));
-			statement.setInt(4, veiculo.getTipo());
-			statement.setInt(5, veiculo.getAno());
-			statement.setString(6, placa);
+			statement.setInt(3, veiculo.getTipo());
+			statement.setInt(4, veiculo.getAno());
+			statement.setString(5, placa);
 			i = statement.executeUpdate();
 
 		} catch (SQLException e) {
@@ -171,17 +174,16 @@ public class VeiculoDBDao implements IVeiculoDao {
 	}
 
 	@Override
-	public boolean vincularMotorista(String placa, Motorista motorista) {
+	public void vincularMotorista(String placa, Motorista motorista) {
 		Connection con = Conexao.getConnection();
 		PreparedStatement statement = null;
-		int i = 0;
 		String sql = "update veiculo set motorista=? where placa=?";
 
 		try {
 			statement = con.prepareStatement(sql);
 			statement.setInt(1, Integer.parseInt(motorista.getCnhNum()));
 			statement.setString(2, placa);
-			i = statement.executeUpdate();
+			statement.execute();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
@@ -193,21 +195,19 @@ public class VeiculoDBDao implements IVeiculoDao {
 				e.printStackTrace();
 			}
 		}
-		return i > 0 ? true : false;
 
 	}
 
 	@Override
-	public boolean desvincularMotorista(String placa) {
+	public void desvincularMotorista(String placa, Motorista motorista) {
 		Connection con = Conexao.getConnection();
 		PreparedStatement statement = null;
-		int i = 0;
 		String sql = "update veiculo set motorista = null where placa=?";
 
 		try {
 			statement = con.prepareStatement(sql);
-			statement.setString(1, "placa");
-			i = statement.executeUpdate();
+			statement.setString(1, placa);
+			statement.execute();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
@@ -219,7 +219,6 @@ public class VeiculoDBDao implements IVeiculoDao {
 				e.printStackTrace();
 			}
 		}
-		return i > 0 ? true : false;
 	}
 
 }

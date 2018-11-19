@@ -81,11 +81,10 @@ public class MotoristaDBDao implements IMotoristaDao {
 	}
 
 	@Override
-	public boolean atualizar(String cnhNum, Motorista motorista) {
+	public void atualizar(String cnhNum, Motorista motorista) {
 		Connection con = Conexao.getConnection();
 		String sql = "update motorista set nome = ?, data_nasc = ?, cnh_num =?, cnh_tipo =?, endereco = ?, veiculo = ? where cnh_num = ?";
 		PreparedStatement statement = null;
-		int i = 0;
 		try {
 			statement = con.prepareStatement(sql);
 			statement.setString(1, motorista.getNome());
@@ -95,7 +94,7 @@ public class MotoristaDBDao implements IMotoristaDao {
 			statement.setString(5, motorista.getEndereco());
 			statement.setBoolean(6, motorista.getVinculadoCarro());
 			statement.setString(7, cnhNum);
-			i = statement.executeUpdate();
+			statement.execute();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,7 +107,6 @@ public class MotoristaDBDao implements IMotoristaDao {
 				e.printStackTrace();
 			}
 		}
-		return i > 0 ? true : false;
 
 	}
 
