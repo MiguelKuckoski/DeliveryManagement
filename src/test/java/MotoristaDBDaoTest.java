@@ -1,8 +1,7 @@
-package persistencia;
 
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import entidade.Motorista;
 import persistencia.db.MotoristaDBDao;
@@ -48,7 +47,7 @@ class MotoristaDBDaoTest {
 		MotoristaDBDao dao= new MotoristaDBDao();
 		Motorista motorista = new Motorista();
 		motorista.setCnhNum("5664");
-		dao.remover(motorista);
+		dao.remover("5664");
 	}
 	
 }

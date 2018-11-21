@@ -1,8 +1,7 @@
-package persistencia;
 
 import java.util.Map;
 
-
+import org.junit.Test;
 import entidade.Pacote;
 import persistencia.db.PacoteDBDao;
 

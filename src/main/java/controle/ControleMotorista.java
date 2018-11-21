@@ -20,9 +20,6 @@ public class ControleMotorista {
 		Motorista motorista = new Motorista(nome, nascimento, endereco, cnhNum, cnhTipo);
 
 		return motoristaDAO.inserir(motorista);
-
-		// motoristaDAO.put(cnhNum,motorista);
-
 	}
 
 	public String removerMotorista(String cnhNum) {
@@ -32,14 +29,6 @@ public class ControleMotorista {
 		} else {
 			return "Erro ao apagar motorista/Motorista não encontrado";
 		}
-
-		// if(motoristaDAO.getListaMotorista().containsKey(cnhNum)) {
-		// motoristaDAO.getListaMotorista().remove(cnhNum);
-		// motoristaDAO.persit();
-		// return "Motorista apagado com sucesso";
-		// }
-		//
-		// return "Erro ao apagar motorista/Motorista não encontrado";
 	}
 
 	public void atualizarMotorista(String cnhNum, Motorista motorista) {

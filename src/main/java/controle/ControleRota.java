@@ -31,7 +31,9 @@ import entidade.Motorista;
 import entidade.Pacote;
 import entidade.Veiculo;
 import persistencia.DaoFactory;
+import persistencia.idao.IPacoteDao;
 import persistencia.idao.IRotaDao;
+import persistencia.idao.IVeiculoDao;
 import util.FileConstants;
 
 public class ControleRota {
@@ -40,8 +42,13 @@ public class ControleRota {
 	final SimpleDateFormat fileDateFormat = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
 
 	private IRotaDao rotaDao;
+	private IVeiculoDao veiculoDao;
+	private IPacoteDao pacoteDao;
+	
 	public ControleRota(String persistencia) {
 		this.rotaDao = DaoFactory.getRotaDao(persistencia);
+		this.veiculoDao = DaoFactory.getVeiculoDAO(persistencia);
+		this.pacoteDao = DaoFactory.getPacoteDAO(persistencia);
 	}
 
 	public void criarRota(Map<String, Veiculo> listaVeiculo, Map<String, Pacote> listaPacote) {
@@ -67,6 +74,7 @@ public class ControleRota {
 		vehicleSet.addAll(listaVeiculo.entrySet());
 		Iterator<Entry<String, Veiculo>> iteratorVechile = vehicleSet.iterator();
 
+		
 		while (iteratorVechile.hasNext()) {
 			Entry<String, Veiculo> veiculo = iteratorVechile.next();
 			int i = 0;
@@ -84,6 +92,7 @@ public class ControleRota {
 			}
 		}
 		escreverRota(data, listaVeiculo);
+		
 		controlePrincipal.getControleVeiculo().getVeiculoDAO().setListaVeiculo(listaVeiculo);
 		controlePrincipal.getControleVeiculo().getVeiculoDAO().persist();
 		controlePrincipal.getControlePacote().getPacoteDAO().setListaPacote(listaPacote);
@@ -224,38 +233,6 @@ public class ControleRota {
 		}
 	}
 
-	private void populeDriverSheets(Veiculo veiculo, HSSFWorkbook wb) {
-		HSSFSheet sheet = null;
-		HSSFRow row = null;
-		sheet = wb.createSheet(veiculo.getMotorista().getCnhNum());
-
-		row = sheet.createRow(0);
-		row.createCell(FileConstants.DATA_INSERCAO).setCellValue("Data inserção");
-		row.createCell(FileConstants.PLACA).setCellValue("Placa");
-		row.createCell(FileConstants.MOTORISTA_NOME).setCellValue("Motorista");
-		row.createCell(FileConstants.RASTREIO).setCellValue("Rastreio");
-		row.createCell(FileConstants.NOME_REMETENTE).setCellValue("Nome remetente");
-		row.createCell(FileConstants.ENDERECO_REMETENTE).setCellValue("Endereço remetente");
-		row.createCell(FileConstants.NOME_DESTINO).setCellValue("Nome destino");
-		row.createCell(FileConstants.ENDERECO_DESTINO).setCellValue("Endereço entrega");
-		row.createCell(FileConstants.PESO).setCellValue("Peso");
-		row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("Status entrega");
-
-		for (Pacote pacote : veiculo.getListaDePacote()) {
-			row = sheet.createRow(sheet.getLastRowNum() + 1);
-			row.createCell(FileConstants.DATA_INSERCAO).setCellValue(fileDateFormat.format(pacote.getDataInsercao()));
-			row.createCell(FileConstants.PLACA).setCellValue(veiculo.getPlaca());
-			row.createCell(FileConstants.MOTORISTA_NOME).setCellValue(veiculo.getMotorista().getNome());
-			row.createCell(FileConstants.RASTREIO).setCellValue(pacote.getCodLocalizador());
-			row.createCell(FileConstants.NOME_REMETENTE).setCellValue(pacote.getNomeRemetente());
-			row.createCell(FileConstants.ENDERECO_REMETENTE).setCellValue(pacote.getEndRemetente());
-			row.createCell(FileConstants.NOME_DESTINO).setCellValue(pacote.getNomeDestino());
-			row.createCell(FileConstants.ENDERECO_DESTINO).setCellValue(pacote.getEndDestino());
-			row.createCell(FileConstants.PESO).setCellValue(pacote.getPeso());
-			row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("não");
-		}
-	}
-
 	public void relatorioDeRoteirizacaoDiaria() {
 		controlePrincipal.getControleVeiculo().getVeiculoDAO().getListaVeiculo().entrySet().forEach(veiculo -> {
 			if (veiculo.getValue().getListaDePacote() != null) {
@@ -391,6 +368,38 @@ public class ControleRota {
 					+ pacote.getCodLocalizador() + " Endereço de entrega: " + pacote.getNomeDestino()
 					+ "status de entrega: " + (pacote.isEntrega() ? "sim" : "nao") + "\n");
 
+		}
+	}
+
+	private void populeDriverSheets(Veiculo veiculo, HSSFWorkbook wb) {
+		HSSFSheet sheet = null;
+		HSSFRow row = null;
+		sheet = wb.createSheet(veiculo.getMotorista().getCnhNum());
+
+		row = sheet.createRow(0);
+		row.createCell(FileConstants.DATA_INSERCAO).setCellValue("Data inserção");
+		row.createCell(FileConstants.PLACA).setCellValue("Placa");
+		row.createCell(FileConstants.MOTORISTA_NOME).setCellValue("Motorista");
+		row.createCell(FileConstants.RASTREIO).setCellValue("Rastreio");
+		row.createCell(FileConstants.NOME_REMETENTE).setCellValue("Nome remetente");
+		row.createCell(FileConstants.ENDERECO_REMETENTE).setCellValue("Endereço remetente");
+		row.createCell(FileConstants.NOME_DESTINO).setCellValue("Nome destino");
+		row.createCell(FileConstants.ENDERECO_DESTINO).setCellValue("Endereço entrega");
+		row.createCell(FileConstants.PESO).setCellValue("Peso");
+		row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("Status entrega");
+
+		for (Pacote pacote : veiculo.getListaDePacote()) {
+			row = sheet.createRow(sheet.getLastRowNum() + 1);
+			row.createCell(FileConstants.DATA_INSERCAO).setCellValue(fileDateFormat.format(pacote.getDataInsercao()));
+			row.createCell(FileConstants.PLACA).setCellValue(veiculo.getPlaca());
+			row.createCell(FileConstants.MOTORISTA_NOME).setCellValue(veiculo.getMotorista().getNome());
+			row.createCell(FileConstants.RASTREIO).setCellValue(pacote.getCodLocalizador());
+			row.createCell(FileConstants.NOME_REMETENTE).setCellValue(pacote.getNomeRemetente());
+			row.createCell(FileConstants.ENDERECO_REMETENTE).setCellValue(pacote.getEndRemetente());
+			row.createCell(FileConstants.NOME_DESTINO).setCellValue(pacote.getNomeDestino());
+			row.createCell(FileConstants.ENDERECO_DESTINO).setCellValue(pacote.getEndDestino());
+			row.createCell(FileConstants.PESO).setCellValue(pacote.getPeso());
+			row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("não");
 		}
 	}
 }

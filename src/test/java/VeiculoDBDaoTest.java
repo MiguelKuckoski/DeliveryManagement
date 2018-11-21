@@ -1,10 +1,8 @@
-package persistencia;
 
 import java.util.List;
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
-
+import org.junit.Test;
 import entidade.Motorista;
 import entidade.Veiculo;
 import persistencia.db.VeiculoDBDao;
@@ -62,6 +60,6 @@ class VeiculoDBDaoTest{
 	@Test
 	void DesvincularMotoristaTeste() {
 		VeiculoDBDao dao = new VeiculoDBDao();	
-		dao.desvincularMotorista("dsu-2837");
+		dao.desvincularMotorista("dsu-2837", new Motorista());
 	}
 }

@@ -9,7 +9,7 @@ import persistencia.idao.IRotaDao;
 public class RotaFileDao implements IRotaDao{
 
 	@Override
-	public Map<String, Rota> listar() {
+	public Map<String, List<Rota>> listar() {
 		// TODO Auto-generated method stub
 		return null;
 	}

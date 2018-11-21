@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
 import entidade.Pacote;
 import persistencia.DaoFactory;
 import persistencia.idao.IPacoteDao;
@@ -62,5 +64,15 @@ public class ControlePacote {
 			}
 		}
 		return listaPacotesNaoRoteirizados;
+	}
+
+	public void atualizarPacote(Pacote pacote, String codRastreio) {
+		pacoteDAO.atualizar(pacote, codRastreio);
+	}
+
+	public void removerPacote(Pacote pacote) {
+		if(!pacoteDAO.remover(pacote)) {
+			JOptionPane.showMessageDialog(null, "Erro ao remover pacote", "Erro" ,JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
