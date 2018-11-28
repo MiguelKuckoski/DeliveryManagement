@@ -2,16 +2,24 @@ package controle;
 
 public class ControladorPrincipal {
 
-	private ControleVeiculo controleVeiculo;
-	private ControleMotorista controleMotorista;
-	private ControlePacote controlePacote;
-	private ControleRota controleRota;
+	private static ControleVeiculo controleVeiculo;
+	private static ControleMotorista controleMotorista;
+	private static ControlePacote controlePacote;
+	private static ControleRota controleRota;
 
-	public ControladorPrincipal(String persistencia) {
+	private static ControladorPrincipal instancia = new ControladorPrincipal();
 
-		this.controleVeiculo = new ControleVeiculo(persistencia);
-		this.controleMotorista = new ControleMotorista(persistencia);
-		this.controlePacote = new ControlePacote(persistencia);
+	private ControladorPrincipal() {
+	}
+
+	public static ControladorPrincipal getInstancia() {
+		return instancia;
+	}
+
+	public void start(String persistencia) {
+		controleVeiculo = new ControleVeiculo(persistencia);
+		controleMotorista = new ControleMotorista(persistencia);
+		controlePacote = new ControlePacote(persistencia);
 		// this.controleRota = new ControleRota(this, persistencia);
 	}
 
@@ -20,7 +28,7 @@ public class ControladorPrincipal {
 	}
 
 	public void setControleMotorista(ControleMotorista controleMotorista) {
-		this.controleMotorista = controleMotorista;
+		ControladorPrincipal.controleMotorista = controleMotorista;
 	}
 
 	public ControleVeiculo getControleviculo() {
@@ -28,7 +36,7 @@ public class ControladorPrincipal {
 	}
 
 	public void setControleviculo(ControleVeiculo controleviculo) {
-		this.controleVeiculo = controleviculo;
+		controleVeiculo = controleviculo;
 	}
 
 	public ControleVeiculo getControleVeiculo() {
@@ -36,7 +44,7 @@ public class ControladorPrincipal {
 	}
 
 	public void setControleVeiculo(ControleVeiculo controleVeiculo) {
-		this.controleVeiculo = controleVeiculo;
+		ControladorPrincipal.controleVeiculo = controleVeiculo;
 	}
 
 	public ControlePacote getControlePacote() {
@@ -44,7 +52,7 @@ public class ControladorPrincipal {
 	}
 
 	public void setControlePacote(ControlePacote controlePacote) {
-		this.controlePacote = controlePacote;
+		ControladorPrincipal.controlePacote = controlePacote;
 	}
 
 	public ControleRota getControleRota() {
@@ -52,7 +60,7 @@ public class ControladorPrincipal {
 	}
 
 	public void setControleRota(ControleRota controleRota) {
-		this.controleRota = controleRota;
+		ControladorPrincipal.controleRota = controleRota;
 	}
 
 }

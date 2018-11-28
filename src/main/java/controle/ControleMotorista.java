@@ -8,7 +8,7 @@ import persistencia.idao.IMotoristaDao;
 
 public class ControleMotorista {
 
-	private IMotoristaDao motoristaDAO;
+	private final IMotoristaDao motoristaDAO;
 
 	public ControleMotorista(String persistencia) {
 

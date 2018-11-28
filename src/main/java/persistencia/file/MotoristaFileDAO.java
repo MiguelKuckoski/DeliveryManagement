@@ -108,7 +108,7 @@ public class MotoristaFileDAO implements IMotoristaDao {
 	@Override
 	public boolean inserir(Motorista motorista) {
 		if (motorista != null) {
-			if (motorista.getCnhNum().isEmpty() && !listaMotorista.containsKey(motorista.getCnhNum())) {
+			if (!motorista.getCnhNum().isEmpty() && !listaMotorista.containsKey(motorista.getCnhNum())) {
 				put(motorista.getCnhNum(), motorista);
 				return true;
 			}
@@ -125,7 +125,12 @@ public class MotoristaFileDAO implements IMotoristaDao {
 	public void atualizar(String cnhNum, Motorista motorista) {
 		if (motorista != null) {
 			if (getListaMotorista().containsKey(cnhNum)) {
-				getListaMotorista().put(cnhNum, motorista);
+
+				getListaMotorista().get(cnhNum).setCnhTipo(motorista.getCnhTipo());
+				getListaMotorista().get(cnhNum).setEndereco(motorista.getEndereco());
+				getListaMotorista().get(cnhNum).setNascimento(motorista.getNascimento());
+				getListaMotorista().get(cnhNum).setNome(motorista.getNome());
+
 				persit();
 			}
 		}
