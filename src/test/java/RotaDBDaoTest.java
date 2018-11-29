@@ -39,11 +39,31 @@ public class RotaDBDaoTest {
 		rotas.add(r2);
 		
 		dao.inserir(rotas);
+	}	
+
+	@Test
+	public void pesquisarTest() {
+		RotaDBDao dao = new RotaDBDao();
+		dao.pesquisar("23455", null );
+	}
+	
+	@Test
+	public void removerTest() {
+		RotaDBDao dao = new RotaDBDao();
+		Rota rota = new Rota();
+		rota.setDataExecucao("2018-11-20");
+		Veiculo veiculo = new Veiculo();
+		veiculo.setPlaca("ghu-7676");
+		
+		rota.setVeiculo(veiculo);
+		
+		dao.remover(rota);
 	}
 
 	@Test
-	public void listar() {
+	public void rotaDetalhadaTest() {
 		RotaDBDao dao = new RotaDBDao();
-		dao.listar();
+	
+		dao.rotaDetalhada("2018-11-20", "dsu-2837");
 	}
 }
