@@ -93,9 +93,9 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmAdicionar = new JMenuItem("Cadastro");
 		mntmAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				TelaMotoristaCadastro rota = new TelaMotoristaCadastro();
-				rota.setVisible(true);
-				desktop.add(rota);
+				TelaMotoristaCadastro telaMotorista = new TelaMotoristaCadastro();
+				telaMotorista.setVisible(true);
+				desktop.add(telaMotorista);
 			}
 		});
 		mnMotorista.add(mntmAdicionar);
