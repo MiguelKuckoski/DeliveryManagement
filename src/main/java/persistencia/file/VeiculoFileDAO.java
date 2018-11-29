@@ -111,7 +111,7 @@ public class VeiculoFileDAO implements IVeiculoDao {
 	public boolean inserir(String placa, Veiculo veiculo) {
 
 		if (veiculo != null) {
-			if (veiculo.getPlaca().isEmpty() && !listaVeiculo.containsKey(veiculo.getPlaca())) {
+			if (!veiculo.getPlaca().isEmpty() && !listaVeiculo.containsKey(veiculo.getPlaca())) {
 				put(veiculo.getPlaca(), veiculo);
 				return true;
 			}
@@ -128,7 +128,11 @@ public class VeiculoFileDAO implements IVeiculoDao {
 	public boolean atualizar(String placa, Veiculo veiculo) {
 		if (veiculo != null) {
 			if (listaVeiculo.containsKey(placa)) {
-				listaVeiculo.put(placa, veiculo);
+				listaVeiculo.get(placa).setAno(veiculo.getAno());
+				listaVeiculo.get(placa).setMarca(veiculo.getMarca());
+				listaVeiculo.get(placa).setModelo(veiculo.getModelo());
+				listaVeiculo.get(placa).setTipo(veiculo.getTipo());
+				listaVeiculo.get(placa).setMotorista(veiculo.getMotorista());
 				persist();
 				return true;
 			}
