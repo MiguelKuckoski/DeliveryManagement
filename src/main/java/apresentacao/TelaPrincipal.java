@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JDesktopPane;
@@ -20,23 +18,22 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
-import controle.ControladorPrincipal;
-
 public class TelaPrincipal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private final Action action = new SwingAction();
 	private final JDesktopPane desktop = new JDesktopPane();
-
-	private static ControladorPrincipal controladorPrincipal = ControladorPrincipal.getInstancia();
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 
-		String persistencia = "";
-		controladorPrincipal.start(persistencia);
+		// String persistencia = "";
+		// controladorPrincipal.start(persistencia);
 		try {
 			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 		} catch (Throwable e) {
@@ -174,15 +171,5 @@ public class TelaPrincipal extends JFrame {
 		gl_desktop.setVerticalGroup(gl_desktop.createParallelGroup(Alignment.LEADING).addGap(0, 499, Short.MAX_VALUE));
 		this.desktop.setLayout(gl_desktop);
 		contentPane.setLayout(gl_contentPane);
-	}
-
-	private class SwingAction extends AbstractAction {
-		public SwingAction() {
-			putValue(NAME, "SwingAction");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-		}
-
-		public void actionPerformed(ActionEvent e) {
-		}
 	}
 }

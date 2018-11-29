@@ -1,6 +1,12 @@
 package controle;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 public class ControladorPrincipal {
+
+	private final Properties properties;
 
 	private static ControleVeiculo controleVeiculo;
 	private static ControleMotorista controleMotorista;
@@ -10,13 +16,25 @@ public class ControladorPrincipal {
 	private static ControladorPrincipal instancia = new ControladorPrincipal();
 
 	private ControladorPrincipal() {
+
+		this.properties = new Properties();
+		FileInputStream resource;
+		try {
+			resource = new FileInputStream("./arquivos/config.properties");
+			properties.load(resource);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		String persistencia = this.properties.getProperty("config");
+		start(persistencia);
 	}
 
 	public static ControladorPrincipal getInstancia() {
 		return instancia;
 	}
 
-	public void start(String persistencia) {
+	private void start(String persistencia) {
 		controleVeiculo = new ControleVeiculo(persistencia);
 		controleMotorista = new ControleMotorista(persistencia);
 		controlePacote = new ControlePacote(persistencia);
