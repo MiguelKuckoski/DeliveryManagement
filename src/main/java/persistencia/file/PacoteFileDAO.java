@@ -61,9 +61,7 @@ public class PacoteFileDAO implements IPacoteDao {
 		try {
 			fos = new FileOutputStream(FILE_PATH);
 			oos = new ObjectOutputStream(fos);
-
 			oos.writeObject(listaPacote);
-
 			oos.flush();
 			fos.flush();
 
