@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controle.ControladorPrincipal;
+import entidade.Motorista;
+import entidade.Veiculo;
+import persistencia.file.VeiculoFileDAO;
 
 public class TelaVeiculoCadastro extends JInternalFrame {
 	/**
@@ -35,6 +39,7 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 	private JButton btnVeiCreate = new JButton("");
 	private JButton btnVeiUpdate = new JButton("");
 	private JButton btnVeiDelete = new JButton("");
+	private JButton btnPesquisar = new JButton("");
 	private JComboBox<String> cmbTipoVeiculo = new JComboBox<String>();
 	JButton btnClear = new JButton("");
 
@@ -124,7 +129,7 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 		txtAno.setBounds(154, 347, 410, 28);
 		desktop.add(txtAno);
 		txtAno.setColumns(10);
-
+		
 		btnVeiCreate.setToolTipText("Adicionar");
 		btnVeiCreate.setBackground(new Color(214, 217, 223));
 		btnVeiCreate
@@ -142,11 +147,42 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 		});
 		btnVeiCreate.setBounds(176, 437, 55, 52);
 		desktop.add(btnVeiCreate);
+		btnVeiUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				Veiculo veiculo = new Veiculo();
+				veiculo.setMarca(txtMarca.getText());
+				veiculo.setModelo(txtModelo.getText());
+				veiculo.setPlaca(txtPlaca.getText());
+				veiculo.setAno(Integer.parseInt(txtAno.getText()));
+				veiculo.setTipo(cmbTipoVeiculo.getSelectedIndex());
+
+				controladorPrincipal.getControleVeiculo().atualizarVeiculo(txtPlaca.getText(), veiculo);
+
+				txtMarca.setText(null);
+				txtModelo.setText(null);
+				txtPlaca.setText(null);
+				txtAno.setText(null);
+				cmbTipoVeiculo.setToolTipText(null);
+
+				txtPlaca.setEditable(true);
+				
+			}
+		});
 
 		btnVeiUpdate.setToolTipText("Editar");
 		btnVeiUpdate.setIcon(new ImageIcon(TelaVeiculoCadastro.class.getResource("/apresentacao/icones/btnEdit.png")));
 		btnVeiUpdate.setBounds(274, 437, 55, 52);
 		desktop.add(btnVeiUpdate);
+		btnVeiDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (txtPlaca.getText() != null && !txtPlaca.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null,
+							controladorPrincipal.getControleVeiculo().removerVeiculo(txtPlaca.getText()));
+					limparCampos();
+				}
+			}
+		});
 
 		btnVeiDelete.setToolTipText("Deletar");
 		btnVeiDelete.setIcon(new ImageIcon(TelaMotoristaCadastro.class.getResource("/apresentacao/icones/delete.png")));
@@ -177,13 +213,58 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 
 		table = new JTable();
 		table.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "Marca", "Modelo", "Placa", "Ano", "Tipo" }));
+				new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Marca", "Modelo", "Placa", "Ano", "Tipo", "Motorista"
+			}
+		));
 		table.getColumnModel().getColumn(0).setPreferredWidth(59);
 		table.getColumnModel().getColumn(2).setPreferredWidth(56);
 		table.getColumnModel().getColumn(3).setPreferredWidth(49);
 		scrollPane.setViewportView(table);
 
 		JButton btnPesquisar = new JButton("");
+		btnPesquisar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (txtPesquisar.getText() != null && !txtPesquisar.getText().isEmpty()) {
+					if (controladorPrincipal.getControleVeiculo().listarVeiculos()
+							.containsKey(txtPesquisar.getText())) {
+						Veiculo veiculo = controladorPrincipal.getControleVeiculo().listarVeiculos()
+								.get(txtPesquisar.getText());
+
+						txtMarca.setText(veiculo.getMarca());
+						txtModelo.setText(veiculo.getModelo());
+						txtPlaca.setText(veiculo.getPlaca());
+						txtAno.setText(Integer.toString(veiculo.getAno()));
+						cmbTipoVeiculo.setSelectedItem(veiculo.getTipo());
+
+						txtPlaca.setEditable(false);
+
+						btnVeiUpdate.setEnabled(true);
+						btnVeiCreate.setEnabled(false);
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Veiculo não encontrado");
+					}
+				}
+				DefaultTableModel modeloTable = (DefaultTableModel) table.getModel();
+
+				while (modeloTable.getRowCount() > 0) {
+					modeloTable.removeRow(0);
+				}
+
+				Set<String> chaves = controladorPrincipal.getControleVeiculo().listarVeiculos().keySet();
+				for (String chave : chaves) {
+					Veiculo veiculo = controladorPrincipal.getControleVeiculo().listarVeiculos().get(chave);
+
+					modeloTable.addRow(new Object[] { veiculo.getMarca(), veiculo.getModelo(),
+							veiculo.getPlaca(), veiculo.getAno(), returnTypeCar(chave) , returnMotorista(chave)});
+				}
+
+			}
+		});
 		btnPesquisar
 				.setIcon(new ImageIcon(TelaVeiculoCadastro.class.getResource("/apresentacao/icones/search-icon.png")));
 		btnPesquisar.setBounds(576, 25, 24, 24);
@@ -191,6 +272,32 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 
 	}
 
+	private String returnMotorista(String placa) {
+		String teste;
+		if(controladorPrincipal.getControleVeiculo().listarVeiculos().get(placa).getMotorista() != null) {
+			teste = controladorPrincipal.getControleVeiculo().listarVeiculos().get(placa).getMotorista().getNome().toString();
+		}else {
+			teste = "Sem motorista";
+		}
+
+		return teste;
+	}
+	
+	private String returnTypeCar(String placa) {
+		String tipo;
+		int teste = controladorPrincipal.getControleVeiculo().listarVeiculos().get(placa).getTipo();
+		if(teste == 1) {
+			tipo = "Van";
+		}else if (teste == 2){
+			tipo = "Caminhão";
+		}else {
+			tipo = "Carreta";
+		}
+
+		return tipo;
+		
+	}
+	
 	private int returnNumberTypeCar(String tipo) {
 		if (tipo.equalsIgnoreCase("van")) {
 			return 1;

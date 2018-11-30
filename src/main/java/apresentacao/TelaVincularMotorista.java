@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 
 public class TelaVincularMotorista extends JInternalFrame {
-	private static ControladorPrincipal controlador = new ControladorPrincipal("");
+	private static ControladorPrincipal controladorPrincipal = ControladorPrincipal.getInstancia();
 	private JTextField textPlaca;
 	private JTextField textCnh;
 
@@ -83,7 +83,7 @@ public class TelaVincularMotorista extends JInternalFrame {
 					String placaVeiculo = getTextPlaca().getText();
 					String cnhMotorista = getTextCnh().getText();
 					JOptionPane.showMessageDialog(null,
-							controlador.getControleVeiculo().vincularMotorista(placaVeiculo, cnhMotorista));
+							controladorPrincipal.getControleVeiculo().vincularMotorista(placaVeiculo, cnhMotorista));
 				}			
 			}
 		});
@@ -94,10 +94,9 @@ public class TelaVincularMotorista extends JInternalFrame {
 		JButton btnDesvincular = new JButton("");
 		btnDesvincular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				String placaVeiculo = getTextPlaca().getText();
-//				if (controlador.getControleVeiculo().getVeiculoDAO().getListaVeiculo().containsKey(placaVeiculo)) {
-//					controlador.getControleVeiculo().desvincularMotorista(placaVeiculo);
-//				}
+				String placaVeiculo = getTextPlaca().getText();
+				String resultado = controladorPrincipal.getControleVeiculo().desvincularMotorista(placaVeiculo);
+				JOptionPane.showMessageDialog(null, resultado);
 			}
 		});
 		btnDesvincular.setIcon(new ImageIcon(TelaVincularMotorista.class.getResource("/apresentacao/icones/delete.png")));
