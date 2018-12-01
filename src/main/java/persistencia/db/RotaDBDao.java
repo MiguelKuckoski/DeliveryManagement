@@ -31,7 +31,7 @@ public class RotaDBDao implements IRotaDao {
 			sql += "where data = '" + data + "' and motorista = '" + cnhMotorista + "'";
 		} else if (cnhMotorista != null) {
 			sql += "where motorista = '" + cnhMotorista + "'";
-		} else {
+		} else if(data != null){
 			sql += "where data = '" + data + "'";
 		}
 		sql += " order by data, placa_veiculo";

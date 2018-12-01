@@ -1,8 +1,12 @@
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import org.junit.Test;
 
+import controle.ControladorPrincipal;
 import entidade.Pacote;
 import entidade.Rota;
 import entidade.Veiculo;
@@ -65,5 +69,20 @@ public class RotaDBDaoTest {
 		RotaDBDao dao = new RotaDBDao();
 	
 		dao.rotaDetalhada("2018-11-20", "dsu-2837");
+	}
+
+	@Test
+	public void caminhoTest(){
+		Properties properties = new Properties();
+		FileInputStream resource;
+		try {
+			resource = new FileInputStream("./arquivos/config.properties");
+			properties.load(resource);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		String persistencia = properties.getProperty("config");
+		String path = properties.getProperty("caminho");
 	}
 }

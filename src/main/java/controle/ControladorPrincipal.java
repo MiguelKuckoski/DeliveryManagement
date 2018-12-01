@@ -16,7 +16,6 @@ public class ControladorPrincipal {
 	private static ControladorPrincipal instancia = new ControladorPrincipal();
 
 	private ControladorPrincipal() {
-
 		this.properties = new Properties();
 		FileInputStream resource;
 		try {
@@ -27,18 +26,19 @@ public class ControladorPrincipal {
 		}
 
 		String persistencia = this.properties.getProperty("config");
-		start(persistencia);
+		String path = this.properties.getProperty("caminho");
+		start(persistencia, path);
 	}
 
 	public static ControladorPrincipal getInstancia() {
 		return instancia;
 	}
 
-	private void start(String persistencia) {
+	private void start(String persistencia, String path) {
 		controleVeiculo = new ControleVeiculo(persistencia);
 		controleMotorista = new ControleMotorista(persistencia);
 		controlePacote = new ControlePacote(persistencia);
-		// this.controleRota = new ControleRota(this, persistencia);
+		controleRota = new ControleRota(persistencia, path);
 	}
 
 	public ControleMotorista getControleMotorista() {
