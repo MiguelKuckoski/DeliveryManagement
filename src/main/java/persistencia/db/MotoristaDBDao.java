@@ -89,12 +89,12 @@ public class MotoristaDBDao implements IMotoristaDao {
 			statement = con.prepareStatement(sql);
 			statement.setString(1, motorista.getNome());
 			statement.setString(2, motorista.getNascimento());
-			statement.setString(3, motorista.getCnhNum());
+			statement.setInt(3, Integer.parseInt(cnhNum));
 			statement.setString(4, motorista.getCnhTipo());
 			statement.setString(5, motorista.getEndereco());
 			statement.setBoolean(6, motorista.getVinculadoCarro());
-			statement.setString(7, cnhNum);
-			statement.execute();
+			statement.setInt(7, Integer.parseInt(cnhNum));
+			statement.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -118,7 +118,7 @@ public class MotoristaDBDao implements IMotoristaDao {
 		int i = 0;
 		try {
 			statement = con.prepareStatement(sql);
-			statement.setString(1, cnhNum);
+			statement.setInt(1, Integer.parseInt(cnhNum));
 			i = statement.executeUpdate();
 
 		} catch (SQLException e) {

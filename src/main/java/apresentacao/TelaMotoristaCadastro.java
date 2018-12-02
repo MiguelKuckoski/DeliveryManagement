@@ -271,7 +271,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		});
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Nome", "Data Nascimento", "Cnh", "Tipo Cnh", "Endereço" }));
+				new String[] { "Nome", "Data Nascimento", "Cnh", "Tipo Cnh", "Endereï¿½o" }));
 
 		btnMotClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -326,5 +326,6 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		txtEndereco.setText(table.getModel().getValueAt(setar, 4).toString());
 
 		btnMotCreate.setEnabled(false);
+		btnMotUpdate.setEnabled(true);
 	}
 }
