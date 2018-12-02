@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Set;
 
 import javax.swing.ImageIcon;
@@ -20,9 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controle.ControladorPrincipal;
-import entidade.Motorista;
 import entidade.Veiculo;
-import persistencia.file.VeiculoFileDAO;
 
 public class TelaVeiculoCadastro extends JInternalFrame {
 	/**
@@ -129,7 +129,7 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 		txtAno.setBounds(154, 347, 410, 28);
 		desktop.add(txtAno);
 		txtAno.setColumns(10);
-		
+
 		btnVeiCreate.setToolTipText("Adicionar");
 		btnVeiCreate.setBackground(new Color(214, 217, 223));
 		btnVeiCreate
@@ -147,15 +147,16 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 		});
 		btnVeiCreate.setBounds(176, 437, 55, 52);
 		desktop.add(btnVeiCreate);
+
 		btnVeiUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			
+
 				Veiculo veiculo = new Veiculo();
 				veiculo.setMarca(txtMarca.getText());
 				veiculo.setModelo(txtModelo.getText());
 				veiculo.setPlaca(txtPlaca.getText());
 				veiculo.setAno(Integer.parseInt(txtAno.getText()));
-				veiculo.setTipo(cmbTipoVeiculo.getSelectedIndex());
+				veiculo.setTipo(returnNumberTypeCar(cmbTipoVeiculo.getSelectedItem().toString()));
 
 				controladorPrincipal.getControleVeiculo().atualizarVeiculo(txtPlaca.getText(), veiculo);
 
@@ -166,7 +167,7 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 				cmbTipoVeiculo.setToolTipText(null);
 
 				txtPlaca.setEditable(true);
-				
+
 			}
 		});
 
@@ -212,20 +213,19 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 		desktop.add(scrollPane);
 
 		table = new JTable();
-		table.setModel(
-				new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Marca", "Modelo", "Placa", "Ano", "Tipo", "Motorista"
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				setarCampos();
 			}
-		));
+		});
+		table.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Marca", "Modelo", "Placa", "Ano", "Tipo", "Motorista" }));
 		table.getColumnModel().getColumn(0).setPreferredWidth(59);
 		table.getColumnModel().getColumn(2).setPreferredWidth(56);
 		table.getColumnModel().getColumn(3).setPreferredWidth(49);
 		scrollPane.setViewportView(table);
 
-		JButton btnPesquisar = new JButton("");
 		btnPesquisar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (txtPesquisar.getText() != null && !txtPesquisar.getText().isEmpty()) {
@@ -238,7 +238,7 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 						txtModelo.setText(veiculo.getModelo());
 						txtPlaca.setText(veiculo.getPlaca());
 						txtAno.setText(Integer.toString(veiculo.getAno()));
-						cmbTipoVeiculo.setSelectedItem(veiculo.getTipo());
+						cmbTipoVeiculo.setSelectedIndex(veiculo.getTipo() - 1);
 
 						txtPlaca.setEditable(false);
 
@@ -259,8 +259,8 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 				for (String chave : chaves) {
 					Veiculo veiculo = controladorPrincipal.getControleVeiculo().listarVeiculos().get(chave);
 
-					modeloTable.addRow(new Object[] { veiculo.getMarca(), veiculo.getModelo(),
-							veiculo.getPlaca(), veiculo.getAno(), returnTypeCar(chave) , returnMotorista(chave)});
+					modeloTable.addRow(new Object[] { veiculo.getMarca(), veiculo.getModelo(), veiculo.getPlaca(),
+							veiculo.getAno(), returnTypeCar(chave), returnMotorista(chave) });
 				}
 
 			}
@@ -274,30 +274,31 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 
 	private String returnMotorista(String placa) {
 		String teste;
-		if(controladorPrincipal.getControleVeiculo().listarVeiculos().get(placa).getMotorista() != null) {
-			teste = controladorPrincipal.getControleVeiculo().listarVeiculos().get(placa).getMotorista().getNome().toString();
-		}else {
+		if (controladorPrincipal.getControleVeiculo().listarVeiculos().get(placa).getMotorista() != null) {
+			teste = controladorPrincipal.getControleVeiculo().listarVeiculos().get(placa).getMotorista().getNome()
+					.toString();
+		} else {
 			teste = "Sem motorista";
 		}
 
 		return teste;
 	}
-	
+
 	private String returnTypeCar(String placa) {
 		String tipo;
 		int teste = controladorPrincipal.getControleVeiculo().listarVeiculos().get(placa).getTipo();
-		if(teste == 1) {
+		if (teste == 1) {
 			tipo = "Van";
-		}else if (teste == 2){
+		} else if (teste == 2) {
 			tipo = "Caminhão";
-		}else {
+		} else {
 			tipo = "Carreta";
 		}
 
 		return tipo;
-		
+
 	}
-	
+
 	private int returnNumberTypeCar(String tipo) {
 		if (tipo.equalsIgnoreCase("van")) {
 			return 1;
@@ -326,6 +327,21 @@ public class TelaVeiculoCadastro extends JInternalFrame {
 		txtPesquisar.setText(null);
 		txtPlaca.setText(null);
 
+		txtPlaca.setEditable(true);
 		cmbTipoVeiculo.setSelectedIndex(1);
+	}
+
+	public void setarCampos() {
+		int setar = table.getSelectedRow();
+		txtMarca.setText(table.getModel().getValueAt(setar, 0).toString());
+		txtModelo.setText(table.getModel().getValueAt(setar, 1).toString());
+		txtPlaca.setText(table.getModel().getValueAt(setar, 2).toString());
+		txtAno.setText(table.getModel().getValueAt(setar, 3).toString());
+		cmbTipoVeiculo.setSelectedIndex(returnNumberTypeCar(table.getModel().getValueAt(setar, 4).toString()) - 1);
+
+		txtPlaca.setEditable(false);
+
+		btnVeiCreate.setEnabled(false);
+		btnVeiUpdate.setEnabled(true);
 	}
 }

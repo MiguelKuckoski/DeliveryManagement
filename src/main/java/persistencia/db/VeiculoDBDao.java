@@ -62,14 +62,14 @@ public class VeiculoDBDao implements IVeiculoDao {
 				veiculo.setMarca(rs.getString("marca"));
 				veiculo.setModelo(rs.getString("modelo"));
 				veiculo.setTipo(rs.getInt("tipo"));
-				Integer motoristaId = rs.getInt("motorista");
-				if(motoristaId > 0)  {
+				int motoristaId = rs.getInt("motorista");
+				if (motoristaId > 0) {
 					veiculo.setMotorista(getMotorista(motoristaId));
-					
+
 				}
 				veiculos.put(veiculo.getPlaca(), veiculo);
 			}
-			
+
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			e.printStackTrace();
@@ -86,7 +86,7 @@ public class VeiculoDBDao implements IVeiculoDao {
 
 	private Motorista getMotorista(int idMotorista) {
 		Connection con = Conexao.getConnection();
-		String sql = "select * from motorista where id_motorista= ?";
+		String sql = "select * from motorista where cnh_num= ?";
 		ResultSet rs = null;
 		PreparedStatement statement = null;
 		Motorista motorista = new Motorista();
@@ -96,7 +96,7 @@ public class VeiculoDBDao implements IVeiculoDao {
 			statement.setInt(1, idMotorista);
 			rs = statement.executeQuery();
 
-			if (rs != null) {
+			while (rs.next()) {
 				motorista.setNome(rs.getString("nome"));
 				motorista.setNascimento(rs.getString("data_nasc"));
 				motorista.setCnhNum(rs.getString("cnh_num"));
