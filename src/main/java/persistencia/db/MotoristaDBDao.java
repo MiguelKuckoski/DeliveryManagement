@@ -60,7 +60,7 @@ public class MotoristaDBDao implements IMotoristaDao {
 				motorista.setNome(rs.getString("nome"));
 				motorista.setNascimento(rs.getString("data_nasc"));
 				motorista.setCnhNum(rs.getString("cnh_num"));
-				motorista.setCnhTipo(rs.getString("cnh_tipo"));
+				motorista.setCnhTipo(rs.getString("cnh_tipo").replaceAll(" ", ""));
 				motorista.setEndereco(rs.getString("endereco"));
 				motorista.setVinculadoCarro(rs.getBoolean("veiculo"));
 				motoristas.put(motorista.getCnhNum(), motorista);
