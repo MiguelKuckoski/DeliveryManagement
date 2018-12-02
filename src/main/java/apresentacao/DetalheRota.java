@@ -2,6 +2,7 @@ package apresentacao;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.beans.PropertyVetoException;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JDesktopPane;
@@ -15,6 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 public class DetalheRota extends JInternalFrame {
 
@@ -36,8 +38,9 @@ public class DetalheRota extends JInternalFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws PropertyVetoException 
 	 */
-	public DetalheRota() {
+	public DetalheRota() throws PropertyVetoException {
 		setFrameIcon(new ImageIcon(DetalheRota.class.getResource("/apresentacao/icones/edit.png")));
 		setIcon(true);
 		setClosable(true);
@@ -114,6 +117,10 @@ public class DetalheRota extends JInternalFrame {
 		lblCdigoLocalizador.setFont(new Font("Calibri", Font.PLAIN, 18));
 		lblCdigoLocalizador.setBounds(10, 166, 176, 20);
 		desktopPane.add(lblCdigoLocalizador);
+		
+		JButton btnNewButton = new JButton("Dar baixa");
+		btnNewButton.setBounds(156, 236, 89, 23);
+		desktopPane.add(btnNewButton);
 		getContentPane().setLayout(null);
 		
 		JTextArea textArea = new JTextArea();
