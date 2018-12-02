@@ -271,7 +271,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		});
 		scrollPane.setViewportView(table);
 		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Nome", "Data Nascimento", "Cnh", "Tipo Cnh", "EndereÃ§o" }));
+				new String[] { "Nome", "Data Nascimento", "Cnh", "Tipo Cnh", "Endereço" }));
 
 		btnMotClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
