@@ -131,7 +131,7 @@ public class TelaMotoristaCadastro extends JInternalFrame {
 		desktop.add(txtTipoCnh);
 		txtTipoCnh.setColumns(10);
 
-		JLabel lblEndereco = new JLabel("Endereço");
+		JLabel lblEndereco = new JLabel("Endere\u00E7o");
 		lblEndereco.setForeground(Color.WHITE);
 		lblEndereco.setFont(new Font("Calibri", Font.PLAIN, 18));
 		lblEndereco.setBounds(49, 372, 88, 16);
