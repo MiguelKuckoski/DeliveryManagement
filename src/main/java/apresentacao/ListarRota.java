@@ -20,6 +20,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 
 public class ListarRota extends JInternalFrame {
 	private JTable table;
@@ -83,8 +84,14 @@ public class ListarRota extends JInternalFrame {
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Data", "Ve\u00EDculo"}));
-		comboBox.setBounds(518, 30, 72, 21);
+		comboBox.setBounds(551, 30, 72, 21);
 		desktop.add(comboBox);
+		
+		JLabel lblFiltrarPor = new JLabel("Filtrar por :");
+		lblFiltrarPor.setForeground(Color.WHITE);
+		lblFiltrarPor.setFont(new Font("Calibri", Font.PLAIN, 12));
+		lblFiltrarPor.setBounds(477, 34, 64, 14);
+		desktop.add(lblFiltrarPor);
 
 		
 	}

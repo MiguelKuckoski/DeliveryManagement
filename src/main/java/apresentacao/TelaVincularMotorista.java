@@ -43,6 +43,7 @@ public class TelaVincularMotorista extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public TelaVincularMotorista() {
+		setClosable(true);
 		setTitle("Vincular Motorista");
 		setIconifiable(true);
 		setBounds(100, 100, 744, 530);
