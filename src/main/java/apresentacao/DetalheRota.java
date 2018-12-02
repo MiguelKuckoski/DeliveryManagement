@@ -17,8 +17,12 @@ import javax.swing.JTextPane;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 
 public class DetalheRota extends JInternalFrame {
+	private JTable table;
+	private JTable table_1;
+	private JTable table_2;
 
 	/**
 	 * Launch the application.
@@ -54,78 +58,70 @@ public class DetalheRota extends JInternalFrame {
 		
 		JDesktopPane desktopPane = new JDesktopPane();
 		desktopPane.setBackground(UIManager.getColor("InternalFrame.activeTitleBackground"));
-		desktopPane.setBounds(0, 0, 434, 270);
+		desktopPane.setBounds(0, 0, 764, 537);
 		getContentPane().add(desktopPane);
 		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(223, 11, 134, 20);
-		desktopPane.add(textPane);
-		
-		JLabel lblNewLabel = new JLabel("Pacote");
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblNewLabel.setBounds(10, 11, 55, 16);
-		desktopPane.add(lblNewLabel);
-		
-		JTextPane textPane_1 = new JTextPane();
-		textPane_1.setBounds(223, 42, 134, 20);
-		desktopPane.add(textPane_1);
-		
-		JLabel lblDestino = new JLabel("Destino");
-		lblDestino.setBackground(UIManager.getColor("InternalFrame.activeTitleGradient"));
-		lblDestino.setForeground(Color.WHITE);
-		lblDestino.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblDestino.setBounds(10, 42, 176, 20);
-		desktopPane.add(lblDestino);
-		
-		JTextPane textPane_2 = new JTextPane();
-		textPane_2.setBounds(223, 73, 134, 20);
-		desktopPane.add(textPane_2);
-		
-		JTextPane textPane_3 = new JTextPane();
-		textPane_3.setBounds(223, 104, 134, 20);
-		desktopPane.add(textPane_3);
-		
-		JTextPane textPane_4 = new JTextPane();
-		textPane_4.setBounds(223, 135, 134, 20);
-		desktopPane.add(textPane_4);
-		
-		JTextPane textPane_5 = new JTextPane();
-		textPane_5.setBounds(223, 166, 134, 20);
-		desktopPane.add(textPane_5);
+		JLabel lblPacote = new JLabel("Pacotes\r\n");
+		lblPacote.setForeground(Color.WHITE);
+		lblPacote.setFont(new Font("Calibri", Font.PLAIN, 18));
+		lblPacote.setBounds(10, 11, 71, 16);
+		desktopPane.add(lblPacote);
 		
 		JLabel lblMotorista = new JLabel("Motorista");
 		lblMotorista.setForeground(Color.WHITE);
 		lblMotorista.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblMotorista.setBounds(10, 73, 176, 20);
+		lblMotorista.setBounds(10, 287, 176, 20);
 		desktopPane.add(lblMotorista);
 		
 		JLabel lblVeculo = new JLabel("Ve\u00EDculo ");
 		lblVeculo.setForeground(Color.WHITE);
 		lblVeculo.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblVeculo.setBounds(10, 104, 176, 20);
+		lblVeculo.setBounds(10, 420, 176, 20);
 		desktopPane.add(lblVeculo);
 		
-		JLabel lblDataDeEntrega = new JLabel("Data de Entrega");
-		lblDataDeEntrega.setForeground(Color.WHITE);
-		lblDataDeEntrega.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblDataDeEntrega.setBounds(10, 135, 176, 20);
-		desktopPane.add(lblDataDeEntrega);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 40, 709, 234);
+		desktopPane.add(scrollPane);
 		
-		JLabel lblCdigoLocalizador = new JLabel("C\u00F3digo Localizador");
-		lblCdigoLocalizador.setForeground(Color.WHITE);
-		lblCdigoLocalizador.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblCdigoLocalizador.setBounds(10, 166, 176, 20);
-		desktopPane.add(lblCdigoLocalizador);
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Entrega confirmada", "C\u00F3digo localizador", "Peso", "Destino", "Remetente"
+			}
+		));
+		scrollPane.setViewportView(table);
 		
-		JButton btnNewButton = new JButton("Dar baixa");
-		btnNewButton.setBounds(156, 236, 89, 23);
-		desktopPane.add(btnNewButton);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(10, 320, 709, 71);
+		desktopPane.add(scrollPane_1);
+		
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Nome", "Tipo CNH", "CNH"
+			}
+		));
+		scrollPane_1.setViewportView(table_1);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(10, 453, 709, 71);
+		desktopPane.add(scrollPane_2);
+		
+		table_2 = new JTable();
+		table_2.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Modelo", "Tipo", "Placa"
+			}
+		));
+		scrollPane_2.setViewportView(table_2);
 		getContentPane().setLayout(null);
-		
-		JTextArea textArea = new JTextArea();
-		getContentPane().add(textArea, BorderLayout.NORTH);
-		setBounds(100, 100, 445, 299);
+		setBounds(100, 100, 780, 573);
 		
 		}
 	}

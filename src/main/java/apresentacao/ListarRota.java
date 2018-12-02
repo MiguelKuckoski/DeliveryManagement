@@ -18,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ListarRota extends JInternalFrame {
 	private JTable table;
@@ -53,7 +55,7 @@ public class ListarRota extends JInternalFrame {
 		desktop.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(65, 81, 600, 373);
+		scrollPane.setBounds(65, 81, 600, 338);
 		desktop.add(scrollPane);
 		
 		table = new JTable();
@@ -71,13 +73,17 @@ public class ListarRota extends JInternalFrame {
 		desktop.add(textArea);
 		
 		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnNewButton.setIcon(new ImageIcon(ListarRota.class.getResource("/apresentacao/icones/search-icon.png")));
-		btnNewButton.setBounds(477, 28, 28, 25);
+		btnNewButton.setBounds(633, 28, 23, 25);
 		desktop.add(btnNewButton);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Data", "Ve\u00EDculo", "Rota"}));
-		comboBox.setBounds(509, 30, 72, 21);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Data", "Ve\u00EDculo"}));
+		comboBox.setBounds(518, 30, 72, 21);
 		desktop.add(comboBox);
 
 		
