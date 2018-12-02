@@ -56,27 +56,27 @@ public class TelaVincularMotorista extends JInternalFrame {
 		JLabel lblPlaca = new JLabel("Placa");
 		lblPlaca.setForeground(Color.WHITE);
 		lblPlaca.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblPlaca.setBounds(83, 126, 55, 16);
+		lblPlaca.setBounds(93, 151, 55, 16);
 		desktop.add(lblPlaca);
 		
-		JLabel lblCnh = new JLabel("Cnh");
+		JLabel lblCnh = new JLabel("CNH");
 		lblCnh.setForeground(Color.WHITE);
 		lblCnh.setFont(new Font("Calibri", Font.PLAIN, 18));
-		lblCnh.setBounds(83, 212, 55, 16);
+		lblCnh.setBounds(93, 212, 55, 16);
 		desktop.add(lblCnh);
 		
 		textPlaca = new JTextField();
-		textPlaca.setBounds(150, 120, 432, 28);
+		textPlaca.setBounds(169, 146, 432, 28);
 		desktop.add(textPlaca);
 		textPlaca.setColumns(10);
 		
 		textCnh = new JTextField();
-		textCnh.setBounds(150, 206, 432, 28);
+		textCnh.setBounds(169, 207, 432, 28);
 		desktop.add(textCnh);
 		textCnh.setColumns(10);
 		
 		JButton btnVincular = new JButton("");
-		btnVincular.setIcon(new ImageIcon(TelaVincularMotorista.class.getResource("/apresentacao/icones/Add.png")));
+		btnVincular.setIcon(new ImageIcon(TelaVincularMotorista.class.getResource("/apresentacao/icones/adicionar.png")));
 		btnVincular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -89,7 +89,7 @@ public class TelaVincularMotorista extends JInternalFrame {
 			}
 		});
 		btnVincular.setToolTipText("Vincular");
-		btnVincular.setBounds(248, 387, 64, 58);
+		btnVincular.setBounds(286, 387, 64, 58);
 		desktop.add(btnVincular);
 		
 		JButton btnDesvincular = new JButton("");
@@ -102,7 +102,7 @@ public class TelaVincularMotorista extends JInternalFrame {
 		});
 		btnDesvincular.setIcon(new ImageIcon(TelaVincularMotorista.class.getResource("/apresentacao/icones/delete.png")));
 		btnDesvincular.setToolTipText("Desvincular");
-		btnDesvincular.setBounds(398, 387, 64, 58);
+		btnDesvincular.setBounds(381, 387, 64, 58);
 		desktop.add(btnDesvincular);
 
 	}
