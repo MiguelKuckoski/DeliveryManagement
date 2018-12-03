@@ -1,35 +1,40 @@
 package apresentacao;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
-
-import javax.swing.JInternalFrame;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDesktopPane;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Set;
 
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controle.ControladorPrincipal;
 import entidade.Pacote;
 
 public class TelaPacoteCadastro extends JInternalFrame {
-	private JTextField txtPesquisar;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtNomeRem;
 	private JTextField txtNomeDes;
-	private JTextField txtCodigoLoc;
 	private JTextField txtEndRem;
+	private JTextField txtCodLocaliz;
 	private JTextField txtEndDes;
 	private JTable table;
 	private static ControladorPrincipal controladorPrincipal = ControladorPrincipal.getInstancia();
@@ -39,6 +44,11 @@ public class TelaPacoteCadastro extends JInternalFrame {
 	private JButton btnPacDelete;
 	private JButton btnPacClear;
 	private JButton btnFind;
+	private final JRadioButton rdbtnListarEntregues = new JRadioButton("Listar Entregues");
+	private final JRadioButton rdbtnListarNoEntregues = new JRadioButton("Listar Não Entregues");
+	private final JRadioButton rdbtnListarNoRoteireizados = new JRadioButton("Listar Não Roteireizados");
+	private JRadioButton rdbtnListarTodos;
+	private final ButtonGroup btnPesquisaGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -60,20 +70,20 @@ public class TelaPacoteCadastro extends JInternalFrame {
 	 * Create the frame.
 	 */
 	public TelaPacoteCadastro() {
+
+		initialize();
+	}
+
+	private void initialize() {
 		setTitle("Pacote");
 		setClosable(true);
 		setIconifiable(true);
-		setBounds(100, 100, 744, 530);
+		setBounds(100, 100, 795, 530);
 		getContentPane().setLayout(null);
 
 		JDesktopPane desktop = new JDesktopPane();
-		desktop.setBounds(0, 0, 728, 500);
+		desktop.setBounds(0, 0, 779, 500);
 		getContentPane().add(desktop);
-
-		txtPesquisar = new JTextField();
-		txtPesquisar.setBounds(188, 18, 440, 28);
-		desktop.add(txtPesquisar);
-		txtPesquisar.setColumns(10);
 
 		JLabel lblNomeRemetente = new JLabel("Nome remetente");
 		lblNomeRemetente.setForeground(Color.WHITE);
@@ -115,15 +125,15 @@ public class TelaPacoteCadastro extends JInternalFrame {
 		desktop.add(txtNomeDes);
 		txtNomeDes.setColumns(10);
 
-		txtCodigoLoc = new JTextField();
-		txtCodigoLoc.setBounds(188, 288, 442, 28);
-		desktop.add(txtCodigoLoc);
-		txtCodigoLoc.setColumns(10);
-
 		txtEndRem = new JTextField();
-		txtEndRem.setBounds(188, 328, 442, 28);
+		txtEndRem.setBounds(188, 288, 442, 28);
 		desktop.add(txtEndRem);
 		txtEndRem.setColumns(10);
+
+		txtCodLocaliz = new JTextField();
+		txtCodLocaliz.setBounds(188, 328, 442, 28);
+		desktop.add(txtCodLocaliz);
+		txtCodLocaliz.setColumns(10);
 
 		txtEndDes = new JTextField();
 		txtEndDes.setBounds(188, 368, 442, 28);
@@ -136,16 +146,22 @@ public class TelaPacoteCadastro extends JInternalFrame {
 		btnPacCreate.setIcon(new ImageIcon(TelaPacoteCadastro.class.getResource("/apresentacao/icones/btnPack.png")));
 		btnPacCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				String nomeRemetente = txtNomeRem.getText();
 				String nomeDestino = txtNomeDes.getText();
-				String codLocalizador = txtCodigoLoc.getText();
+				String codLocalizador = txtCodLocaliz.getText();
 				String endRemetente = txtEndRem.getText();
 				String endDestino = txtEndDes.getText();
 				Double peso = Double.parseDouble(txtPeso.getText());
 
-				controladorPrincipal.getControlePacote().cadastrarPacote(nomeRemetente, nomeDestino, codLocalizador,
-						endRemetente, endDestino, peso);
-				limparCampos();
+				final String resposta = controladorPrincipal.getControlePacote().cadastrarPacote(nomeRemetente,
+						nomeDestino, codLocalizador, endRemetente, endDestino, peso);
+
+				JOptionPane.showMessageDialog(null, resposta);
+
+				if (resposta.equalsIgnoreCase("Pacote cadastrado com sucesso")) {
+					limparCampos();
+				}
 			}
 		});
 		btnPacCreate.setBounds(217, 437, 55, 52);
@@ -153,10 +169,11 @@ public class TelaPacoteCadastro extends JInternalFrame {
 
 		btnPacUpdate = new JButton("");
 		btnPacUpdate.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
-				if (txtCodigoLoc != null && !txtCodigoLoc.getText().isEmpty()) {
+				if (txtEndRem != null && !txtEndRem.getText().isEmpty()) {
 					Pacote pacote = new Pacote();
-					pacote.setCodLocalizador(txtCodigoLoc.getText());
+					pacote.setCodLocalizador(txtCodLocaliz.getText());
 					pacote.setNomeRemetente(txtNomeRem.getText());
 					pacote.setNomeDestino(txtNomeDes.getText());
 					pacote.setEndDestino(txtEndDes.getText());
@@ -175,9 +192,9 @@ public class TelaPacoteCadastro extends JInternalFrame {
 		btnPacDelete = new JButton("");
 		btnPacDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (txtCodigoLoc != null && !txtCodigoLoc.getText().isEmpty()) {
+				if (txtEndRem != null && !txtEndRem.getText().isEmpty()) {
 					Pacote pacote = new Pacote();
-					pacote.setCodLocalizador(txtCodigoLoc.getText());
+					pacote.setCodLocalizador(txtCodLocaliz.getText());
 					controladorPrincipal.getControlePacote().removerPacote(pacote);
 					limparCampos();
 				}
@@ -192,23 +209,27 @@ public class TelaPacoteCadastro extends JInternalFrame {
 		scrollPane.setViewportBorder(null);
 		scrollPane.setEnabled(false);
 		desktop.setLayer(scrollPane, 0);
-		scrollPane.setBounds(46, 71, 637, 119);
+		scrollPane.setBounds(10, 71, 759, 119);
 		desktop.add(scrollPane);
 
 		table = new JTable();
+		table.setAlignmentX(Component.LEFT_ALIGNMENT);
+		table.setAlignmentY(Component.TOP_ALIGNMENT);
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		table.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				setarCampos();
 			}
 		});
-		table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Nome remetente",
-				"Nome destinat\u00E1rio", "C\u00F3digo", "Endere\u00E7o remetente", "Endere\u00E7o destino", "Peso" }));
+		table.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "C\u00F3digo", "Nome destinat\u00E1rio", "Nome remetente", "Endere\u00E7o destino",
+						"Endere\u00E7o remetente", "Peso", "Data Inser\u00E7\u00E3o" }));
 		table.getColumnModel().getColumn(0).setPreferredWidth(103);
 		table.getColumnModel().getColumn(1).setPreferredWidth(115);
 		table.getColumnModel().getColumn(2).setPreferredWidth(53);
 		table.getColumnModel().getColumn(3).setPreferredWidth(123);
-		table.getColumnModel().getColumn(4).setPreferredWidth(108);
 		table.getColumnModel().getColumn(4).setPreferredWidth(53);
 		scrollPane.setViewportView(table);
 
@@ -223,8 +244,80 @@ public class TelaPacoteCadastro extends JInternalFrame {
 		desktop.add(btnPacClear);
 
 		btnFind = new JButton("");
+		btnFind.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if (rdbtnListarEntregues.isSelected()) {
+
+					DefaultTableModel modeloTable = (DefaultTableModel) table.getModel();
+
+					while (modeloTable.getRowCount() > 0) {
+						modeloTable.removeRow(0);
+					}
+
+					Set<String> chaves = controladorPrincipal.getControlePacote().listarPacotesEntregues().keySet();
+					for (String chave : chaves) {
+						Pacote pacote = controladorPrincipal.getControlePacote().listarPacotesEntregues().get(chave);
+
+						modeloTable.addRow(new Object[] { pacote.getCodLocalizador(), pacote.getNomeDestino(),
+								pacote.getNomeRemetente(), pacote.getEndDestino(), pacote.getEndRemetente(),
+								pacote.getPeso(), pacote.getDataInsercao().toString() });
+					}
+				} else if (rdbtnListarNoEntregues.isSelected()) {
+
+					DefaultTableModel modeloTable = (DefaultTableModel) table.getModel();
+
+					while (modeloTable.getRowCount() > 0) {
+						modeloTable.removeRow(0);
+					}
+
+					Set<String> chaves = controladorPrincipal.getControlePacote().listarPacotesNaoEntregues().keySet();
+					for (String chave : chaves) {
+						Pacote pacote = controladorPrincipal.getControlePacote().listarPacotesNaoEntregues().get(chave);
+
+						modeloTable.addRow(new Object[] { pacote.getCodLocalizador(), pacote.getNomeDestino(),
+								pacote.getNomeRemetente(), pacote.getEndDestino(), pacote.getEndRemetente(),
+								pacote.getPeso(), pacote.getDataInsercao().toString() });
+					}
+				} else if (rdbtnListarNoRoteireizados.isSelected()) {
+
+					DefaultTableModel modeloTable = (DefaultTableModel) table.getModel();
+
+					while (modeloTable.getRowCount() > 0) {
+						modeloTable.removeRow(0);
+					}
+
+					Set<String> chaves = controladorPrincipal.getControlePacote().listarPacotesNaoRoteirizados()
+							.keySet();
+					for (String chave : chaves) {
+						Pacote pacote = controladorPrincipal.getControlePacote().listarPacotesNaoRoteirizados()
+								.get(chave);
+
+						modeloTable.addRow(new Object[] { pacote.getCodLocalizador(), pacote.getNomeDestino(),
+								pacote.getNomeRemetente(), pacote.getEndDestino(), pacote.getEndRemetente(),
+								pacote.getPeso(), pacote.getDataInsercao().toString() });
+					}
+				} else if (rdbtnListarTodos.isSelected()) {
+					DefaultTableModel modeloTable = (DefaultTableModel) table.getModel();
+
+					while (modeloTable.getRowCount() > 0) {
+						modeloTable.removeRow(0);
+					}
+
+					Set<String> chaves = controladorPrincipal.getControlePacote().listarTodosPacotes().keySet();
+					for (String chave : chaves) {
+						Pacote pacote = controladorPrincipal.getControlePacote().listarTodosPacotes().get(chave);
+
+						modeloTable.addRow(new Object[] { pacote.getCodLocalizador(), pacote.getNomeDestino(),
+								pacote.getNomeRemetente(), pacote.getEndDestino(), pacote.getEndRemetente(),
+								pacote.getPeso(), pacote.getDataInsercao().toString() });
+					}
+				}
+
+			}
+		});
 		btnFind.setIcon(new ImageIcon(TelaPacoteCadastro.class.getResource("/apresentacao/icones/search-icon.png")));
-		btnFind.setBounds(644, 22, 24, 24);
+		btnFind.setBounds(745, 22, 24, 24);
 		desktop.add(btnFind);
 
 		JLabel lblPeso = new JLabel("Peso");
@@ -237,7 +330,23 @@ public class TelaPacoteCadastro extends JInternalFrame {
 		txtPeso.setColumns(10);
 		txtPeso.setBounds(188, 407, 442, 28);
 		desktop.add(txtPeso);
+		this.btnPesquisaGroup.add(this.rdbtnListarEntregues);
+		this.rdbtnListarEntregues.setBounds(20, 23, 130, 23);
 
+		desktop.add(this.rdbtnListarEntregues);
+		this.btnPesquisaGroup.add(this.rdbtnListarNoEntregues);
+		this.rdbtnListarNoEntregues.setBounds(164, 22, 188, 23);
+
+		desktop.add(this.rdbtnListarNoEntregues);
+		this.btnPesquisaGroup.add(this.rdbtnListarNoRoteireizados);
+		this.rdbtnListarNoRoteireizados.setBounds(359, 23, 183, 23);
+
+		desktop.add(this.rdbtnListarNoRoteireizados);
+
+		rdbtnListarTodos = new JRadioButton("Listar Todos");
+		this.btnPesquisaGroup.add(rdbtnListarTodos);
+		rdbtnListarTodos.setBounds(554, 23, 109, 23);
+		desktop.add(rdbtnListarTodos);
 	}
 
 	private void limparCampos() {
@@ -252,11 +361,10 @@ public class TelaPacoteCadastro extends JInternalFrame {
 			modeloTable.removeRow(0);
 		}
 
-		txtPesquisar.setText(null);
 		txtNomeDes.setText(null);
 		txtNomeRem.setText(null);
-		txtCodigoLoc.setText(null);
 		txtEndRem.setText(null);
+		txtCodLocaliz.setText(null);
 		txtEndDes.setText(null);
 		txtPeso.setText(null);
 
@@ -264,11 +372,11 @@ public class TelaPacoteCadastro extends JInternalFrame {
 
 	public void setarCampos() {
 		int setar = table.getSelectedRow();
-		txtNomeRem.setText(table.getModel().getValueAt(setar, 0).toString());
+		txtCodLocaliz.setText(table.getModel().getValueAt(setar, 0).toString());
 		txtNomeDes.setText(table.getModel().getValueAt(setar, 1).toString());
-		txtCodigoLoc.setText(table.getModel().getValueAt(setar, 2).toString());
-		txtEndRem.setText(table.getModel().getValueAt(setar, 3).toString());
-		txtEndDes.setText(table.getModel().getValueAt(setar, 4).toString());
+		txtNomeRem.setText(table.getModel().getValueAt(setar, 2).toString());
+		txtEndDes.setText(table.getModel().getValueAt(setar, 3).toString());
+		txtEndRem.setText(table.getModel().getValueAt(setar, 4).toString());
 		txtPeso.setText(table.getModel().getValueAt(setar, 5).toString());
 
 		btnPacCreate.setEnabled(false);

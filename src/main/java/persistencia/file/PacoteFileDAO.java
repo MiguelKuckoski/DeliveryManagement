@@ -105,7 +105,11 @@ public class PacoteFileDAO implements IPacoteDao {
 	public void atualizar(Pacote pacote, String codLocalizador) {
 		if (pacote != null) {
 			if (listaPacote.containsKey(codLocalizador)) {
-				listaPacote.put(codLocalizador, pacote);
+				listaPacote.get(codLocalizador).setEndDestino(pacote.getEndDestino());
+				listaPacote.get(codLocalizador).setEndRemetente(pacote.getEndRemetente());
+				listaPacote.get(codLocalizador).setNomeRemetente(pacote.getNomeRemetente());
+				listaPacote.get(codLocalizador).setNomeDestino(pacote.getNomeDestino());
+				listaPacote.get(codLocalizador).setPeso(pacote.getPeso());
 				persist();
 			}
 		}

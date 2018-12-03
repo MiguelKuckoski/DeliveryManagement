@@ -109,13 +109,13 @@ public class Pacote implements Serializable {
 		this.dataInsercao = dataInsercao;
 	}
 
-	
 	@Override
 	public String toString() {
 		return "Pacote [" + (codLocalizador != null ? "codLocalizador=" + codLocalizador + ", " : "")
 				+ (nomeDestino != null ? "nomeDestino=" + nomeDestino + ", " : "")
 				+ (endDestino != null ? "endDestino=" + endDestino + ", " : "") + "peso=" + peso + ", "
-				+ (dataInsercao != null ? "dataInsercao=" + dataInsercao : "]") +"\n [Roteirizado = "+roteirizado+" Entregue = "+entrega+ "] \n";
+				+ (dataInsercao != null ? "dataInsercao=" + dataInsercao : "]") + "\n [Roteirizado = " + roteirizado
+				+ " Entregue = " + entrega + "] \n";
 	}
-	
+
 }
