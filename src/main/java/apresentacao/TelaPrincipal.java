@@ -17,6 +17,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JCheckBoxMenuItem;
 
 public class TelaPrincipal extends JFrame {
 
@@ -82,6 +83,10 @@ public class TelaPrincipal extends JFrame {
 				desktop.add(rota);
 			}
 		});
+		
+		JMenuItem mntmCriarDiaria = new JMenuItem("Criar rota");
+		
+		mnRota.add(mntmCriarDiaria);
 		mnRota.add(mntmGerarRota);
 		
 		JMenuItem mntmListar_3 = new JMenuItem("Listar");
@@ -93,6 +98,15 @@ public class TelaPrincipal extends JFrame {
 			}
 		});
 		mnRota.add(mntmListar_3);
+		
+		JMenu mnNewMenu = new JMenu("Dar baixa");
+		mnRota.add(mnNewMenu);
+		
+		JMenuItem mntmDiaria = new JMenuItem("Data atual");
+		mnNewMenu.add(mntmDiaria);
+		
+		JMenuItem mntmDataAnterior = new JMenuItem("Data anterior");
+		mnNewMenu.add(mntmDataAnterior);
 
 		JMenu mnMotorista = new JMenu("Motorista");
 		menuBar.add(mnMotorista);
