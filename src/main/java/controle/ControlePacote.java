@@ -23,14 +23,14 @@ public class ControlePacote {
 			String endDestino, Double peso) {
 		if (listarTodosPacotes().containsKey(codLocalizador)) {
 			return "CodLocalizador já cadastrado - Digite outro ou deixe em branco para gerar automaticamente";
-		} else {
-			if (codLocalizador.isEmpty()) {
+		} else if (codLocalizador.isEmpty()) {
+			do {
 				codLocalizador = String.valueOf(new Random().nextInt(10000) + 1);
-			}
-			Pacote pacote = new Pacote(nomeRemetente, nomeDestino, codLocalizador, endRemetente, endDestino, peso);
-			pacoteDAO.inserir(pacote);
-			return "Pacote cadastrado com sucesso";
+			} while (listarTodosPacotes().containsKey(codLocalizador));
 		}
+		Pacote pacote = new Pacote(nomeRemetente, nomeDestino, codLocalizador, endRemetente, endDestino, peso);
+		pacoteDAO.inserir(pacote);
+		return "Pacote cadastrado com sucesso";
 
 	}
 
