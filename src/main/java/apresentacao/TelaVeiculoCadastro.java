@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import controle.ControladorPrincipal;
+import entidade.Pacote;
 import entidade.Veiculo;
 
 public class TelaVeiculoCadastro extends JInternalFrame {
