@@ -2,9 +2,11 @@ package persistencia;
 
 import persistencia.db.MotoristaDBDao;
 import persistencia.db.PacoteDBDao;
+import persistencia.db.RotaDBDao;
 import persistencia.db.VeiculoDBDao;
 import persistencia.file.MotoristaFileDAO;
 import persistencia.file.PacoteFileDAO;
+import persistencia.file.RotaFileDao;
 import persistencia.file.VeiculoFileDAO;
 import persistencia.idao.IMotoristaDao;
 import persistencia.idao.IPacoteDao;
@@ -42,11 +44,10 @@ public class DaoFactory {
 
 	public static IRotaDao getRotaDao(String type) {
 		if (type.equalsIgnoreCase("postgre")) {
-//			return new RotaDBDao();
+			return new RotaDBDao();
 		} else {
-//			return new VeiculoFileDAO();
+			return new RotaFileDao();
 		}
-		return null;
 	}
 	
 	

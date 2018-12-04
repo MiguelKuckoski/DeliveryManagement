@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.TreeSet;
 
+import javax.swing.JOptionPane;
+
 import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -99,9 +101,11 @@ public class ControleRota {
 		}
 		escreverRota(data, listaVeiculo);
 		rotaDao.inserir(rotas);
+		
+		JOptionPane.showMessageDialog(null, "Rota criada com sucesso em: " + path, "Rota", JOptionPane.INFORMATION_MESSAGE);
 	}
 
-	public void escreverRota(String path, Map<String, Veiculo> veiculos) {
+	private void escreverRota(String data, Map<String, Veiculo> veiculos) {
 		HSSFWorkbook wb = new HSSFWorkbook();
 		FileOutputStream stream = null;
 
@@ -113,7 +117,7 @@ public class ControleRota {
 		autoSizeColumns(wb);
 
 		try {
-			File file = new File(path + path + "-rota.xls");
+			File file = new File(path + data + "-rota.xls");
 			stream = new FileOutputStream(file);
 			wb.write(stream);
 		} catch (IOException e) {
@@ -129,8 +133,8 @@ public class ControleRota {
 		}
 	}
 
-	public List<Pacote> LerRota(String date) {
-		File file = new File(path + date);
+	public void LerRota(String date) {
+		File file = new File(path + date+ "-rota.xls");
 		Workbook workBook = null;
 		Sheet sheet = null;
 		List<Pacote> listaPacote = new ArrayList<Pacote>();
@@ -188,17 +192,26 @@ public class ControleRota {
 				veiculo.setListaDePacote(null);
 				veiculoDao.atualizar(veiculo.getPlaca(), veiculo);
 			}
-
+			
+			String baixas = "codigo - Status \n";
+			
+			for (Pacote pacote : listaPacote) {
+				baixas += pacote.getCodLocalizador() +  " - " ;
+				baixas += pacote.isEntrega()? "Pacote entregue \n" : "Pacote não entregue \n";
+			}
+			 
+			 JOptionPane.showMessageDialog(null, baixas, "BAIXAS", JOptionPane.INFORMATION_MESSAGE);
 			try {
 				workBook.close();
 			} catch (IOException e) {
 				System.err.println(e.getMessage());
 			}
+		}else {
+			JOptionPane.showMessageDialog(null, "File not found", "Rota", JOptionPane.ERROR_MESSAGE);
 		}
-		return listaPacote;
 	}
 
-	public void autoSizeColumns(Workbook workbook) {
+	private void autoSizeColumns(Workbook workbook) {
 		int numberOfSheets = workbook.getNumberOfSheets();
 		for (int i = 0; i < numberOfSheets; i++) {
 			Sheet sheet = workbook.getSheetAt(i);
@@ -214,7 +227,7 @@ public class ControleRota {
 		}
 	}
 
-	public void pesquisaDataMotorista(String motorista, String data) {
+	public Map<String, List<Rota>> pesquisaDataMotorista(String motorista, String data) {
 		if (motorista.trim().isEmpty()) {
 			motorista = null;
 		}
@@ -222,7 +235,7 @@ public class ControleRota {
 			data = null;
 		}
 
-		rotaDao.pesquisar(motorista, data);
+		return rotaDao.pesquisar(motorista, data);
 	}
 
 	private void populeDriverSheets(Veiculo veiculo, HSSFWorkbook wb) {
