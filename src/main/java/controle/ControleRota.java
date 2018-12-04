@@ -269,4 +269,8 @@ public class ControleRota {
 			row.createCell(FileConstants.STATUS_ENTREGA).setCellValue("não");
 		}
 	}
+
+	public Rota rotaDalhada(String data, String placa) {
+		return rotaDao.rotaDetalhada(data, placa);
+	}
 }

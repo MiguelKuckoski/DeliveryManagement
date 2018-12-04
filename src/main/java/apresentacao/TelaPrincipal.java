@@ -95,7 +95,7 @@ public class TelaPrincipal extends JFrame {
 		JMenuItem mntmListar_3 = new JMenuItem("Listar");
 		mntmListar_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ListarRota rota = new ListarRota();
+				ListarRota rota = new ListarRota(desktop);
 				rota.setVisible(true);
 				desktop.add(rota);
 			}
